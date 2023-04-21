@@ -1,15 +1,11 @@
 import SideNav from "@/components/SideNav";
-import Ctrl from "@/components/Centrales/Centrales";
+import Ctrlid from "@/components/Centrales/Id";
 import Add from "@/components/Centrales/Add";
 import {motion,AnimatePresence } from 'framer-motion'
 import { useState } from "react";
-// import { useQuery } from "@tanstack/react-query/build/lib/useQuery";
-import axios from "axios";
 const Centrales = () => {
     const [AddClick, setAddClick] = useState(false)
-//    const query=useQuery(['customers'],()=>{
-//     return axios('https://jsonplaceholder.typicode.com/todos/')
-//    })
+   
     return ( 
         <div className="flex">
         <SideNav path='Centrales'></SideNav>
@@ -23,7 +19,7 @@ const Centrales = () => {
          <Add setClicked={setAddClick} ></Add>
          </motion.div> }
          </AnimatePresence>     
-        <Ctrl  setClicked={setAddClick} ></Ctrl>
+        <Ctrlid setClicked={setAddClick} ></Ctrlid>
         </div>
     </div>
      );
