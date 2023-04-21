@@ -4,8 +4,8 @@ import Link from "next/link";
 import { MdOutlineDashboard,MdEvStation } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import { GiPowerGenerator } from "react-icons/gi";
 import { GoHome } from "react-icons/go";
+import { SiHomeassistant } from "react-icons/si";
 
 
 interface props{
@@ -27,7 +27,7 @@ const SideNav:React.FC<props> = (props) => {
         </Link>
         <Link href={'/Centrales'} >
         <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <GiPowerGenerator className="text-2xl" ></GiPowerGenerator>  Centrales
+            <SiHomeassistant className="text-2xl" ></SiHomeassistant>  Centrales
         </div>
         </Link>
            <Link href={'/Consomations'} >

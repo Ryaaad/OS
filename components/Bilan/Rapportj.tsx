@@ -3,9 +3,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineSearch , AiFillEye} from "react-icons/ai";
 import { SiMicrosoftexcel} from "react-icons/si";
+import { BsFillFileEarmarkPdfFill} from "react-icons/bs";
 
 import Pagination from "../Pagination";
-  const Enrg = () => {
+  
+const Rj = () => {
     const date = new Date();
     // Get the day (1-31)
     const day = date.getDate();
@@ -247,7 +249,7 @@ import Pagination from "../Pagination";
             </div>
         <div className="flex items-center justify-between mt-10 ">
          <div>
-        <h1 className="text-2xl  font-semibold ">  Bilans énergétique  </h1>
+        <h1 className="text-2xl  font-semibold ">  Rapport journalier d’exploitation  </h1>
         <p   className="text-[#8E8F90] mt-2 " >  in this page you can add or update or delete a centrale </p>
         </div>   
         {/* <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] "  onClick={()=>{}} >
@@ -268,8 +270,8 @@ import Pagination from "../Pagination";
         </div>   
         <div className="flex items-center space-x-4">
       <label htmlFor="date-input" className="font-medium text-gray-700">Choose a date:</label>
-      <input id="date-input" type="month" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
-       focus:bg-white focus:border-blue-500"  max="2023-04"  min="2010-01"/>
+      <input id="date-input" type="date" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
+       focus:bg-white focus:border-blue-500"  min="2022-01-01" max="2022-12-31"/>
     </div>
         </div>  
        
@@ -306,8 +308,8 @@ import Pagination from "../Pagination";
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />
                 <div className="flex gap-3 items-center">
-                    <div  className=" rounded-full w-[35px] text-[green] h-[35px] text-xl grid justify-center items-center bg-[#16a31629] " >
-                    <SiMicrosoftexcel></SiMicrosoftexcel>
+                    <div  className=" rounded-full w-[35px] text-[#cd579e] h-[35px] text-xl grid justify-center items-center bg-[#fbe6f5] " >
+                    <BsFillFileEarmarkPdfFill></BsFillFileEarmarkPdfFill>
                     </div>
                     <div>
                 <p  className="font-semibold text-black text-[16px]  "> Report  </p>
@@ -341,4 +343,4 @@ import Pagination from "../Pagination";
      );
   }
    
-  export default Enrg;
+  export default Rj;
