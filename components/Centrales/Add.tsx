@@ -169,6 +169,16 @@ function SaveClicked() {
   <option value="18">Jijel</option>
   <option value="19">Sétif</option>
   <option value="20">Saïda</option>
+  <option value="21">Skikda</option>
+  <option value="22">Sidi Bel Abbès</option>
+  <option value="23">Annaba</option>
+  <option value="24">Guelma</option>
+  <option value="25">Constantine</option>
+  <option value="26">Médéa</option>
+  <option value="27">Mostaganem</option>
+  <option value="28">M'Sila</option>
+  <option value="29">Mascara</option>
+  <option value="30">	Ouargla</option>
   </select>
   {/* <input 
     type="text" 

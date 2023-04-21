@@ -1,7 +1,13 @@
 import Image from "next/image";
 import logo from "../public/OS_logo.png"
 import Link from "next/link";
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineDashboard,MdEvStation } from "react-icons/md";
+import { TbReportAnalytics } from "react-icons/tb";
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
+import { GiPowerGenerator } from "react-icons/gi";
+import { GoHome } from "react-icons/go";
+
+
 interface props{
     path:string
 }
@@ -13,35 +19,30 @@ const SideNav:React.FC<props> = (props) => {
     <Image alt="" src={logo} className=" w-[35px] h-[35px] "  ></Image>
         Os Management
     </div>
-      <ul  className="text-lg font-semibold flex flex-col gap-[30px] " >
-        <Link href={'/Dashboard'} >
-        <div className={`flex gap-5 items-center  cursor-pointer ${props.path=="Dashboard" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-        <MdOutlineDashboard className="text-2xl" ></MdOutlineDashboard>   Dashboard
+      <ul  className=" font-semibold flex flex-col gap-[30px] " >
+        <Link href={'/'} >
+        <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Accueil" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
+        <GoHome className="text-2xl" ></GoHome>   Accueil 
         </div>
         </Link>
         <Link href={'/Centrales'} >
-        <div className={`flex gap-5 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <MdOutlineDashboard className="text-2xl" ></MdOutlineDashboard>  Centrales
+        <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
+            <GiPowerGenerator className="text-2xl" ></GiPowerGenerator>  Centrales
         </div>
         </Link>
-           <Link href={'/Centrales'} >
-        <div className={`flex gap-5 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <MdOutlineDashboard className="text-2xl" ></MdOutlineDashboard>  Centrales
+           <Link href={'/Consomations'} >
+        <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Consomations" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
+            <MdEvStation className="text-2xl" ></MdEvStation>  Consomations
         </div>
         </Link>
-           <Link href={'/Centrales'} >
-        <div className={`flex gap-5 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <MdOutlineDashboard className="text-2xl" ></MdOutlineDashboard>  Centrales
+           <Link href={'/Bilans'} >
+        <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Bilans" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
+            <BsFileEarmarkSpreadsheet className="text-2xl" ></BsFileEarmarkSpreadsheet>  Bilans
         </div>
         </Link>
-           <Link href={'/Centrales'} >
-        <div className={`flex gap-5 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <MdOutlineDashboard className="text-2xl" ></MdOutlineDashboard>  Centrales
-        </div>
-        </Link>
-        <Link href={'/Centrales'} >
-        <div className={`flex gap-5 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <MdOutlineDashboard className="text-2xl" ></MdOutlineDashboard>  Centrales
+        <Link href={'/Rapports'} >
+        <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Rapports" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
+            <TbReportAnalytics className="text-2xl" ></TbReportAnalytics>  Rapports
         </div>
         </Link>
       </ul>
