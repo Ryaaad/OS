@@ -30,10 +30,10 @@ const Pagination:React.FC<props>=(props)=> {
     </div>
 {  props.currentPage>2 && <>
     { props.currentPage==pages.length && <>
- <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer bg-[#FFFFFF] `}  onClick={()=>Set(props.currentPage-3)}>
+ <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer  `}  onClick={()=>Set(props.currentPage-3)}>
         {props.currentPage-3}
  </div>       
-    <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer bg-[#FFFFFF] `}  onClick={()=>Set(props.currentPage-2)} >
+    <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer  `}  onClick={()=>Set(props.currentPage-2)} >
         {props.currentPage-2}
          </div> 
  </>
@@ -43,7 +43,7 @@ const Pagination:React.FC<props>=(props)=> {
 }
 
 { props.currentPage>2 && <>
-    { props.currentPage==pages.length-1 &&  <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer bg-[#FFFFFF] `} 
+    { props.currentPage==pages.length-1 &&  <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer  `} 
 onClick={()=>Set(props.currentPage-2)} >
         {props.currentPage-2}
          </div> 
@@ -54,7 +54,7 @@ onClick={()=>Set(props.currentPage-2)} >
 {
     pages.map(page=>{
       return  <div key={page}  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer 
-      ${page==props.currentPage ? "border border-[#1976D2] text-[#1976D2]" : "bg-[#FFFFFF]"} ${page>props.currentPage+2 && "hidden"} ${page<props.currentPage-1 && "hidden"} `} 
+      ${page==props.currentPage ? "border border-[#1976D2] text-[#1976D2]" : ""} ${page>props.currentPage+2 && "hidden"} ${page<props.currentPage-1 && "hidden"} `} 
    onClick={()=>Set(page)}   >
         {page}
          </div> 
@@ -62,14 +62,14 @@ onClick={()=>Set(props.currentPage-2)} >
 }
  { pages.length>3 && <>
  
- { props.currentPage==1 && <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer bg-[#FFFFFF] `}
+ { props.currentPage==1 && <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer  `}
  onClick={()=>Set(props.currentPage+3)} >
          {props.currentPage+3}
           </div> 
  }
  </> }
 
-    <div  className='text-2xl bg-[#FFFFFF] border border-[#DDDDDD] rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer ' onClick={()=>next()} >
+    <div  className='text-2xl  border border-[#DDDDDD] rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer ' onClick={()=>next()} >
     <MdKeyboardArrowRight></MdKeyboardArrowRight>
     </div> 
 

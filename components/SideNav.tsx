@@ -13,7 +13,7 @@ interface props{
 }
 const SideNav:React.FC<props> = (props) => {
     return ( 
-    <div className="flex flex-col p-3 items-center w-[19vw] bg-white h-[100vh]  gap-[60px] ">
+    <div className="flex flex-col p-3 items-center w-[19vw] bg-white h-[100vh]  gap-[60px] " >
    
     <div className="flex items-center gap-4 font-bold text-xl text-[rgba(0,66,236,1)] border-b border-b-solid border-b-[rgba(243, 242, 246,1)] p-2 ">
     <Image alt="" src={logo} className=" w-[35px] h-[35px] "  ></Image>
