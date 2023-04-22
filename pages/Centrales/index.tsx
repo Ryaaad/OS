@@ -20,7 +20,7 @@ const Centrales = () => {
          <Add setClicked={setAddClick} ></Add>
          </motion.div> }
          </AnimatePresence>     
-        <Ctrl  setClicked={setAddClick} ></Ctrl>
+        <Ctrl  setClicked={setAddClick}></Ctrl>
         </div>
        </div>
      );

@@ -22,140 +22,22 @@ const Rj = () => {
 
 
     const [inputValue, setInputValue] = useState<any>();
-    const FirstLigne=[
-            {
-                name :'XBX',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'atmega328',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'arduino nano',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'arduino uno',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-            {
-             name :'Rasberypi',
-                type:'MicroController',
-                img:'',
-                qte:15,
-                },
-                {
-                    name :'arduino',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                     name :'Rasberypi',
-                        type:'MicroController',
-                        img:'',
-                        qte:15,
-                        },
-                        {
-                            name :'arduino',
-                            type:'MicroController',
-                            img:'',
-                            qte:5,
-                            },
-                            {
-                             name :'Rasberypi',
-                                type:'MicroController',
-                                img:'',
-                                qte:15,
-                                },           
-                {
-                    name :'Esp32',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'Pic',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-                        {
-                            name :'UC-06',
-                            type:'MicroController',
-                            img:'',
-                            qte:20,
-                            },
-                            {
-                                name :'UC-05',
-                                type:'beuthuf',
-                                img:'',
-                                qte:15,
-                                },    
-            {
-                name :'Esp32',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'Pic',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'UC-06',
-                        type:'MicroController',
-                        img:'',
-                        qte:20,
-                        },
-                        {
-                            name :'UC-05',
-                            type:'beuthuf',
-                            img:'',
-                            qte:15,
-                            },
-    ]
     const [Ligne, setLigne] = useState<any>([0])
-
-//     async function fetchData() {
-//         // try {
-//         //   const response = await axios.get('https://localhost:7002/api/v1/Centrale');
-//         //   console.log(response.data);
-//         // } catch (error) {
-//         //   console.error(error);
-//         // }
-//       }
-      
-     
-//    useEffect(() => {
-//     fetchData();
-   
-   
-//    }, [])
+    async function fetchData() {
+        try {
+          const response = await axios.get('https://localhost:7002/api/v1/Centrale');
+          setLigne(response.data)
+          
+        } catch (error) {
+          console.error(error);
+        }
+      }
    
     useEffect(() => {
         if(inputValue!=undefined)
-   {  let filterCards=  FirstLigne.filter((card)=> card.name.includes(inputValue))
+   {  let filterCards=  Ligne.filter((card:any)=> card.name.includes(inputValue))
     setLigne(filterCards)}
-      else setLigne(FirstLigne)
-      console.log(Ligne);  
+      else  fetchData();
     }, [inputValue])
    
   

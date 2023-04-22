@@ -1,6 +1,6 @@
 import SideNav from "@/components/SideNav";
-import Group from "@/components/Centrales/IdGroup";
-import AddGrp from "@/components/Centrales/AddGrp";
+import Group from "@/components/Groupe/IdGroup";
+import AddGrp from "@/components/Groupe/AddGrp";
 import {motion,AnimatePresence } from 'framer-motion'
 import { useState } from "react";
 const GrpId = () => {

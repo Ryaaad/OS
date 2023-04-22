@@ -10,57 +10,62 @@ interface props{
 const AddGrp:React.FC<props> = (props) => {
    const [Added,setAdded]=useState(false);
    const [Next,setNext]=useState(0);
-   let Type:any={};
-   let url=''
-// if(props.Title=='Supplier'){
-//    Type={
-//    nomF: "",
-//    prenomF:"",
-//    adressF: "",
-//    teleF:"",
-//    img:"tst",
-//    email:"" }
-//    url='http://localhost:3000/api/supplier'
-// }
-
+   let Type={
+    code: "",
+    name:"",
+    nature: "",
+    nature_Producteur:"",
+    durreVie:0,
+    durreFonctionement:0,
+    tauxRealisation:0,
+    capacite:0,
+    wilayaId:0,
+    debutService: "2023-04-22T18:48:51.1Z",
+    groupes: [
+        {
+          num: 1,
+          name: "string",
+          type: "string",
+          puissanceTH: 0,
+          puissanceS: 0,
+          centraleId: "string",
+          centrale: null,
+          qhs: []
+        }
+      ]
+}
   const [data, setdata] = useState( Type )
      const handleChange = (event:any,attrb: number) => {
       switch (attrb) {
          case 1:
-           data.nomF  = event.target.value
+           data.code  = event.target.value
             break;
          case 2:
-           data.prenomF  = event.target.value
-           
+           data.name  = event.target.value
             break;
          case 3:
-          data.adressF  = event.target.value
-         
+          data.nature  = event.target.value
           break;
          case 4:
-          data.teleF= event.target.value
-         
+          data.nature_Producteur= event.target.value
         case 5:
-           data.email= event.target.value
+           data.durreVie= event.target.value
           break;
          case 6:
-            data.email= event.target.value
+            data.durreFonctionement= event.target.value
            break;
          case 7:
-            data.email= event.target.value
+            data.tauxRealisation= event.target.value
            break;
            case 8:
-            data.email= event.target.value
+            data.capacite= event.target.value
            break;
            case 9:
-            data.email= event.target.value
+            data.wilayaId= event.target.value
            break;
            case 10:
-            data.email= event.target.value
+            data.debutService= event.target.value
            break;
-           case 11:
-            data.email= event.target.value
-           break; 
       }
       console.log(data);
       }
@@ -109,11 +114,11 @@ function SaveClicked() {
             <input type="text"  onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Type * </h1>
+            <h1 className="mb-2 text-lg ">Nature </h1>
             <input type="text" onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Nature * </h1>
+            <h1 className="mb-2 text-lg "> nature_Producteur * </h1>
             <input type="text" onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
@@ -121,25 +126,24 @@ function SaveClicked() {
             <input type="text" onChange={(e)=>handleChange(e,5)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Taux Realisation</h1>
+            <h1 className="mb-2 text-lg ">Durre Fonctionement</h1>
             <input type="text" onChange={(e)=>handleChange(e,6)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Durre Fonctionement </h1>
+            <h1 className="mb-2 text-lg "> tauxRealisation </h1>
             <input type="text" onChange={(e)=>handleChange(e,7)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
         </div>}
       { Next==1 &&  <div className=" grid justify-items-center items-center grid-cols-2 w-full my-6 gap-1 gap-y-3 ">
       <div className="">
-            <h1 className="mb-2 text-lg ">Date Mise En Service </h1>
-            <input type="text" onChange={(e)=>handleChange(e,7)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] "  />
+            <h1 className="mb-2 text-lg "> Capacite </h1>
+            <input type="text" onChange={(e)=>handleChange(e,8)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Code Wilaya </h1>
-            {/* <input type="text" onChange={(e)=>handleChange(e,8)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
+            <h1 className="mb-2 text-lg "> Wilaya </h1>
             <div>
     <select 
-    onChange={(e) => handleChange(e, 8)} 
+    onChange={(e) => handleChange(e, 9)} 
     className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
   >
    <option value="01">Adrar</option>
@@ -177,19 +181,10 @@ function SaveClicked() {
 
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg "> Capacite Centrale </h1>
-            <input type="text"  onChange={(e)=>handleChange(e,9)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <h1 className="mb-2 text-lg "> Debut Service </h1>
+            <input type="text"  onChange={(e)=>handleChange(e,10)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
-         <div className="">
-            <h1 className="mb-2 text-lg ">Type Reseau </h1>
-            {/* <input type="text" onChange={(e)=>handleChange(e,10)} value={"x"}  className=" pl-[5%] text-black rounded-[5px] w-[150px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
-            <select  onChange={(e)=>handleChange(e,10)} placeholder='Choisir le Type' className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-            <option value="RNI">RNI</option>
-            <option value="SAUD">SAUD</option>
-            </select>
-
-         </div>
-         <div className="">
+         {/* <div className="">
             <h1 className="mb-2 text-lg ">Code Region </h1>
             <select 
     onChange={(e) => handleChange(e, 11)} 
@@ -202,8 +197,7 @@ function SaveClicked() {
   <option value="05">Batna</option>
   <option value="06">Béjaïa</option>
            </select>
-            {/* <input type="text" onChange={(e)=>handleChange(e,11)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
-         </div>
+         </div> */}
         </div>}  
         </form>
         <div className="flex w-full justify-end px-3 gap-4">

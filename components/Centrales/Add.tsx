@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {motion,AnimatePresence } from 'framer-motion'
 import { useState } from 'react';
 import { AiOutlineCheck } from "react-icons/ai";
@@ -9,76 +10,81 @@ interface props{
 
 const Add:React.FC<props> = (props) => {
    const [Added,setAdded]=useState(false);
-   const [Next,setNext]=useState(0);
-   let Type:any={};
-   let url=''
-// if(props.Title=='Supplier'){
-//    Type={
-//    nomF: "",
-//    prenomF:"",
-//    adressF: "",
-//    teleF:"",
-//    img:"tst",
-//    email:"" }
-//    url='http://localhost:3000/api/supplier'
-// }
-// else if(props.Title=='Customer') {
-//    Type={  img:"tst",
-//    nomC: "",
-//    prenomC:"",
-//    adressC: "",
-//    teleC:""}
-//    url='http://localhost:3000/api/customer'
-// }
-  const [data, setdata] = useState( Type )
-     const handleChange = (event:any,attrb: number) => {
-      switch (attrb) {
-         case 1:
-           data.nomF  = event.target.value
-            break;
-         case 2:
-           data.prenomF  = event.target.value
-           
-            break;
-         case 3:
-          data.adressF  = event.target.value
-         
-          break;
-         case 4:
-          data.teleF= event.target.value
-         
-        case 5:
-           data.email= event.target.value
-          break;
-         case 6:
-            data.email= event.target.value
-           break;
-         case 7:
-            data.email= event.target.value
-           break;
-           case 8:
-            data.email= event.target.value
-           break;
-           case 9:
-            data.email= event.target.value
-           break;
-      }
-      console.log(data);
-      }
-    
-//    const handleSubmit = () => {
-//       console.log(data);
-      
-//         axios.post(url,data)
-//         .then(res => {
-//           console.log('Successful');
-//         })}
-    
+   const [Next,setNext]=useState(0);  
 
-//    async 
-function SaveClicked() {
-//       await handleSubmit() 
-//      setAdded(true) 
+   let Type={
+      code: "string560",
+      name:"string",
+      nature: "string",
+      nature_Producteur:"string",
+      durreVie:0,
+      durreFonctionement:0,
+      tauxRealisation:0,
+      capacite:0,
+      wilayaId:1,
+      debutService: "2023-04-22T21:25:01.598Z",
+      groupes: [
+          {
+            num: 1,
+            name: "string",
+            type: "string",
+            puissanceTH: 0,
+            puissanceS: 0,
+            centraleId: "string",
+            centrale: null,
+            qhs: []
+          }
+        ]
+  }
+    const [data, setdata] = useState( Type )
+       const handleChange = (event:any,attrb: number) => {
+        switch (attrb) {
+           case 1:
+             data.code  = event.target.value
+              break;
+           case 2:
+             data.name  = event.target.value
+              break;
+           case 3:
+            data.nature  = event.target.value
+            break;
+           case 4:
+            data.nature_Producteur= event.target.value
+          case 5:
+             data.durreVie= parseInt(event.target.value,10)
+            break;
+           case 6:
+              data.durreFonctionement= parseInt(event.target.value,10)
+             break;
+           case 7:
+              data.tauxRealisation= parseInt(event.target.value,10)
+             break;
+             case 8:
+              data.capacite= parseInt(event.target.value,10)
+             break;
+             case 9:
+              data.wilayaId= parseInt(event.target.value,10)
+             break;
+             case 10:
+               let date=new Date(event.target.value);
+              data.debutService= date.toISOString()
+             break;
+        }
+        console.log(data);
+        }
+    
+   const handleSubmit = () => {
+      console.log(data);
+        axios.post('https://localhost:7002/api/v1/Centrale',data)
+        .then(res => {
+          console.log('Successful');
+          window.location.reload(); // a change 
+        }).catch(err=> console.log(err)  )
+      }
+   
+async function SaveClicked() {
+      await handleSubmit() 
+     setAdded(true) 
      setTimeout(() => {
       props.setClicked(false) 
      }, 400);
@@ -99,7 +105,7 @@ function SaveClicked() {
         props.setClicked(false)}}> 
     <FiX></FiX></div>
     </div>
-        <form >
+    <form >
       { Next==0 &&  <div className=" grid justify-items-center items-center grid-cols-3 w-full my-6 gap-1 gap-y-3 ">
          <div className="">
             <h1 className="mb-2 text-lg ">Code </h1>
@@ -110,11 +116,11 @@ function SaveClicked() {
             <input type="text"  onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Type * </h1>
+            <h1 className="mb-2 text-lg ">Nature </h1>
             <input type="text" onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Nature * </h1>
+            <h1 className="mb-2 text-lg "> nature_Producteur * </h1>
             <input type="text" onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
@@ -122,24 +128,24 @@ function SaveClicked() {
             <input type="text" onChange={(e)=>handleChange(e,5)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Taux Realisation</h1>
+            <h1 className="mb-2 text-lg ">Durre Fonctionement</h1>
             <input type="text" onChange={(e)=>handleChange(e,6)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Durre Fonctionement </h1>
+            <h1 className="mb-2 text-lg "> tauxRealisation </h1>
             <input type="text" onChange={(e)=>handleChange(e,7)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
         </div>}
       { Next==1 &&  <div className=" grid justify-items-center items-center grid-cols-2 w-full my-6 gap-1 gap-y-3 ">
       <div className="">
-            <h1 className="mb-2 text-lg ">Date Mise En Service </h1>
-            <input type="text" onChange={(e)=>handleChange(e,7)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] "  />
+            <h1 className="mb-2 text-lg "> Capacite </h1>
+            <input type="text" onChange={(e)=>handleChange(e,8)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Code Wilaya </h1>
+            <h1 className="mb-2 text-lg "> Wilaya </h1>
             <div>
     <select 
-    onChange={(e) => handleChange(e, 8)} 
+    onChange={(e) => handleChange(e, 9)} 
     className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
   >
    <option value="01">Adrar</option>
@@ -177,8 +183,12 @@ function SaveClicked() {
 
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg "> Capacite Centrale </h1>
-            <input type="text"  onChange={(e)=>handleChange(e,9)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <h1 className="mb-2 text-lg "> Debut Service </h1>
+            <input id="date-input" type="date" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
+       focus:bg-white focus:border-blue-500" 
+       onChange={(e)=>handleChange(e,10)}
+       />
+            {/* <input type="text"  onChange={(e)=>handleChange(e,10)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
          </div>
         </div>}  
         </form>

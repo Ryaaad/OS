@@ -1,6 +1,6 @@
 import SideNav from "@/components/SideNav";
 import Ctrlid from "@/components/Centrales/Id";
-import AddGrp from "@/components/Centrales/AddGrp";
+import AddGrp from "@/components/Groupe/AddGrp";
 import {motion,AnimatePresence } from 'framer-motion'
 import { useState } from "react";
 const CentraleId = () => {
