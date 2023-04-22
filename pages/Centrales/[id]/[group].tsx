@@ -1,9 +1,9 @@
 import SideNav from "@/components/SideNav";
-import Ctrlid from "@/components/Centrales/Id";
+import Group from "@/components/Centrales/IdGroup";
 import AddGrp from "@/components/Centrales/AddGrp";
 import {motion,AnimatePresence } from 'framer-motion'
 import { useState } from "react";
-const CentraleId = () => {
+const GrpId = () => {
     const [AddClick, setAddClick] = useState(false)
    
     return ( 
@@ -19,10 +19,10 @@ const CentraleId = () => {
          <AddGrp setClicked={setAddClick} ></AddGrp>
          </motion.div> }
          </AnimatePresence>     
-        <Ctrlid setClicked={setAddClick} ></Ctrlid>
+        <Group setClicked={setAddClick} ></Group>
         </div>
     </div>
      );
 }
  
-export default CentraleId;
+export default GrpId;

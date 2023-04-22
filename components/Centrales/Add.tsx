@@ -62,12 +62,6 @@ const Add:React.FC<props> = (props) => {
            case 9:
             data.email= event.target.value
            break;
-           case 10:
-            data.email= event.target.value
-           break;
-           case 11:
-            data.email= event.target.value
-           break; 
       }
       console.log(data);
       }
@@ -143,7 +137,6 @@ function SaveClicked() {
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">Code Wilaya </h1>
-            {/* <input type="text" onChange={(e)=>handleChange(e,8)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
             <div>
     <select 
     onChange={(e) => handleChange(e, 8)} 
@@ -180,42 +173,12 @@ function SaveClicked() {
   <option value="29">Mascara</option>
   <option value="30">	Ouargla</option>
   </select>
-  {/* <input 
-    type="text" 
-    placeholder="Enter a wilaya name" 
-    className="block mt-2 w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-    onChange={(e) => {}}
-  /> */}
 </div>
 
          </div>
          <div className="">
             <h1 className="mb-2 text-lg "> Capacite Centrale </h1>
             <input type="text"  onChange={(e)=>handleChange(e,9)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " />
-         </div>
-         <div className="">
-            <h1 className="mb-2 text-lg ">Type Reseau </h1>
-            {/* <input type="text" onChange={(e)=>handleChange(e,10)} value={"x"}  className=" pl-[5%] text-black rounded-[5px] w-[150px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
-            <select  onChange={(e)=>handleChange(e,10)} placeholder='Choisir le Type' className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-            <option value="RNI">RNI</option>
-            <option value="SAUD">SAUD</option>
-            </select>
-
-         </div>
-         <div className="">
-            <h1 className="mb-2 text-lg ">Code Region </h1>
-            <select 
-    onChange={(e) => handleChange(e, 11)} 
-    className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-  >
-   <option value="01">Adrar</option>
-  <option value="02">Chlef</option>
-  <option value="03">Laghouat</option>
-  <option value="04">Oum El Bouaghi</option>
-  <option value="05">Batna</option>
-  <option value="06">Béjaïa</option>
-           </select>
-            {/* <input type="text" onChange={(e)=>handleChange(e,11)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
          </div>
         </div>}  
         </form>

@@ -25,7 +25,7 @@ const Pagination:React.FC<props>=(props)=> {
     }
   return (
   <div className='flex gap-3 h-max mx-auto justify-center absolute bottom-[4%] w-full select-none ' >
-    <div  className='text-2xl bg-[#FFFFFF] border border-[#DDDDDD] rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer ' onClick={()=>prev()} >
+    <div  className='text-2xl border border-[#DDDDDD] rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer ' onClick={()=>prev()} >
  <MdKeyboardArrowLeft></MdKeyboardArrowLeft>
     </div>
 {  props.currentPage>2 && <>

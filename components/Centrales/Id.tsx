@@ -16,8 +16,8 @@ const Ctrlid:React.FC<props> = (props) => {
    const month = date.getMonth();
    // Get the day of the week (0-6)
    const dayOfWeek = date.getDay();
-   const monthNames = [ "January", "February", "March", "April", "May", "June", "July","August", "September", "October","November", "December"];
-   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday" ]; 
+   const monthNames = ["Janvier", "Février", "Mars","Avril", "Mai", "Juin", "Juillet","Août", "Septembre", "Octobre","Novembre", "Décembre"];
+   const dayNames = [ "Dimanche", "Lundi", "Mardi","Mercredi", "Jeudi", "Vendredi", "Samedi" ];
    const monthName = monthNames[month];
    const dayName = dayNames[dayOfWeek];
    
@@ -208,7 +208,36 @@ const Ctrlid:React.FC<props> = (props) => {
     const firstPostIndex = lastPostIndex - postsPerPage;
     const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
 
+    const [isCheckedAll, setIsCheckedAll] = useState(false);
+    const [checkboxes, setCheckboxes] = useState(
+        Ligne.map((l:any) => ({
+        isChecked: false
+      }))
+    );
+    useEffect(() => {
+        const newCheckboxes = Ligne.map((ligne: any) => ({
+          isChecked: false
+        }));
+        setCheckboxes(newCheckboxes);
+      }, [Ligne]);
   
+    const handleCheckboxChange = (index:number) => {
+      const newCheckboxes = [...checkboxes];
+      newCheckboxes[index].isChecked = !newCheckboxes[index].isChecked;
+      setCheckboxes(newCheckboxes);
+  
+      const allChecked = newCheckboxes.every((checkbox) => checkbox.isChecked);
+      setIsCheckedAll(allChecked);
+    };
+  
+    const handleAllCheckboxChange = () => {
+      const newCheckboxes = checkboxes.map((checkbox: any) => ({
+        ...checkbox,
+        isChecked: !isCheckedAll
+      }));
+      setCheckboxes(newCheckboxes);
+      setIsCheckedAll(!isCheckedAll);
+    };
     return ( 
         <div className=" w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] overflow-y-scroll ">
          <div className="flex items-center justify-between w-full text-[#808080] "> 
@@ -221,7 +250,7 @@ const Ctrlid:React.FC<props> = (props) => {
           <div className="flex items-center justify-between mt-10 ">
         <h1 className="text-2xl  font-semibold ">  Kahrama </h1>
         <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] "  onClick={()=>props.setClicked(true)} >
-        <MdOutlineAdd  className="text-xl" ></MdOutlineAdd>  Ajouter Groupe
+        <MdOutlineAdd  className="text-xl" ></MdOutlineAdd> Groupe
         </button>
          </div>   
 
@@ -241,42 +270,55 @@ const Ctrlid:React.FC<props> = (props) => {
        </button>
        </div>
 
-      <div className="mt-3">
-        <header  className="bg-[#F1F4F9] mx-[2px] " >
-        <div className="flex p-2 px-12 items-center text-[#D9D9D9] justify-between w-[85%] ">
-            <div className="flex items-center gap-2 ">
-         <input type="checkbox" name="" id="" className="w-[18px] border-[#D9D9D9] h-[18px] " />
-         <p>Code</p>
-            </div>
-         <p>Nom</p>
-         <p>Type</p>
-         <p> Nbr Groupes </p>
-         <p> Code Wilaya </p>
-         <p> Production </p>
+       <div className="mt-3">
+      <header className="bg-[#F1F4F9] mx-[2px] ">
+        <div className="flex p-2 px-12 items-center text-[#aeacac] justify-between w-[85%] ">
+          <div className="flex items-center gap-2 ">
+            <input
+            type="checkbox"
+            name=""
+            id=""
+            className="w-[18px] border-[#D9D9D9] h-[18px]"
+            checked={isCheckedAll}
+            onChange={handleAllCheckboxChange}
+          />
+            <p>Code</p>
+          </div>
+          <p>Nom</p>
+          <p>Type</p>
+          <p>Nbr Groupes</p>
+          <p>Code Wilaya</p>
+          <p>Production</p>
         </div>
-
-        </header>
-        <main className="text-[#626D7C] mt-5 ">
-        {currentPosts.map((card:any)=>{
-            return(<div className="flex p-2 px-[50px] items-center justify-between mt-1 ">
-            <div className="flex items-center gap-2 ">
-         <input type="checkbox" name="" id="i" className="w-[18px] h-[18px] " onClick={()=> console.log(  document.getElementById('i')?.checkVisibility )} />
-         <p>Code</p>
+      </header>
+  {  checkboxes.length>1 &&  <main className="text-[#626D7C] mt-5">
+        {currentPosts.map((card: any,index:number) => {
+          return (
+            <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
+              <div className="flex items-center gap-2 ">
+                <input
+                  type="checkbox"
+                  className="w-[18px] h-[18px]"
+                  checked={checkboxes[index+4*(currentPage-1)].isChecked}
+                  onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
+                />
+                <p>Code</p>
+              </div> 
+              <p>Nom</p>
+              <p>Type</p>
+              <p>Nbr Groupes</p>
+              <p>Code Wilaya</p>
+              <p>Production</p>
+              <div className="flex gap-4 items-center text-[#33333]">
+                <Link href={`/Centrales/${card.id}/1`}>
+                  <AiFillEye className="text-[26px] cursor-pointer" />
+                </Link>
+                <MdDeleteOutline className="text-[26px] cursor-pointer" />
+              </div>
             </div>
-         <p>Nom</p>
-         <p>Type</p>
-         <p> Nbr Groupes </p>
-         <p> Code Wilaya </p>
-         <p> Production </p>
-        <div className="flex gap-4 items-center text-[#33333]  ">  
-        <AiFillEye  className="text-[26px] cursor-pointer" ></AiFillEye>
-        <MdDeleteOutline    className="text-[26px] cursor-pointer " > </MdDeleteOutline>
-        </div>
-        </div>)
+          );
         })}
-        
-        </main>
-     
+      </main>}
       </div>
        
       <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>

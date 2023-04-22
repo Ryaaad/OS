@@ -14,13 +14,10 @@ const Ctrl:React.FC<props> = (props) => {
     const month = date.getMonth();
     // Get the day of the week (0-6)
     const dayOfWeek = date.getDay();
-    const monthNames = ["January", "February", "March","April", "May", "June", "July","August", "September", "October","November", "December"];
-    const dayNames = [ "Sunday", "Monday", "Tuesday","Wednesday", "Thursday", "Friday", "Saturday"  ];
+    const monthNames = ["Janvier", "Février", "Mars","Avril", "Mai", "Juin", "Juillet","Août", "Septembre", "Octobre","Novembre", "Décembre"];
+    const dayNames = [ "Dimanche", "Lundi", "Mardi","Mercredi", "Jeudi", "Vendredi", "Samedi" ];
     const monthName = monthNames[month];
     const dayName = dayNames[dayOfWeek];
-
-
-
   
 
     const [firstFilter, setfirstFilter] = useState(true)
@@ -299,7 +296,7 @@ const Ctrl:React.FC<props> = (props) => {
 
       <div className="mt-3">
       <header className="bg-[#F1F4F9] mx-[2px] ">
-        <div className="flex p-2 px-12 items-center text-[#D9D9D9] justify-between w-[85%] ">
+        <div className="flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ">
           <div className="flex items-center gap-2 ">
             <input
             type="checkbox"

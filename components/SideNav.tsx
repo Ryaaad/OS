@@ -6,6 +6,7 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { GoHome } from "react-icons/go";
 import { SiHomeassistant } from "react-icons/si";
+import { VscOutput } from "react-icons/vsc";
 
 
 interface props{
@@ -37,7 +38,7 @@ const SideNav:React.FC<props> = (props) => {
         </Link>
            <Link href={'/Bilans'} >
         <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Bilans" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-            <BsFileEarmarkSpreadsheet className="text-2xl" ></BsFileEarmarkSpreadsheet>  Bilans
+            <VscOutput className="text-2xl" ></VscOutput>  Bilans
         </div>
         </Link>
         <Link href={'/Rapports'} >
