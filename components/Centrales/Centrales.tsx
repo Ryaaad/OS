@@ -4,6 +4,8 @@ import { MdOutlineKeyboardArrowDown,MdOutlineKeyboardArrowUp ,MdKeyboardArrowLef
 import Link from "next/link";
 import Pagination from "../Pagination";
 import axios from "axios";
+import Delete from "../Delete";
+import { AnimatePresence, motion } from "framer-motion";
 interface props{
     setClicked:(value:boolean) => void
 }
@@ -20,7 +22,9 @@ const Ctrl:React.FC<props> = (props) => {
     const monthName = monthNames[month];
     const dayName = dayNames[dayOfWeek];
   
+   const [DeleteClick, setDeleteClick] = useState(false)
 
+   const [Type, setType] = useState<any>()
     const [firstFilter, setfirstFilter] = useState(true)
     const [secondFilter, setsecondFilter] = useState(true)
     const [inputValue, setInputValue] = useState<any>();
@@ -99,36 +103,10 @@ const Ctrl:React.FC<props> = (props) => {
     };
 
     const handleDelete = (id:any) => {
-         axios.delete(`https://localhost:7002/api/v1/Centrale/${id}`)
-         .then(res => {
-             console.log('Successful');
-             fetchData()
-           }).catch(err=> console.log(err)  )
+      setType(id)
+      setDeleteClick(true)
          }
- const handledeleteAll=()=>{
-  if(isCheckedAll)
- { axios.delete(`https://localhost:7002/api/v1/Centrale`)
-  .then(response => {
-    console.log('All Centrales deleted successfully');
-    fetchData()
-  })
-  .catch(error => {
-    console.error('Error deleting all users:', error);
-  });}
-  else {
-    checkboxes.map((checkbox:any)=>{
-      if(checkbox.isChecked) axios.delete(`https://localhost:7002/api/v1/Centrale/${checkbox.id}`)
-      .then(response => {
-        console.log(' Centrales deleted successfully');
-      fetchData()
-      })
-      .catch(error => {
-        console.error('Error deleting :', error);
-      });
-    })
-  }
- }
-
+ 
     return ( 
         <div className=" w-[81vw] p-7 py-4 bg-[#F0F8FF] ">
          <div className="flex items-center justify-between w-full text-[#808080] "> 
@@ -173,7 +151,14 @@ const Ctrl:React.FC<props> = (props) => {
             </div>
             <p className="text-[rgba(191,195,201,1)] " > Affichage de {Ligne.length} résultats </p>
         </div>
-       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   onClick={()=>handledeleteAll()} >
+       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
+
+      onClick={()=>{
+        if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
+          handleDelete(0)
+        }
+      }}
+       >
        <MdDeleteOutline className="text-lg" ></MdDeleteOutline>
        Supprimer
        </button>
@@ -200,7 +185,7 @@ const Ctrl:React.FC<props> = (props) => {
           <p>Production</p>
         </div>
       </header>
-  { ( checkboxes.length>1 || currentPosts.length==1 ) &&  <main className="text-[#626D7C] mt-5">
+  {( checkboxes.length>1 && currentPosts[0]!=0) &&  <main className="text-[#626D7C] mt-5">
         {currentPosts.map((data: any,index:number) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
@@ -222,7 +207,9 @@ const Ctrl:React.FC<props> = (props) => {
                 <Link href={`/Centrales/${data.code}`}>
                   <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
                 </Link>
-                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " onClick={()=>{handleDelete(data.code)}} />
+                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
+                 onClick={()=>{handleDelete(data.code)}}
+                />
               </div>
             </div>
           );
@@ -231,9 +218,16 @@ const Ctrl:React.FC<props> = (props) => {
       </div>
        
       <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>
-
         </div>
-      
+        <AnimatePresence>
+        {DeleteClick &&  <motion.div   
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, }} 
+        transition={{duration:.5, }}>
+         <Delete setClicked={setDeleteClick} checkboxes={checkboxes}  isCheckedAll={isCheckedAll} Type={Type} ></Delete>
+         </motion.div> }
+         </AnimatePresence>    
         </div>
      );
 }

@@ -1,19 +1,19 @@
 import axios from 'axios';
 import {motion,AnimatePresence } from 'framer-motion'
-import { useState } from 'react';
 import { AiOutlineCheck } from "react-icons/ai";
 import { FiX } from "react-icons/fi";
+import { useState } from 'react';
 interface props{
     setClicked:(value:boolean) => void,
     isCheckedAll:boolean,
-    checkboxes:any
+    checkboxes:any,
+    Type:any,
 }
 
 
 const Delete:React.FC<props> = (props) => {
-   const [Added,setAdded]=useState(false);
-   const [Cmpt,setCmpt]=useState(0);
-
+    const [Deleted,setDeleted]=useState(false);
+ 
    const handleDelete = (id:any) => {
     axios.delete(`https://localhost:7002/api/v1/Centrale/${id}`)
     .then(res => {
@@ -33,14 +33,14 @@ console.error('Error deleting all users:', error);
 });}
 else {
 props.checkboxes.map((checkbox:any)=>{
- if(checkbox.isChecked) { handleDelete(checkbox.id); setCmpt(prev=>prev=prev+1) }
+ if(checkbox.isChecked)  handleDelete(checkbox.id)
 })
 }
 }
    
 async function SaveClicked() {
-      await handledeleteAll() 
-     setAdded(true) 
+    props.Type==0 ?  await handledeleteAll()  :  await handleDelete(props.Type)
+    setDeleted(true) 
      setTimeout(() => {
       props.setClicked(false) 
      }, 400);
@@ -62,22 +62,19 @@ async function SaveClicked() {
     </div>
     </div>
      
-     <p  className="text-lg my-4 " >  Voulez-vous vraiment supprimer cet élément ? </p>
+     <p  className="text-lg my-4 " >{ props.Type==0 ? `Voulez-vous vraiment supprimer ces éléments ?` : "Voulez-vous vraiment supprimer cet élément ?" }</p>
    
 
         <div className="flex w-full justify-end px-3 gap-4">
             <button  className="text-black p-2 px-7 rounded-[5px] border border-solid border-[#a6a7a8] hover:bg-[#f7f2f2]
              hover:border-[#818181] duration-[.5s] " 
-              onClick={()=>
-              {props.setClicked(false)}
-            }
-              >Annuler</button>
+              onClick={()=>{{props.setClicked(false)}} }>Annuler</button>
             <button type='submit' className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " 
             onClick={()=>{ SaveClicked() }} 
               >Confimer</button>
         </div>
         <AnimatePresence>
-        { Added &&
+        { Deleted &&
   <motion.div className="absolute bottom-[-13%] right-[50%] translate-x-[50%] bg-white rounded-[5px] gap-3 border-l-[3px]
    border-l-solid border-l-[#666cde] w-[180px] items-center justify-center flex h-[45px] text-black "
    initial={{ opacity: 0, y:40 }}
