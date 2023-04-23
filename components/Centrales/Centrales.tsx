@@ -145,7 +145,7 @@ const Ctrl:React.FC<props> = (props) => {
         <h1 className="text-2xl  font-semibold ">  Centrales </h1>
         <p  className="text-[#8E8F90] mt-2 " >  Sur cette page, vous pouvez ajouter, mettre à jour ou supprimer une Centrale </p>
         </div>   
-        <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px]  "  onClick={()=>props.setClicked(true)} >
+        <button className="bg-[#1A73E8] hover:bg-[#176ad6] duration-700 items-center text-white flex gap-2 p-3 py-2 rounded-[10px]  "  onClick={()=>props.setClicked(true)} >
         <MdOutlineAdd  className="text-xl" ></MdOutlineAdd>  Centrale
         </button>
           </div>   
@@ -173,9 +173,9 @@ const Ctrl:React.FC<props> = (props) => {
             </div>
             <p className="text-[rgba(191,195,201,1)] " > Affichage de {Ligne.length} résultats </p>
         </div>
-       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-3 text-[#E91010] rounded-[10px] w-[124px] h-[40px] "   onClick={()=>handledeleteAll()} >
-       <MdDeleteOutline className="text-xl " ></MdDeleteOutline>
-        Remove
+       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   onClick={()=>handledeleteAll()} >
+       <MdDeleteOutline className="text-lg" ></MdDeleteOutline>
+       Supprimer
        </button>
        </div>
 
@@ -220,9 +220,9 @@ const Ctrl:React.FC<props> = (props) => {
               <p>Production</p>
               <div className="flex gap-4 items-center text-[#33333]">
                 <Link href={`/Centrales/${data.code}`}>
-                  <AiFillEye className="text-[26px] cursor-pointer" />
+                  <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
                 </Link>
-                <MdDeleteOutline className="text-[26px] cursor-pointer" onClick={()=>{handleDelete(data.code)}} />
+                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " onClick={()=>{handleDelete(data.code)}} />
               </div>
             </div>
           );

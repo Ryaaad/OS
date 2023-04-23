@@ -249,7 +249,7 @@ const Ctrlid:React.FC<props> = (props) => {
             </div>
           <div className="flex items-center justify-between mt-10 ">
         <h1 className="text-2xl  font-semibold ">  Kahrama </h1>
-        <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] "  onClick={()=>props.setClicked(true)} >
+        <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] hover:bg-[#176ad6] duration-700 "  onClick={()=>props.setClicked(true)} >
         <MdOutlineAdd  className="text-xl" ></MdOutlineAdd> Groupe
         </button>
          </div>   
@@ -259,7 +259,7 @@ const Ctrlid:React.FC<props> = (props) => {
         <div  className=" bg-white w-full h-[60vh] relative mt-4 " >
         <div className="flex justify-between items-center p-5 py-3 ">
         <div className="flex gap-3 items-center justify-between border-b border-solid-b p-2 pb-0 border-b-[#D9D9D9] w-[60%] mx-auto text-lg text-[#808080] font-semibold ">
-           <p className={` ${Filter==0 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(0)} >All</p>
+           <p className={` ${Filter==0 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(0)} >Tout</p>
            <p className={` ${Filter==1 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(1)} >TG</p>
            <p className={` ${Filter==2 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(2)} >TVA</p>
            <p className={` ${Filter==3 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(3)} >TG + TVA</p>
@@ -311,9 +311,9 @@ const Ctrlid:React.FC<props> = (props) => {
               <p>Production</p>
               <div className="flex gap-4 items-center text-[#33333]">
                 <Link href={`/Centrales/${card.id}/1`}>
-                  <AiFillEye className="text-[26px] cursor-pointer" />
+                <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
                 </Link>
-                <MdDeleteOutline className="text-[26px] cursor-pointer" />
+                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] "/>
               </div>
             </div>
           );
