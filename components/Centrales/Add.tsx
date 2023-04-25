@@ -188,7 +188,6 @@ async function SaveClicked() {
        focus:bg-white focus:border-blue-500" 
        onChange={(e)=>handleChange(e,10)}
        />
-            {/* <input type="text"  onChange={(e)=>handleChange(e,10)} className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] " /> */}
          </div>
         </div>}  
         </form>
@@ -208,8 +207,8 @@ async function SaveClicked() {
         </div>
         <AnimatePresence>
         { Added &&
-  <motion.div className="absolute bottom-[-13%] right-[50%] translate-x-[50%] bg-white rounded-[5px] gap-3 border-l-[3px]
-   border-l-solid border-l-[#666cde] w-[180px] items-center justify-center flex h-[45px] text-black "
+  <motion.div className="absolute bottom-[-14%] font-semibold right-[38%] translate-x-[50%] bg-white rounded-[5px] gap-3 border-l-[3px]
+   border-l-solid border-l-[#666cde] w-[182px] items-center justify-center flex h-[45px] text-black "
    initial={{ opacity: 0, y:40 }}
         animate={{ opacity: 1,y:0 }}
         exit={{ opacity: 0, }} 
@@ -218,7 +217,7 @@ async function SaveClicked() {
     <div className="rounded-full bg-[#666cde] text-white h-[20px] w-[20px] grid justify-center items-center  ">
     <AiOutlineCheck></AiOutlineCheck> 
     </div>
-    Centrale  Added
+    Centrale  Ajouter
   </motion.div>
         }
         </AnimatePresence>

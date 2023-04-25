@@ -29,7 +29,7 @@ const Ctrl:React.FC<props> = (props) => {
     const [secondFilter, setsecondFilter] = useState(true)
     const [inputValue, setInputValue] = useState<any>();
    
-    const [Ligne, setLigne] = useState<any>([0])
+    const [Ligne, setLigne] = useState<any>()
     const [FirstLigne, setFirstLigne] = useState<any>([0])
    
     async function fetchData() {
@@ -67,21 +67,21 @@ const Ctrl:React.FC<props> = (props) => {
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = Ligne && Ligne.slice(firstPostIndex, lastPostIndex);  
 
     const [isCheckedAll, setIsCheckedAll] = useState(false);
     const [checkboxes, setCheckboxes] = useState(
-        Ligne.map((l:any) => ({
+      Ligne &&  Ligne.map((l:any) => ({
           id:l.code,
         isChecked: false
       }))
     );
     useEffect(() => {
-        const newCheckboxes = Ligne.map((lign: any) => ({
+    if(Ligne)  {  const newCheckboxes = Ligne.map((lign: any) => ({
           id:lign.code,
           isChecked: false
         }));
-        setCheckboxes(newCheckboxes);
+        setCheckboxes(newCheckboxes);}
       }, [Ligne]);
   
     const handleCheckboxChange = (index:number) => {
@@ -149,7 +149,7 @@ const Ctrl:React.FC<props> = (props) => {
             Filter
             {  secondFilter ? <MdOutlineKeyboardArrowDown></MdOutlineKeyboardArrowDown> : <MdOutlineKeyboardArrowUp></MdOutlineKeyboardArrowUp>  }
             </div>
-            <p className="text-[rgba(191,195,201,1)] " > Affichage de {Ligne.length} résultats </p>
+            <p className="text-[rgba(191,195,201,1)] " > Affichage de { Ligne ? Ligne.length  : "0" } résultats </p>
         </div>
        <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
 
@@ -185,24 +185,24 @@ const Ctrl:React.FC<props> = (props) => {
           <p>Production</p>
         </div>
       </header>
-  {( checkboxes.length>1 && currentPosts[0]!=0) &&  <main className="text-[#626D7C] mt-5">
+  {Ligne &&  <main className="text-[#626D7C] mt-5">
         {currentPosts.map((data: any,index:number) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
               <div className="flex items-center gap-2 ">
-              { checkboxes.length>=1 && <input
+           { checkboxes &&  <input
                   type="checkbox"
                   className="w-[18px] h-[18px]"
                   checked={checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />}
-                <p> {data.code} </p>
+                <p className=" max-w-[20%] " > {data.code} </p>
               </div> 
-              <p>  {data.name} </p>
-              <p>{ data.nature }</p>
-              <p>{data.capacite}</p>
-              <p>{data.wilayaId}</p>
-              <p>Production</p>
+              <p className=" max-w-[15%] "  >  {data.name} </p>
+              <p className=" max-w-[15%] " >{ data.nature }</p>
+              <p className=" max-w-[15%] "  >{data.capacite}</p>
+              <p className=" max-w-[10%] " >{data.wilayaId}</p>
+              <p className=" max-w-[15%] "  >Production</p>
               <div className="flex gap-4 items-center text-[#33333]">
                 <Link href={`/Centrales/${data.code}`}>
                   <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
@@ -217,7 +217,7 @@ const Ctrl:React.FC<props> = (props) => {
       </main>}
       </div>
        
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={ Ligne && Ligne.length} ></Pagination>
         </div>
         <AnimatePresence>
         {DeleteClick &&  <motion.div   
