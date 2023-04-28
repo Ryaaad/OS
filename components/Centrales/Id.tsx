@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSearch , AiFillEye} from "react-icons/ai";
 import { MdOutlineKeyboardArrowDown,MdOutlineKeyboardArrowUp ,MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd} from "react-icons/md";
+import { useRouter } from 'next/router';
 import Pagination from "../Pagination";
 import Link from "next/link";
+import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
+import Delete from "../Delete";
 
 interface props{
     setClicked:(value:boolean) => void
@@ -21,223 +25,85 @@ const Ctrlid:React.FC<props> = (props) => {
    const monthName = monthNames[month];
    const dayName = dayNames[dayOfWeek];
    
+   const router = useRouter();
+   const { id } = router.query;
+   const [DeleteClick, setDeleteClick] = useState(false)
 
-
+   const [Type, setType] = useState<any>()
     const [Filter, setFilter] = useState(0)
-    const [Add, setAdd] = useState(false)
     const [inputValue, setInputValue] = useState<any>();
-    const FirstLigne=[
-            {
-            name :'arduino Nano',
-            type:'MicroController',
-            img:'',
-            qte:5,
-            },
-            {
-                name :'XBX',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'atmega328',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'arduino nano',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'arduino uno',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-            {
-             name :'Rasberypi',
-                type:'MicroController',
-                img:'',
-                qte:15,
-                },
-                {
-                    name :'arduino',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                     name :'Rasberypi',
-                        type:'MicroController',
-                        img:'',
-                        qte:15,
-                        },
-                        {
-                            name :'arduino',
-                            type:'MicroController',
-                            img:'',
-                            qte:5,
-                            },
-                            {
-                             name :'Rasberypi',
-                                type:'MicroController',
-                                img:'',
-                                qte:15,
-                                },           
-                {
-                    name :'Esp32',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'Pic',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-                        {
-                            name :'UC-06',
-                            type:'MicroController',
-                            img:'',
-                            qte:20,
-                            },
-                            {
-                                name :'UC-05',
-                                type:'beuthuf',
-                                img:'',
-                                qte:15,
-                                },
-        
-        {
-        name :'arduino',
-        type:'MicroController',
-        img:'',
-        qte:5,
-        },
-        {
-            name :'arduino',
-            type:'MicroController',
-            img:'',
-            qte:5,
-            },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'arduino',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-        {
-         name :'Rasberypi',
-            type:'MicroController',
-            img:'',
-            qte:15,
-            },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                 name :'Rasberypi',
-                    type:'MicroController',
-                    img:'',
-                    qte:15,
-                    },
-                    {
-                        name :'arduino',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-                        {
-                         name :'Rasberypi',
-                            type:'MicroController',
-                            img:'',
-                            qte:15,
-                            },           
-            {
-                name :'Esp32',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'Pic',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'UC-06',
-                        type:'MicroController',
-                        img:'',
-                        qte:20,
-                        },
-                        {
-                            name :'UC-05',
-                            type:'beuthuf',
-                            img:'',
-                            qte:15,
-                            },
-    ]
-    const [Ligne, setLigne] = useState<any>([0])
+    const [Ligne, setLigne] = useState<any>()
+    const [FirstLigne, setFirstLigne] = useState<any>([0])
   
-    useEffect(() => {
-    setLigne(FirstLigne)
-    }, [inputValue])
+    async function fetchData() {
+      try {
+        const response = await axios.get('https://localhost:7002/api/v1/Group',{ 
+          params: {
+            centraleId: id
+        }
+      });
+        setFirstLigne(response.data)
+        setLigne(response.data)
+        console.log(response.data);
+        
+        
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    useEffect(()=>{
+      fetchData();  
+    },[])
+
+    // useEffect(() => {
+    // setLigne(FirstLigne)
+    // }, [inputValue])
+
     const [currentPage, setCurrentPage] = useState(1);
-   const postsPerPage= 4;
+    const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = Ligne && Ligne.slice(firstPostIndex, lastPostIndex);  
 
-    const [isCheckedAll, setIsCheckedAll] = useState(false);
+   const [isCheckedAll, setIsCheckedAll] = useState(false);
     const [checkboxes, setCheckboxes] = useState(
-        Ligne.map((l:any) => ({
+      Ligne &&  Ligne.map((l:any) => ({
+          id:l.num,
         isChecked: false
       }))
     );
+
     useEffect(() => {
-        const newCheckboxes = Ligne.map((ligne: any) => ({
+    if(Ligne)  {  const newCheckboxes = Ligne.map((lign: any) => ({
+          id:lign.num,
           isChecked: false
         }));
-        setCheckboxes(newCheckboxes);
+      console.log(Ligne);
+        setCheckboxes(newCheckboxes);}
       }, [Ligne]);
   
-    const handleCheckboxChange = (index:number) => {
-      const newCheckboxes = [...checkboxes];
-      newCheckboxes[index].isChecked = !newCheckboxes[index].isChecked;
-      setCheckboxes(newCheckboxes);
+      const handleCheckboxChange = (index:number) => {
+        const newCheckboxes = [...checkboxes];
+        newCheckboxes[index].isChecked = !newCheckboxes[index].isChecked;
+        setCheckboxes(newCheckboxes);
+    
+        const allChecked = newCheckboxes.every((checkbox) => checkbox.isChecked);
+        setIsCheckedAll(allChecked);
+      };
+    
+      const handleAllCheckboxChange = () => {
+        const newCheckboxes = checkboxes.map((checkbox: any) => ({
+          ...checkbox,
+          isChecked: !isCheckedAll
+        }));
+        setCheckboxes(newCheckboxes);
+        setIsCheckedAll(!isCheckedAll);
+      };
   
-      const allChecked = newCheckboxes.every((checkbox) => checkbox.isChecked);
-      setIsCheckedAll(allChecked);
-    };
-  
-    const handleAllCheckboxChange = () => {
-      const newCheckboxes = checkboxes.map((checkbox: any) => ({
-        ...checkbox,
-        isChecked: !isCheckedAll
-      }));
-      setCheckboxes(newCheckboxes);
-      setIsCheckedAll(!isCheckedAll);
-    };
+      const handleDelete = (id:any) => {
+        setType(id)
+        setDeleteClick(true)
+           }
     return ( 
         <div className=" w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] overflow-y-scroll ">
          <div className="flex items-center justify-between w-full text-[#808080] "> 
@@ -248,7 +114,7 @@ const Ctrlid:React.FC<props> = (props) => {
          {dayName} , {monthName} {day}
             </div>
           <div className="flex items-center justify-between mt-10 ">
-        <h1 className="text-2xl  font-semibold ">  Kahrama </h1>
+        <h1 className="text-2xl  font-semibold ">  {id} </h1>
         <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] hover:bg-[#176ad6] duration-700 "  onClick={()=>props.setClicked(true)} >
         <MdOutlineAdd  className="text-xl" ></MdOutlineAdd> Groupe
         </button>
@@ -265,7 +131,12 @@ const Ctrlid:React.FC<props> = (props) => {
            <p className={` ${Filter==3 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(3)} >TG + TVA</p>
            <p className={` ${Filter==4 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(4)} >Mobile</p>
         </div>
-       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-3 text-[#E91010] rounded-[10px] w-[50px] h-[30px] ">
+       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-3 text-[#E91010] rounded-[10px] w-[50px] h-[30px] "
+         onClick={()=>{
+          if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
+            handleDelete(0)
+          }
+        }}>
        <MdDeleteOutline className="text-xl " ></MdDeleteOutline>
        </button>
        </div>
@@ -286,34 +157,34 @@ const Ctrlid:React.FC<props> = (props) => {
           </div>
           <p>Nom</p>
           <p>Type</p>
-          <p>Nbr Groupes</p>
-          <p>Code Wilaya</p>
-          <p>Production</p>
+          <p>puissance TH</p>
+          <p>puissance S</p>
         </div>
       </header>
-  {  checkboxes.length>1 &&  <main className="text-[#626D7C] mt-5">
-        {currentPosts.map((card: any,index:number) => {
+      {Ligne &&  <main className="text-[#626D7C] mt-5">
+        {currentPosts.map((data: any,index:number) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
               <div className="flex items-center gap-2 ">
-                <input
+           { checkboxes &&  <input
                   type="checkbox"
                   className="w-[18px] h-[18px]"
                   checked={checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
-                />
-                <p>Code</p>
+                />}
+                <p className="  " > {data.num} </p>
               </div> 
-              <p>Nom</p>
-              <p>Type</p>
-              <p>Nbr Groupes</p>
-              <p>Code Wilaya</p>
-              <p>Production</p>
+              <p className=""  >  {data.name} </p>
+              <p className="" >{ data.type}</p>
+              <p className=""  >{data.puissanceTH}</p>
+              <p className=" " >{data.puissanceS}</p>
               <div className="flex gap-4 items-center text-[#33333]">
-                <Link href={`/Centrales/${card.id}/1`}>
-                <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
+                <Link href={`/Centrales/${id}/${data.num}`}>
+                  <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
                 </Link>
-                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] "/>
+                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
+                 onClick={()=>{handleDelete(data.num)}}
+                />
               </div>
             </div>
           );
@@ -321,10 +192,17 @@ const Ctrlid:React.FC<props> = (props) => {
       </main>}
       </div>
        
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>
-
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={ Ligne && Ligne.length} ></Pagination>
         </div>
-      
+        <AnimatePresence>
+        {DeleteClick &&  <motion.div   
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, }} 
+        transition={{duration:.5, }}>
+         <Delete setClicked={setDeleteClick} checkboxes={checkboxes}  isCheckedAll={false} Type={Type} Centrale={false} ></Delete>
+         </motion.div> }
+         </AnimatePresence>    
         </div>
      );
 }

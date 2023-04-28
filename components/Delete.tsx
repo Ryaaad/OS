@@ -8,33 +8,38 @@ interface props{
     isCheckedAll:boolean,
     checkboxes:any,
     Type:any,
+    Centrale:boolean
 }
 
 
 const Delete:React.FC<props> = (props) => {
     const [Deleted,setDeleted]=useState(false);
- 
+    let url:string;
+    if(props.Centrale) url='https://localhost:7002/api/v1/Centrale';
+    else url="https://localhost:7002/api/v1/Group"
    const handleDelete = (id:any) => {
-    axios.delete(`https://localhost:7002/api/v1/Centrale/${id}`)
+    axios.delete(`${url}/${id}`)
     .then(res => {
         console.log('Successful');
-        // fetchData()
+        props.Type!=0 && window.location.reload();
+
       }).catch(err=> console.log(err)  )
     }
 const handledeleteAll=()=>{
 if(props.isCheckedAll)
-{ axios.delete(`https://localhost:7002/api/v1/Centrale`)
+{ axios.delete(`${url}`)
 .then(response => {
 console.log('All Centrales deleted successfully');
-// fetchData()
+window.location.reload();
 })
 .catch(error => {
-console.error('Error deleting all users:', error);
+console.error('Error deleting all :', error);
 });}
 else {
 props.checkboxes.map((checkbox:any)=>{
  if(checkbox.isChecked)  handleDelete(checkbox.id)
 })
+window.location.reload();
 }
 }
    

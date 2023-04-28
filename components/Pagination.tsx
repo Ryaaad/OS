@@ -30,7 +30,7 @@ const Pagination:React.FC<props>=(props)=> {
     </div>
 {  props.currentPage>2 && <>
     { props.currentPage==pages.length && <>
- <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer  `}  onClick={()=>Set(props.currentPage-3)}>
+ <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer ${props.currentPage-3==0 && "hidden"}  `}  onClick={()=>Set(props.currentPage-3)}>
         {props.currentPage-3}
  </div>       
     <div  className={`text-lg rounded-[10px] w-[35px] h-[35px] grid items-center justify-center cursor-pointer  `}  onClick={()=>Set(props.currentPage-2)} >

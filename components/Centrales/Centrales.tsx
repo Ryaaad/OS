@@ -44,6 +44,7 @@ const Ctrl:React.FC<props> = (props) => {
     }
     useEffect(()=>{
       fetchData();
+      
  },[])
   useEffect(() => {
       if(inputValue!=undefined)
@@ -61,8 +62,6 @@ const Ctrl:React.FC<props> = (props) => {
     else  fetchData();
   }, [inputValue])
  
-   
-  
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
@@ -81,6 +80,7 @@ const Ctrl:React.FC<props> = (props) => {
           id:lign.code,
           isChecked: false
         }));
+      console.log(Ligne);
         setCheckboxes(newCheckboxes);}
       }, [Ligne]);
   
@@ -196,13 +196,13 @@ const Ctrl:React.FC<props> = (props) => {
                   checked={checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />}
-                <p className=" max-w-[20%] " > {data.code} </p>
+                <p className=" " > {data.code} </p>
               </div> 
-              <p className=" max-w-[15%] "  >  {data.name} </p>
-              <p className=" max-w-[15%] " >{ data.nature }</p>
-              <p className=" max-w-[15%] "  >{data.capacite}</p>
-              <p className=" max-w-[10%] " >{data.wilayaId}</p>
-              <p className=" max-w-[15%] "  >Production</p>
+              <p className=""  >  {data.name} </p>
+              <p className="" >{ data.nature }</p>
+              <p className=""  >{data.capacite}</p>
+              <p className=" " >{data.wilayaId}</p>
+              <p className=""  >Production</p>
               <div className="flex gap-4 items-center text-[#33333]">
                 <Link href={`/Centrales/${data.code}`}>
                   <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
@@ -225,7 +225,7 @@ const Ctrl:React.FC<props> = (props) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, }} 
         transition={{duration:.5, }}>
-         <Delete setClicked={setDeleteClick} checkboxes={checkboxes}  isCheckedAll={isCheckedAll} Type={Type} ></Delete>
+         <Delete setClicked={setDeleteClick} checkboxes={checkboxes} Centrale={true} isCheckedAll={isCheckedAll} Type={Type} ></Delete>
          </motion.div> }
          </AnimatePresence>    
         </div>

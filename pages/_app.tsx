@@ -1,15 +1,12 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { QueryClient , QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools/build/lib/devtools'
-import { useState } from 'react';
+import { SessionProvider } from 'next-auth/react'
 
-export default function App({ Component, pageProps }: AppProps) {
-  // const [queryClient]= useState(()=> new QueryClient());
+export default function App({ Component, pageProps, }: AppProps) {
   
   return( 
-  // <QueryClientProvider client={queryClient}>
+    <SessionProvider session={pageProps.session}>
     <Component {...pageProps} />
-  // </QueryClientProvider>
+  </SessionProvider>
   )
 }

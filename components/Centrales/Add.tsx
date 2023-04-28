@@ -10,38 +10,21 @@ interface props{
 
 const Add:React.FC<props> = (props) => {
    const [Added,setAdded]=useState(false);
-   const [Next,setNext]=useState(0);  
+   
 
    let Type={
-      code: "string560",
-      name:"string",
-      nature: "string",
-      nature_Producteur:"string",
+      code:"t",
+      name:"",
+      nature: "",
+      nature_Producteur:"",
       durreVie:0,
       durreFonctionement:0,
-      tauxRealisation:0,
       capacite:0,
-      wilayaId:1,
-      debutService: "2023-04-22T21:25:01.598Z",
-      groupes: [
-          {
-            num: 1,
-            name: "string",
-            type: "string",
-            puissanceTH: 0,
-            puissanceS: 0,
-            centraleId: "string",
-            centrale: null,
-            qhs: []
-          }
-        ]
+      wilayaId:1
   }
     const [data, setdata] = useState( Type )
        const handleChange = (event:any,attrb: number) => {
         switch (attrb) {
-           case 1:
-             data.code  = event.target.value
-              break;
            case 2:
              data.name  = event.target.value
               break;
@@ -56,18 +39,11 @@ const Add:React.FC<props> = (props) => {
            case 6:
               data.durreFonctionement= parseInt(event.target.value,10)
              break;
-           case 7:
-              data.tauxRealisation= parseInt(event.target.value,10)
-             break;
              case 8:
               data.capacite= parseInt(event.target.value,10)
              break;
              case 9:
               data.wilayaId= parseInt(event.target.value,10)
-             break;
-             case 10:
-               let date=new Date(event.target.value);
-              data.debutService= date.toISOString()
              break;
         }
         console.log(data);
@@ -82,7 +58,8 @@ const Add:React.FC<props> = (props) => {
         }).catch(err=> console.log(err)  )
       }
    
-async function SaveClicked() {
+async function SaveClicked(e:any) {
+   e.preventDefault()
       await handleSubmit() 
      setAdded(true) 
      setTimeout(() => {
@@ -99,52 +76,41 @@ async function SaveClicked() {
     transition={{ type: "spring", stiffness: 60,delay:.5 }}
      >
     <div  className='flex justify-between' >
-    <h1  className="text-xl text-black font-semibold ">New Centrale </h1>  
+    <h1  className="text-xl text-black font-semibold ">Nouvelle Centrale </h1>  
     <div className='rounded-full bg-[#e91010] hover:bg-[red] duration-[.5s] text-white text-xl w-[30px] h-[30px] grid justify-center cursor-pointer items-center' 
-    onClick={()=>{ setNext(0);
-        props.setClicked(false)}}> 
+    onClick={()=>{ props.setClicked(false)}}> 
     <FiX></FiX></div>
     </div>
-    <form >
-      { Next==0 &&  <div className=" grid justify-items-center items-center grid-cols-3 w-full my-6 gap-1 gap-y-3 ">
-         <div className="">
-            <h1 className="mb-2 text-lg ">Code </h1>
-            <input type="text" onChange={(e)=>handleChange(e,1)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
-         </div>
+    <form onSubmit={(e)=>SaveClicked(e) } >
+       <div className=" grid justify-items-center items-center grid-cols-3 w-full my-6 gap-1 gap-y-3 ">
          <div className="">
             <h1 className="mb-2 text-lg "> Nom </h1>
-            <input type="text"  onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <input type="text"  required onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">Nature </h1>
-            <input type="text" onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <input type="text" required onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
             <h1 className="mb-2 text-lg "> nature_Producteur * </h1>
-            <input type="text" onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <input type="text" required onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">Durre vie Econnomique</h1>
-            <input type="text" onChange={(e)=>handleChange(e,5)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
+            <input type="text" required onChange={(e)=>handleChange(e,5)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">Durre Fonctionement</h1>
-            <input type="text" onChange={(e)=>handleChange(e,6)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
+            <input type="text" required onChange={(e)=>handleChange(e,6)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg "> tauxRealisation </h1>
-            <input type="text" onChange={(e)=>handleChange(e,7)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
-         </div>
-        </div>}
-      { Next==1 &&  <div className=" grid justify-items-center items-center grid-cols-2 w-full my-6 gap-1 gap-y-3 ">
-      <div className="">
             <h1 className="mb-2 text-lg "> Capacite </h1>
-            <input type="text" onChange={(e)=>handleChange(e,8)}  className=" pl-[5%] text-black rounded-[5px] w-[350px] h-[35px] border border-solid border-[#a6a7a8] "  />
+            <input type="text" required onChange={(e)=>handleChange(e,8)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
          </div>
          <div className="">
             <h1 className="mb-2 text-lg "> Wilaya </h1>
             <div>
-    <select 
+    <select required
     onChange={(e) => handleChange(e, 9)} 
     className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
   >
@@ -182,29 +148,16 @@ async function SaveClicked() {
 </div>
 
          </div>
-         <div className="">
-            <h1 className="mb-2 text-lg "> Debut Service </h1>
-            <input id="date-input" type="date" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
-       focus:bg-white focus:border-blue-500" 
-       onChange={(e)=>handleChange(e,10)}
-       />
-         </div>
-        </div>}  
-        </form>
+
+        </div>
         <div className="flex w-full justify-end px-3 gap-4">
             <button  className="text-black p-2 px-7 rounded-[5px] border border-solid border-[#a6a7a8] hover:bg-[#f7f2f2]
              hover:border-[#818181] duration-[.5s] " 
-              onClick={()=>
-              {  Next ? setNext(0) : props.setClicked(false)
-                }
-            }
-              >{ Next ? "retourner" : "Annuler" } </button>
-            <button type='submit' className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " 
-            onClick={()=>{
-                Next ? SaveClicked() : setNext(1) 
-            }} 
-              >{ Next ? "Enregistrer" : "Suivant" }</button>
+              onClick={()=>  props.setClicked(false)      }
+              >Annuler </button>
+            <button type='submit' className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " >Enregistrer</button>
         </div>
+        </form>
         <AnimatePresence>
         { Added &&
   <motion.div className="absolute bottom-[-14%] font-semibold right-[38%] translate-x-[50%] bg-white rounded-[5px] gap-3 border-l-[3px]
