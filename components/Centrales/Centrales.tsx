@@ -7,23 +7,14 @@ import axios from "axios";
 import Delete from "../Delete";
 import { AnimatePresence, motion } from "framer-motion";
 interface props{
-    setClicked:(value:boolean) => void
+    setClicked:(value:boolean) => void,
+    dayName:string,
+    monthName:string,
+    day:number 
 }
 const Ctrl:React.FC<props> = (props) => {
-    const date = new Date();
-    // Get the day (1-31)
-    const day = date.getDate();
-    // Get the month (0-11)
-    const month = date.getMonth();
-    // Get the day of the week (0-6)
-    const dayOfWeek = date.getDay();
-    const monthNames = ["Janvier", "Février", "Mars","Avril", "Mai", "Juin", "Juillet","Août", "Septembre", "Octobre","Novembre", "Décembre"];
-    const dayNames = [ "Dimanche", "Lundi", "Mardi","Mercredi", "Jeudi", "Vendredi", "Samedi" ];
-    const monthName = monthNames[month];
-    const dayName = dayNames[dayOfWeek];
-  
-   const [DeleteClick, setDeleteClick] = useState(false)
 
+   const [DeleteClick, setDeleteClick] = useState(false)
    const [Type, setType] = useState<any>()
     const [firstFilter, setfirstFilter] = useState(true)
     const [secondFilter, setsecondFilter] = useState(true)
@@ -116,7 +107,7 @@ const Ctrl:React.FC<props> = (props) => {
             Accueil
             </div>
         </Link>
-         {dayName} , {monthName} {day}
+         {props.dayName} , {props.monthName} {props.day}
             </div>
           <div className="flex items-center justify-between mt-10 ">
          <div>
@@ -193,7 +184,7 @@ const Ctrl:React.FC<props> = (props) => {
            { checkboxes &&  <input
                   type="checkbox"
                   className="w-[18px] h-[18px]"
-                  checked={checkboxes[index+4*(currentPage-1)].isChecked}
+                  checked={checkboxes && checkboxes[index+4*(currentPage-1)] && checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />}
                 <p className=" " > {data.code} </p>
