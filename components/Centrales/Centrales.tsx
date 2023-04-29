@@ -10,10 +10,12 @@ interface props{
     setClicked:(value:boolean) => void,
     dayName:string,
     monthName:string,
-    day:number 
+    day:number ,
+    userRole:string
 }
 const Ctrl:React.FC<props> = (props) => {
-
+ 
+  
    const [DeleteClick, setDeleteClick] = useState(false)
    const [Type, setType] = useState<any>()
     const [firstFilter, setfirstFilter] = useState(true)
@@ -35,6 +37,7 @@ const Ctrl:React.FC<props> = (props) => {
     }
     useEffect(()=>{
       fetchData();
+      console.log(props.userRole);
       
  },[])
   useEffect(() => {
@@ -142,7 +145,7 @@ const Ctrl:React.FC<props> = (props) => {
             </div>
             <p className="text-[rgba(191,195,201,1)] " > Affichage de { Ligne ? Ligne.length  : "0" } résultats </p>
         </div>
-       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
+   { props.userRole=="Admin" &&  <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
 
       onClick={()=>{
         if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
@@ -152,7 +155,7 @@ const Ctrl:React.FC<props> = (props) => {
        >
        <MdDeleteOutline className="text-lg" ></MdDeleteOutline>
        Supprimer
-       </button>
+       </button>}
        </div>
 
       <div className="mt-3">
@@ -198,9 +201,9 @@ const Ctrl:React.FC<props> = (props) => {
                 <Link href={`/Centrales/${data.code}`}>
                   <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
                 </Link>
-                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
+              { props.userRole=="Admin" &&  <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
                  onClick={()=>{handleDelete(data.code)}}
-                />
+                />}
               </div>
             </div>
           );
@@ -222,5 +225,7 @@ const Ctrl:React.FC<props> = (props) => {
         </div>
      );
 }
- 
+
+
+
 export default Ctrl;

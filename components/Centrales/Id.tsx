@@ -13,6 +13,8 @@ interface props{
 }
 
 const Ctrlid:React.FC<props> = (props) => {
+  const test = sessionStorage.getItem('token');
+  console.log("session :",test);
     const date = new Date();
     // Get the day (1-31)
      const day = date.getDate();
