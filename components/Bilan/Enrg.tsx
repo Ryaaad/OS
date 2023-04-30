@@ -223,7 +223,7 @@ import Pagination from "../Pagination";
 
 
     return ( 
-        <div  className="w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] overflow-y-scroll" >
+        <div  className="w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh]" >
             <div className="flex items-center justify-between w-full text-[#808080] "> 
             <Link href={'/'} >
             <div className="flex items-center gap-2 cursor-pointer ">       
@@ -238,16 +238,7 @@ import Pagination from "../Pagination";
         <h1 className="text-2xl  font-semibold ">  Bilans énergétique  </h1>
         <p   className="text-[#8E8F90] mt-2 " >  in this page you can add or update or delete a centrale </p>
         </div>   
-        {/* <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] "  onClick={()=>{}} >
-        <MdOutlineAdd  className="text-xl" ></MdOutlineAdd>  Ajouter Centrale
-        </button> */}
         </div>   
-        <div  className="mt-5 " >
-       <div className="rounded-[10px] border border-dashed border-black w-full h-[22vh] "></div>
-       <div className="rounded-[10px] border border-solid mt-3 border-black w-full h-[12vh] "></div>
-
-      </div>
-
        <div className="mt-5 py-4 bg-white rounded-[10px] border-[1.5px] border-solid border-[#ddd] relative h-[70vh] ">
        <div className="flex items-center justify-between pb-3 border-b-[1.5px] border-b-solid border-b-[#ddd] px-7 ">
          <div>
