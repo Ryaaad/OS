@@ -4,8 +4,10 @@ import { useFormik } from "formik";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 const Login = () => {
   const router = useRouter();
+  const [err,seterr]=useState<any>()
       const  Submit=async()=>{
       axios.post('https://localhost:7002/api/v1/Auth/login', {
         username: formik.values.user,
@@ -25,11 +27,14 @@ const Login = () => {
       
        router.push('/');
         } else {
+         
           throw new Error('Login failed');
         }
       })
       .catch(error => {
         console.error(error);
+       
+          seterr(error.message)
       });
       
         }
@@ -44,12 +49,14 @@ const Login = () => {
           Submit();
         }
       })
- 
+  console.log(err);
+  
     return ( 
         <div className="h-[100vh] flex items-center ">
          <Image   className="h-[100vh] w-[55vw] bg-cover bg-center " alt="" src={pic} ></Image>
         <form className="w-[45vw] bg-white h-[100vh] flex flex-col gap-5 justify-center  items-center" onSubmit={formik.handleSubmit} >
             <h1 className="text-3xl  mb-10 font-semibold ">Login</h1>
+          {err  && <h1 className="text-[red] text-semibold text-sm text-start  "> {err} </h1> }
             <input 
             id="user" 
             name="user" 
@@ -78,3 +85,7 @@ const Login = () => {
 }
  
 export default Login;
+
+function usestate(arg0: string): [any, any] {
+  throw new Error("Function not implemented.");
+}

@@ -1,83 +1,68 @@
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import FilePreview from "./FilePreview";
-import axios from 'axios';
+import { useState } from "react";
 
-const DropZone = () => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [droppedFiles, setDroppedFiles] = useState<File[]>([]);
-  const [data,setData]=useState<any>()
-  const [errorMessage, setErrorMessage] = useState<string>("");
+type Props = {
+  endpoint: string;
+  accept: string;
+};
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target;
-    if (files) {
-      const selectedFilesArr = Array.from(files);
-      setSelectedFiles(selectedFilesArr);
-      setErrorMessage("");
-    }
-  };
+const DropZone = ({ endpoint, accept }: Props) => {
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    const { files } = event.dataTransfer;
-    if (files) {
-      const droppedFilesArr = Array.from(files);
-      setDroppedFiles(droppedFilesArr);
-      setErrorMessage("");
-    }
+    const droppedFile = event.dataTransfer.files[0];
+    setFile(droppedFile);
   };
 
-  const handleFileUpload = () => {
-    const formData = new FormData();
-    selectedFiles.forEach((file) => {
-      formData.append('file', file);
-    });
-    droppedFiles.forEach((file) => {
-      formData.append('file', file);
-    });
-    axios.post('/api/upload', formData);
-  };
-
-  const validateFileTypes = (files: File[]) => {
-    const allowedExtensions = [".xls", ".xlsx"];
-    const invalidFiles = files.filter(file => !allowedExtensions.includes(file.name.slice(-5)));
-    if (invalidFiles.length > 0) {
-      setErrorMessage("Invalid file type. Please upload only .xls or .xlsx files.");
-      return false;
-    }
-    return true;
-  }
-
-  useEffect(() => {
-    const totalFiles = [...selectedFiles, ...droppedFiles];
-    if (totalFiles.length > 3) {
-      setErrorMessage("You can upload up to 3 files only.");
-      setSelectedFiles([]);
-      setDroppedFiles([]);
-    } else {
-      const isValidFileType = validateFileTypes(totalFiles);
-      if (isValidFileType) {
-        setErrorMessage("");
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("date", "20 mars 2023");
+      console.log(formData.get("file")); // should log the file object
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: accept,
+          },
+        });
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
-  }, [selectedFiles, droppedFiles]);
+  };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-4 p-4">
-      <div className="relative w-40 h-40 border-2 border-dashed border-gray-400 rounded-full flex justify-center items-center">
-        <Image src="/upload.svg" alt="upload" height={50} width={50} />
-        <div className="absolute inset-0 w-full h-full cursor-pointer" onDrop={handleFileDrop} onDragOver={(event) => event.preventDefault()}>
-          <p className="text-gray-500 text-sm font-medium">Drop files here</p>
-        </div>
-      </div>
-      {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
-      <div className="mt-4">
-        <FilePreview selectedFiles={selectedFiles} droppedFiles={droppedFiles} />
-        <label className="text-gray-500 text-sm font-medium">Choose files to upload</label>
-        <input type="file" onChange={handleFileSelect} multiple accept=".xls,.xlsx" />
-      </div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleFileUpload} disabled={!selectedFiles.length && !droppedFiles.length}>Upload</button>
+    <div
+      className="flex items-center justify-center w-full h-full border-2 border-gray-400 border-dashed rounded-md"
+      onDrop={handleDrop}
+      onDragOver={(event) => event.preventDefault()}
+    >
+      <form onSubmit={handleFormSubmit}>
+        <label htmlFor="file-upload" className="flex flex-col items-center">
+          <i className="mb-2 text-gray-400 fas fa-cloud-upload-alt fa-3x"></i>
+          <span className="text-gray-400">
+            {file ? file.name : "Drag and drop a file here or click to select a file"}
+          </span>
+        </label>
+        <input
+          id="file-upload"
+          name="file-upload"
+          type="file"
+          accept={accept}
+          className="hidden"
+          onChange={(event) => setFile(event.target.files?.[0] || null)}
+        />
+        <button type="submit" className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+          Upload
+        </button>
+      </form>
     </div>
   );
 };

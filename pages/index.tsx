@@ -8,10 +8,14 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
-    const decodedToken = jwt.decode(token as string) as { [key: string]: string };
-    const userRole = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-    console.log('User role:', userRole);
+    if (token) {
+      const decodedToken = jwt.decode(token) as { [key: string]: string } | null;
+      const userRole = decodedToken?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      console.log('User role:', userRole);
+    }
   }, []);
+  
+  
   return (
    <div  className='h-[100vh] bg-[#F0F8FF] ' >
     <SideNav path='Accueil'></SideNav>

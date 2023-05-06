@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main >
-        <DropZone />
+        <DropZone accept="" endpoint="https://localhost:7002/api/v1/RapportJournalier/QhNational" />
       </main>
     </div>
   );
