@@ -7,7 +7,6 @@ interface props{
     setClicked:(value:boolean) => void
 }
 
-
 const Add:React.FC<props> = (props) => {
    const [Added,setAdded]=useState(false);
    

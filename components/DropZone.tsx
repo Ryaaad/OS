@@ -19,7 +19,7 @@ const DropZone = ({ endpoint, accept }: Props) => {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("date", "20 mars 2023");
+      formData.append("date", "10 mars 2023");
       console.log(formData.get("file")); // should log the file object
       try {
         const response = await fetch(endpoint, {
@@ -29,6 +29,7 @@ const DropZone = ({ endpoint, accept }: Props) => {
             Accept: accept,
           },
         });
+        console.log(response);
         if (!response.ok) {
           throw new Error(response.statusText);
         }
