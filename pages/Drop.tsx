@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import DropZone from "../components/DropZone";
 
-export default function Home() {
+export default function Drop() {
   return (
     <div>
       <Head>
@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main >
-        <DropZone accept="" endpoint="https://localhost:7002/api/v1/RapportJournalier/QhNational" />
+        <DropZone accept="" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
       </main>
     </div>
   );

@@ -6,6 +6,8 @@ import { BsFillFileEarmarkPdfFill} from "react-icons/bs";
 
 import Pagination from "../Pagination";
 import axios from "axios";
+import Drop from "@/pages/Drop";
+import DropZone from "../DropZone";
   
 const Rj = () => {
     const date = new Date();
@@ -25,8 +27,9 @@ const Rj = () => {
     const [Ligne, setLigne] = useState<any>([0])
     async function fetchData() {
         try {
-          const response = await axios.get('https://localhost:7002/api/v1/Centrale');
+          const response = await axios.get('https://localhost:7002/api/v1/WritingFiles/Rapport');
           setLigne(response.data)
+          console.log(response.data);
           
         } catch (error) {
           console.error(error);
@@ -74,7 +77,9 @@ const Rj = () => {
         </div>   
         </div>   
         <div  className="mt-5 " >
-       <div className="rounded-[10px] border border-dashed border-black w-full h-[22vh] "></div>
+       <div className="w-full h-[22vh] ">
+       <DropZone accept="" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       </div>
        <div className="rounded-[10px] border border-solid mt-3 border-black w-full h-[12vh] "></div>
 
       </div>

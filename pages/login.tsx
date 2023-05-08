@@ -78,7 +78,9 @@ const Login = () => {
            
             <button type="submit" className="bg-[#1A73E8] items-center text-white mx-auto w-[200px] text-xl py-2 rounded-[10px] block mt-3 "  >  Continue </button>
            
-            <p  className="text-[#808080] text-sm cursor-pointer  " > i'm a Visiteur </p>
+           <Link href={"/"}>
+            <p  className="text-[#808080] text-sm  "  > Visiteur </p>
+           </Link>
         </form>
         </div>
      );
