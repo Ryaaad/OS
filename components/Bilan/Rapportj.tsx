@@ -32,10 +32,10 @@ const Rj = () => {
           setLigne(response.data)
           console.log(response.data);
           
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
-  //     }
+        } catch (error) {
+          console.error(error);
+        }
+      }
    
       
   //   useEffect(() => {
