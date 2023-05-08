@@ -41,15 +41,15 @@ const DropZone = ({ endpoint, accept }: Props) => {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-full border-2 border-gray-400 border-dashed rounded-md"
+      className="flex items-center justify-center w-full h-full border-2 border-black border-dashed rounded-md"
       onDrop={handleDrop}
       onDragOver={(event) => event.preventDefault()}
     >
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="file-upload" className="flex flex-col items-center">
           <i className="mb-2 text-gray-400 fas fa-cloud-upload-alt fa-3x"></i>
-          <span className="text-gray-400">
-            {file ? file.name : "Drag and drop a file here or click to select a file"}
+          <span className="text-gray-400 cursor-pointer">
+            {file ? file.name : "Glissez-déposez un fichier ici ou cliquez pour sélectionner un fichier"}
           </span>
         </label>
         <input
@@ -57,12 +57,12 @@ const DropZone = ({ endpoint, accept }: Props) => {
           name="file-upload"
           type="file"
           accept={accept}
-          className="hidden"
+          className="hidden "
           onChange={(event) => setFile(event.target.files?.[0] || null)}
         />
-        <button type="submit" className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+        {/* <button type="submit" className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
           Upload
-        </button>
+        </button> */}
       </form>
     </div>
   );

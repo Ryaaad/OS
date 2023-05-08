@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import DropZone from "../components/DropZone";
 
-export default function Home() {
+export default function Drop() {
   return (
     <div>
       <Head>
