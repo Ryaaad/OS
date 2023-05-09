@@ -7,20 +7,15 @@ import Pagination from "../Pagination";
 import axios from "axios";
 import DropZone from "../DropZone";
   
-const Rj = () => {
-    const date = new Date();
-    // Get the day (1-31)
-    const day = date.getDate();
-    // Get the month (0-11)
-    const month = date.getMonth();
-    // Get the day of the week (0-6)
-    const dayOfWeek = date.getDay();
-    const monthNames = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];;
-    const dayNames = [ "Sunday", "Monday", "Tuesday","Wednesday", "Thursday", "Friday", "Saturday"  ];
-    const monthName = monthNames[month];
-    const dayName = dayNames[dayOfWeek];
 
-
+interface props{
+  dayName:string,
+  monthName:string,
+  day:number ,
+  userRole:string
+}
+const Rj:React.FC<props> = (props) => {
+   
     const [inputValue, setInputValue] = useState<any>();
     const [Ligne, setLigne] = useState<any>([0])
     async function fetchData() {
@@ -33,16 +28,6 @@ const Rj = () => {
           console.error(error);
         }
       }
-   
-      
-  //   useEffect(() => {
-  //       if(inputValue!=undefined)
-  //  {  let filterCards=  Ligne.filter((card:any)=> card.name.includes(inputValue))
-  //   setLigne(filterCards)}
-  //     else  fetchData();
-  //   }, [inputValue])
-
-
 
     async function fetchAllRaportDates(){
       try{
@@ -114,23 +99,23 @@ const Rj = () => {
             Accueil
             </div>
             </Link>
-         {dayName} , {monthName} {day}
+         {props.dayName} , {props.monthName} {props.day}
             </div>
         <div className="flex items-center justify-between mt-10 ">
          <div>
         <h1 className="text-2xl  font-semibold ">  Rapport journalier d’exploitation  </h1>
-        <p   className="text-[#8E8F90] mt-2 " >  in this page you can add or delete a Rapport journalier</p>
+        <p   className="text-[#8E8F90] mt-2 " > {  (props.userRole=="Admin" || props.userRole=="Operant") ? " in this page you can add Rapport journalier"  : "in this page you can check Rapport journalier Archives" } </p>
         </div>   
         </div>   
-        <div  className="mt-5 flex items-center justify-between  " >
+     { (props.userRole=="Admin" || props.userRole=="Operant") &&   <div  className="mt-5 flex items-center justify-between  " >
        <div className="w-[48%] h-[22vh] ">
-       <DropZone accept="" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Qh National" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
        </div>
        <div className="w-[48%] h-[22vh] ">
-       <DropZone accept="" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Qh Adrare" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
       
-      </div>
+        </div>}
 
        <div className="mt-5 py-3 bg-white rounded-[10px] border-[1.5px] border-solid border-[#ddd] relative h-[70vh] ">
        <div className="flex items-center justify-between pb-2 border-b-[1.5px] border-b-solid border-b-[#ddd] px-5 ">

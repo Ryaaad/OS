@@ -24,14 +24,11 @@ const Centrales = () => {
     useEffect(() => {
       if (typeof sessionStorage !== 'undefined') {
       const token = sessionStorage.getItem('token');
+      if(token){
       const decodedToken = jwt.decode(token as string) as { [key: string]: string };
       const Role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-      setuser(Role) }
+      setuser(Role)} }
     }, []);
-    if (!userRole) {
-      return <div>Loading...</div>;
-    }
-    else
     return ( 
         <div className="flex">
         <SideNav path='Centrales'></SideNav>

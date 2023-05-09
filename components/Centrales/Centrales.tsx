@@ -102,7 +102,7 @@ const Ctrl:React.FC<props> = (props) => {
          }
  
     return ( 
-        <div className=" w-[81vw] p-7 py-4 bg-[#F0F8FF] ">
+        <div className=" w-[81vw] p-7 py-4 bg-[#F0F8FF] h-[100vh] ">
          <div className="flex items-center justify-between w-full text-[#808080] "> 
          <Link href={'/'} >
             <div className="flex items-center gap-2 cursor-pointer ">       
@@ -115,11 +115,12 @@ const Ctrl:React.FC<props> = (props) => {
           <div className="flex items-center justify-between mt-10 ">
          <div>
         <h1 className="text-2xl  font-semibold ">  Centrales </h1>
-        <p  className="text-[#8E8F90] mt-2 " >  Sur cette page, vous pouvez ajouter, mettre à jour ou supprimer une Centrale </p>
+     {   (props.userRole=="Admin" || props.userRole=="Manager") &&  <p  className="text-[#8E8F90] mt-2 " >  Sur cette page, vous pouvez ajouter, mettre à jour ou supprimer une Centrale </p>}
         </div>   
+        { (props.userRole=="Admin" || props.userRole=="Manager") && 
         <button className="bg-[#1A73E8] hover:bg-[#176ad6] duration-700 items-center text-white flex gap-2 p-3 py-2 rounded-[10px]  "  onClick={()=>props.setClicked(true)} >
         <MdOutlineAdd  className="text-xl" ></MdOutlineAdd>  Centrale
-        </button>
+        </button> }
           </div>   
           
         <div  className=" bg-white w-full h-[65vh] relative mt-9 " >
@@ -160,7 +161,7 @@ const Ctrl:React.FC<props> = (props) => {
 
       <div className="mt-3">
       <header className="bg-[#F1F4F9] mx-[2px] ">
-        <div className="flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ">
+        <div className={`flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ${ props.userRole=="Admin" && "w-[82%]" }  `} >
           <div className="flex items-center gap-2 ">
             <input
             type="checkbox"
@@ -172,17 +173,15 @@ const Ctrl:React.FC<props> = (props) => {
           />
             <p>Code</p>
           </div>
-          <p>Nom</p>
-          <p>Nature</p>
-          <p>Capacite</p>
+          <p  className="translate-x-[-40px] " >Nom</p>
+          <p   className="translate-x-[15px] " >Nature</p>
           <p>Wilaya</p>
-          <p>Production</p>
         </div>
       </header>
   {Ligne &&  <main className="text-[#626D7C] mt-5">
         {currentPosts.map((data: any,index:number) => {
           return (
-            <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
+            <div className="flex p-2 px-[50px] items-center justify-between text-start mt-1 "  key={index} >
               <div className="flex items-center gap-2 ">
            { checkboxes &&  <input
                   type="checkbox"
@@ -190,13 +189,11 @@ const Ctrl:React.FC<props> = (props) => {
                   checked={checkboxes && checkboxes[index+4*(currentPage-1)] && checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />}
-                <p className=" " > {data.code} </p>
+                <p className="w-[65px] " > {data.code} </p>
               </div> 
-              <p className=""  >  {data.name} </p>
-              <p className="" >{ data.nature }</p>
-              <p className=""  >{data.capacite}</p>
-              <p className=" " >{data.wilayaId}</p>
-              <p className=""  >Production</p>
+              <p className="w-[160px] "  >  {data.name} </p>
+              <p className="w-[120px]" >{ data.nature}</p>
+              <p className=" w-[20px] " >{data.wilayaId}</p>
               <div className="flex gap-4 items-center text-[#33333]">
                 <Link href={`/Centrales/${data.code}`}>
                   <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />

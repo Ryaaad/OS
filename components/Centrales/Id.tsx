@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { AiOutlineSearch , AiFillEye} from "react-icons/ai";
-import { MdOutlineKeyboardArrowDown,MdOutlineKeyboardArrowUp ,MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd} from "react-icons/md";
+import {AiFillEye} from "react-icons/ai";
+import {MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd} from "react-icons/md";
 import { useRouter } from 'next/router';
 import Pagination from "../Pagination";
 import Link from "next/link";
@@ -9,22 +9,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import Delete from "../Delete";
 
 interface props{
-    setClicked:(value:boolean) => void
+    setClicked:(value:boolean) => void,
+    dayName:string,
+    monthName:string,
+    day:number ,
+    userRole:string
 }
 
 const Ctrlid:React.FC<props> = (props) => {
- 
-    const date = new Date();
-    // Get the day (1-31)
-     const day = date.getDate();
-    // Get the month (0-11)
-   const month = date.getMonth();
-   // Get the day of the week (0-6)
-   const dayOfWeek = date.getDay();
-   const monthNames = ["Janvier", "Février", "Mars","Avril", "Mai", "Juin", "Juillet","Août", "Septembre", "Octobre","Novembre", "Décembre"];
-   const dayNames = [ "Dimanche", "Lundi", "Mardi","Mercredi", "Jeudi", "Vendredi", "Samedi" ];
-   const monthName = monthNames[month];
-   const dayName = dayNames[dayOfWeek];
    
    const router = useRouter();
    const { id } = router.query;
@@ -38,16 +30,10 @@ const Ctrlid:React.FC<props> = (props) => {
   
     async function fetchData() {
       try {
-        const response = await axios.get('https://localhost:7002/api/v1/Group',{ 
-          params: {
-            centraleId: id
-        }
-      });
-        setFirstLigne(response.data)
-        setLigne(response.data)
-        console.log(response.data);
-        
-        
+        const response = await axios.get(`https://localhost:7002/api/v1/Centrale/${id}`);
+        setFirstLigne(response.data.groupes)
+        setLigne(response.data.groupes)
+        console.log(response.data.groupes);
       } catch (error) {
         console.error(error);
       }
@@ -112,13 +98,13 @@ const Ctrlid:React.FC<props> = (props) => {
             <MdKeyboardArrowLeft className="text-lg" ></MdKeyboardArrowLeft>
              Centrales
             </Link>
-         {dayName} , {monthName} {day}
+            {props.dayName} , {props.monthName} {props.day}
             </div>
           <div className="flex items-center justify-between mt-10 ">
         <h1 className="text-2xl  font-semibold ">  {id} </h1>
-        <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] hover:bg-[#176ad6] duration-700 "  onClick={()=>props.setClicked(true)} >
+    { (props.userRole=="Admin" || props.userRole=="Manager") &&  <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] hover:bg-[#176ad6] duration-700 "  onClick={()=>props.setClicked(true)} >
         <MdOutlineAdd  className="text-xl" ></MdOutlineAdd> Groupe
-        </button>
+        </button> }
          </div>   
 
          <div className="mt-5 bg-white w-full h-[35vh]  "></div>
@@ -132,28 +118,28 @@ const Ctrlid:React.FC<props> = (props) => {
            <p className={` ${Filter==3 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(3)} >TG + TVA</p>
            <p className={` ${Filter==4 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(4)} >Mobile</p>
         </div>
-       <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-3 text-[#E91010] rounded-[10px] w-[50px] h-[30px] "
+     { props.userRole=="Admin" &&   <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-3 text-[#E91010] rounded-[10px] w-[50px] h-[30px] "
          onClick={()=>{
           if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
             handleDelete(0)
           }
         }}>
        <MdDeleteOutline className="text-xl " ></MdDeleteOutline>
-       </button>
+       </button>}
        </div>
 
        <div className="mt-3">
       <header className="bg-[#F1F4F9] mx-[2px] ">
         <div className="flex p-2 px-12 items-center text-[#aeacac] justify-between w-[85%] ">
           <div className="flex items-center gap-2 ">
-            <input
+      { props.userRole=="Admin" &&       <input
             type="checkbox"
             name=""
             id=""
             className="w-[18px] border-[#D9D9D9] h-[18px]"
             checked={isCheckedAll}
             onChange={handleAllCheckboxChange}
-          />
+          />}
             <p>Code</p>
           </div>
           <p>Nom</p>
@@ -167,7 +153,7 @@ const Ctrlid:React.FC<props> = (props) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
               <div className="flex items-center gap-2 ">
-           { checkboxes &&  <input
+           {  (props.userRole=="Admin" &&  checkboxes )  &&  <input
                   type="checkbox"
                   className="w-[18px] h-[18px]"
                   checked={checkboxes[index+4*(currentPage-1)].isChecked}
@@ -183,9 +169,9 @@ const Ctrlid:React.FC<props> = (props) => {
                 <Link href={`/Centrales/${id}/${data.num}`}>
                   <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
                 </Link>
-                <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
+             { props.userRole=="Admin" &&    <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
                  onClick={()=>{handleDelete(data.num)}}
-                />
+                />}
               </div>
             </div>
           );

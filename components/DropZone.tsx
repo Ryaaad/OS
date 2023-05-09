@@ -3,9 +3,10 @@ import { useState } from "react";
 type Props = {
   endpoint: string;
   accept: string;
+  Name:string
 };
 
-const DropZone = ({ endpoint, accept }: Props) => {
+const DropZone = ({ endpoint, accept,Name }: Props) => {
   const [file, setFile] = useState<File | null>(null);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -19,7 +20,7 @@ const DropZone = ({ endpoint, accept }: Props) => {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("date", "10 mars 2023");
+      formData.append("date", "08 mars 2023");
       console.log(formData.get("file")); // should log the file object
       try {
         const response = await fetch(endpoint, {
@@ -49,7 +50,7 @@ const DropZone = ({ endpoint, accept }: Props) => {
         <label htmlFor="file-upload" className="flex flex-col items-center">
           <i className="mb-2 text-gray-400 fas fa-cloud-upload-alt fa-3x"></i>
           <span className="text-gray-400 cursor-pointer">
-            {file ? file.name : "déposez un fichier ici ou cliquez sélectionner un fichier"}
+            {file ? file.name : `${Name}`}
           </span>
         </label>
         <input
@@ -60,9 +61,9 @@ const DropZone = ({ endpoint, accept }: Props) => {
           className="hidden "
           onChange={(event) => setFile(event.target.files?.[0] || null)}
         />
-        {/* <button type="submit" className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+        <button type="submit" className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
           Upload
-        </button> */}
+        </button>
       </form>
     </div>
   );
