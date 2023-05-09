@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import jwt from 'jsonwebtoken';
 import Rj from "@/components/Bilan/Rapportj";
     
-    const Rapport = () => {
+const Rapport = () => {
         const date = new Date();
         // Get the day (1-31)
          const day = date.getDate();

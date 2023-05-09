@@ -14,6 +14,7 @@ interface props{
   day:number ,
   userRole:string
 }
+
 const Rj:React.FC<props> = (props) => {
    
     const [inputValue, setInputValue] = useState<any>();
@@ -55,17 +56,10 @@ const Rj:React.FC<props> = (props) => {
     const handleChange = (event:any) => {
           setDateFilter(event.target.value)
          }
-        //  useEffect(() => {
-        //     console.log("UseEffcet : ");
-            
-        //     console.log(DateFilter);
-        //   }, [DateFilter]);
-
         const [isUploading, setIsUploading] = useState(false);
         const handleClick = async(DateString: string) => {
-          try{
-            
-            setIsUploading(true);
+          try{   
+           setIsUploading(true);
           const response = await fetch(`https://localhost:7002/api/v1/Rapport/${DateString}`, {
             method: 'GET',
             headers: {
@@ -143,14 +137,10 @@ const Rj:React.FC<props> = (props) => {
         {currentPosts.map((card: any,index:number) => {
           const dateString = card;
           const date = new Date(dateString);
-
-          
-
           const yearRapport = date.getFullYear();
           const monthRapport = date.toLocaleString('default', { month: 'long' });
           const monthRapportShort = date.toLocaleString('default', { month: 'short' });
           const dayRapport = date.getDate();
-          
           const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
           return (
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >

@@ -3,21 +3,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import { SiMicrosoftexcel} from "react-icons/si";
-
 import Pagination from "../Pagination";
-  const Enrg = () => {
-    const date = new Date();
-    // Get the day (1-31)
-    const day = date.getDate();
-    // Get the month (0-11)
-    const month = date.getMonth();
-    // Get the day of the week (0-6)
-    const dayOfWeek = date.getDay();
-    const monthNames = ["Janvier", "Février", "Mars","Avril", "Mai", "Juin", "Juillet","Août", "Septembre", "Octobre","Novembre", "Décembre"];
-    const dayNames = [ "Dimanche", "Lundi", "Mardi","Mercredi", "Jeudi", "Vendredi", "Samedi" ];
-    const monthName = monthNames[month];
-    const dayName = dayNames[dayOfWeek];
 
+interface props{
+  dayName:string,
+  monthName:string,
+  day:number ,
+}
+  const Enrg:React.FC<props> = (props) => {
 
     const [inputValue, setInputValue] = useState<any>();
     const FirstLigne=[
@@ -231,7 +224,7 @@ import Pagination from "../Pagination";
             Accueil
             </div>
             </Link>
-         {dayName} , {monthName} {day}
+         {props.dayName} , {props.monthName} {props.day}
             </div>
         <div className="flex items-center justify-between mt-10 ">
          <div>
