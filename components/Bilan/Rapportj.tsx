@@ -3,11 +3,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import {AiFillFileWord} from "react-icons/ai"
-import { BsFillFileEarmarkPdfFill} from "react-icons/bs";
-
 import Pagination from "../Pagination";
 import axios from "axios";
-import Drop from "@/pages/Drop";
 import DropZone from "../DropZone";
   
 const Rj = () => {
@@ -125,12 +122,14 @@ const Rj = () => {
         <p   className="text-[#8E8F90] mt-2 " >  in this page you can add or delete a Rapport journalier</p>
         </div>   
         </div>   
-        <div  className="mt-5 " >
-       <div className="w-full h-[22vh] ">
+        <div  className="mt-5 flex items-center justify-between  " >
+       <div className="w-[48%] h-[22vh] ">
        <DropZone accept="" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
        </div>
-       <div className="rounded-[10px] border border-solid mt-3 border-black w-full h-[12vh] "></div>
-
+       <div className="w-[48%] h-[22vh] ">
+       <DropZone accept="" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       </div>
+      
       </div>
 
        <div className="mt-5 py-3 bg-white rounded-[10px] border-[1.5px] border-solid border-[#ddd] relative h-[70vh] ">

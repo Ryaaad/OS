@@ -49,7 +49,7 @@ const DropZone = ({ endpoint, accept }: Props) => {
         <label htmlFor="file-upload" className="flex flex-col items-center">
           <i className="mb-2 text-gray-400 fas fa-cloud-upload-alt fa-3x"></i>
           <span className="text-gray-400 cursor-pointer">
-            {file ? file.name : "Glissez-déposez un fichier ici ou cliquez pour sélectionner un fichier"}
+            {file ? file.name : "déposez un fichier ici ou cliquez sélectionner un fichier"}
           </span>
         </label>
         <input

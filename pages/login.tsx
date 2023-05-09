@@ -8,48 +8,50 @@ import { useState } from "react";
 const Login = () => {
   const router = useRouter();
   const [err,seterr]=useState<any>()
-      const  Submit=async()=>{
-      axios.post('https://localhost:7002/api/v1/Auth/login', {
-        username: formik.values.user,
-        password: formik.values.code
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
+  const [token, setToken] = useState<string>(); // Add token state
+  const Submit = async () => {
+    try {
+      const response = await axios.post(
+        "https://localhost:7002/api/v1/Auth/login",
+        {
+          username: formik.values.user,
+          password: formik.values.code,
         },
-      })
-      .then(response => {
-        console.log(response);
-        if (response.status === 200) {
-          const token = response.headers.authorization;
-        // Store the token in session storage
-       sessionStorage.setItem('token', token);
-       console.log(token);
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       
-       router.push('/');
-        } else {
-         
-          throw new Error('Login failed');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-       
-          seterr(error.message)
-      });
-      
-        }
-    
-      const formik=useFormik({
-        initialValues:{
-            user:"",
-            code:""
-        },
-        onSubmit:(values)=>{
-          console.log("Form submitted with values", values);
-          Submit();
-        }
-      })
+      if (response.status === 200) {
+        const token = response.data;
+        sessionStorage.setItem("token", token);
+        console.log("token: ", token);
+        setToken(token); // Store token in state
+        router.push("/");
+      } else {
+        throw new Error("Login failed");
+      }
+    } catch (error) {
+      console.error(error);
+      // seterr(error.message);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      user: "",
+      code: "",
+    },
+    onSubmit: (values) => {
+      console.log("Form submitted with values", values);
+      Submit();
+    },
+  });
+
   console.log(err);
+
   
     return ( 
         <div className="h-[100vh] flex items-center ">

@@ -3,7 +3,7 @@ import Ctrl from "@/components/Centrales/Centrales";
 import Add from "@/components/Centrales/Add";
 import {motion,AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from "react";
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const Centrales = () => {
     const [AddClick, setAddClick] = useState(false)
@@ -22,10 +22,11 @@ const Centrales = () => {
 
     const [userRole,setuser]=useState<any>()
     useEffect(() => {
+      if (typeof sessionStorage !== 'undefined') {
       const token = sessionStorage.getItem('token');
       const decodedToken = jwt.decode(token as string) as { [key: string]: string };
       const Role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-      setuser(Role)
+      setuser(Role) }
     }, []);
     if (!userRole) {
       return <div>Loading...</div>;
