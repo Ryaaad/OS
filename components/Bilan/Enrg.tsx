@@ -229,14 +229,13 @@ interface props{
         <div className="flex items-center justify-between mt-10 ">
          <div>
         <h1 className="text-2xl  font-semibold ">  Bilans énergétique  </h1>
-        <p   className="text-[#8E8F90] mt-2 " >  in this page you can add or update or delete a centrale </p>
+        <p   className="text-[#8E8F90] mt-2 " > Sur cette page, vous pouvez consulter les archives du Bilan Énergétique.</p>
         </div>   
         </div>   
        <div className="mt-5 py-4 bg-white rounded-[10px] border-[1.5px] border-solid border-[#ddd] relative h-[70vh] ">
        <div className="flex items-center justify-between pb-3 border-b-[1.5px] border-b-solid border-b-[#ddd] px-7 ">
          <div>
         <h1 className="text-lg font-semibold ">  Archives  </h1>
-        <p   className="text-[#8E8F90] mt-1 " >  in this page you can add or update or delete a centrale </p>
         </div>   
         <div className="flex items-center space-x-4">
       <label htmlFor="date-input" className="font-medium text-gray-700">Choisissez une date :</label>
