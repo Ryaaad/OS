@@ -108,7 +108,7 @@ const Ctrlid:React.FC<props> = (props) => {
          </div>   
 
          <div className="mt-5 bg-white w-full h-[35vh] p-5 grid justify-end  ">
-         <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setEditClick(true)} />
+      {  (props.userRole=="Admin" || props.userRole=="Manager") &&   <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setEditClick(true)} />}
          </div>
           
         <div  className=" bg-white w-full h-[60vh] relative mt-4 " >
@@ -168,7 +168,7 @@ const Ctrlid:React.FC<props> = (props) => {
               <p className=""  >{data.puissanceTH}</p>
               <p className=" " >{data.puissanceS}</p>
               <div className="flex gap-4 items-center text-[#33333]">
-                  <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
+              {  (props.userRole=="Admin" || props.userRole=="Manager") &&    <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />}
              { props.userRole=="Admin" &&    <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
                  onClick={()=>{handleDelete(data.num)}}
                 />}

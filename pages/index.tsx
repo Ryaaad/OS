@@ -4,9 +4,19 @@ import { useFormik } from "formik";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 const Login = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof sessionStorage !== 'undefined') {
+    const token = sessionStorage.getItem('token');
+    if(token){ 
+      router.push('/Centrales');
+      } }
+  }, []);
+  
   const [err,seterr]=useState<any>()
   const [token, setToken] = useState<string>(); // Add token state
   const Submit = async () => {
