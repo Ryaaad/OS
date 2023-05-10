@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import {AiFillEye} from "react-icons/ai";
-import {MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd} from "react-icons/md";
+import {MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd,MdModeEdit} from "react-icons/md";
 import { useRouter } from 'next/router';
 import Pagination from "../Pagination";
 import Link from "next/link";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import Delete from "../Delete";
+import Edit from "./Edit";
 
 interface props{
     setClicked:(value:boolean) => void,
@@ -21,7 +21,7 @@ const Ctrlid:React.FC<props> = (props) => {
    const router = useRouter();
    const { id } = router.query;
    const [DeleteClick, setDeleteClick] = useState(false)
-
+   const [EditClick, setEditClick] = useState(false)
    const [Type, setType] = useState<any>()
     const [Filter, setFilter] = useState(0)
     const [inputValue, setInputValue] = useState<any>();
@@ -31,7 +31,7 @@ const Ctrlid:React.FC<props> = (props) => {
     async function fetchData() {
       try {
         const response = await axios.get(`https://localhost:7002/api/v1/Centrale/${id}`);
-        setFirstLigne(response.data.groupes)
+        setFirstLigne(response.data)
         setLigne(response.data.groupes)
         console.log(response.data.groupes);
       } catch (error) {
@@ -107,7 +107,9 @@ const Ctrlid:React.FC<props> = (props) => {
         </button> }
          </div>   
 
-         <div className="mt-5 bg-white w-full h-[35vh]  "></div>
+         <div className="mt-5 bg-white w-full h-[35vh] p-5 grid justify-end  ">
+         <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setEditClick(true)} />
+         </div>
           
         <div  className=" bg-white w-full h-[60vh] relative mt-4 " >
         <div className="flex justify-between items-center p-5 py-3 ">
@@ -166,9 +168,7 @@ const Ctrlid:React.FC<props> = (props) => {
               <p className=""  >{data.puissanceTH}</p>
               <p className=" " >{data.puissanceS}</p>
               <div className="flex gap-4 items-center text-[#33333]">
-                <Link href={`/Centrales/${id}/${data.num}`}>
-                  <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
-                </Link>
+                  <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
              { props.userRole=="Admin" &&    <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
                  onClick={()=>{handleDelete(data.num)}}
                 />}
@@ -190,6 +190,16 @@ const Ctrlid:React.FC<props> = (props) => {
          <Delete setClicked={setDeleteClick} checkboxes={checkboxes}  isCheckedAll={false} Type={Type} Centrale={false} ></Delete>
          </motion.div> }
          </AnimatePresence>    
+         <AnimatePresence>
+        {EditClick &&  <motion.div   
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, }} 
+        transition={{duration:.5, }}>
+         <Edit setClicked={setEditClick} centrale={FirstLigne} ></Edit>
+         </motion.div> }
+         </AnimatePresence>    
+        
         </div>
      );
 }

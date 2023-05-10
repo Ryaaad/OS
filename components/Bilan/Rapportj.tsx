@@ -85,7 +85,7 @@ const Rj:React.FC<props> = (props) => {
           
         };
     return ( 
-        <div  className="w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] overflow-y-scroll" >
+        <div  className={`w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] ${ (props.userRole=="Admin" || props.userRole=="Operant") && "overflow-y-scroll" }   `} >
             <div className="flex items-center justify-between w-full text-[#808080] "> 
             <Link href={'/'} >
             <div className="flex items-center gap-2 cursor-pointer ">       
@@ -98,7 +98,7 @@ const Rj:React.FC<props> = (props) => {
         <div className="flex items-center justify-between mt-10 ">
          <div>
         <h1 className="text-2xl  font-semibold ">  Rapport journalier d’exploitation  </h1>
-        <p   className="text-[#8E8F90] mt-2 " > {  (props.userRole=="Admin" || props.userRole=="Operant") ? " in this page you can add Rapport journalier"  : "in this page you can check Rapport journalier Archives" } </p>
+        <p   className="text-[#8E8F90] mt-2 " > {  (props.userRole=="Admin" || props.userRole=="Operant") ? " Sur cette page, vous pouvez créer un rapport journalier."  : "Sur cette page, vous pouvez consulter les archives du Rapport journalier." } </p>
         </div>   
         </div>   
      { (props.userRole=="Admin" || props.userRole=="Operant") &&   <div  className="mt-5 flex items-center justify-between  " >
@@ -155,7 +155,7 @@ const Rj:React.FC<props> = (props) => {
                 </div>
               </div> 
               <p>200MO</p>
-              <p>{monthRapport} {dayRapport},{yearRapport}</p>
+              <p>{monthRapportShort} {dayRapport},{yearRapport}</p>
               <button disabled={isUploading}  onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
             </div>
           );

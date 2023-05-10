@@ -12,7 +12,6 @@ const Add:React.FC<props> = (props) => {
    
 
    let Type={
-      code:"t",
       name:"",
       nature: "",
       nature_Producteur:"",
@@ -52,18 +51,22 @@ const Add:React.FC<props> = (props) => {
       console.log(data);
         axios.post('https://localhost:7002/api/v1/Centrale',data)
         .then(res => {
+        setAdded(true) 
           console.log('Successful');
-          window.location.reload(); // a change 
+          setTimeout(() => {
+            props.setClicked(false) 
+            window.location.reload(); // a change 
+           }, 200);
         }).catch(err=> console.log(err)  )
       }
    
 async function SaveClicked(e:any) {
+   const targetButton = document.getElementById('submitbutton') as HTMLButtonElement;
+   targetButton.style.backgroundColor = 'gainsboro';
+  targetButton.disabled = true;
+  targetButton.style.cursor = 'not-allowed';
    e.preventDefault()
       await handleSubmit() 
-     setAdded(true) 
-     setTimeout(() => {
-      props.setClicked(false) 
-     }, 400);
  }
 
     return ( 
@@ -154,7 +157,7 @@ async function SaveClicked(e:any) {
              hover:border-[#818181] duration-[.5s] " 
               onClick={()=>  props.setClicked(false)      }
               >Annuler </button>
-            <button type='submit' className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " >Enregistrer</button>
+            <button type='submit' id="submitbutton" className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " >Enregistrer</button>
         </div>
         </form>
         <AnimatePresence>
