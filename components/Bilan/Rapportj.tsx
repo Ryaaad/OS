@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import {AiFillFileWord} from "react-icons/ai"
 import Pagination from "../Pagination";
-import axios from "axios";
 import DropZone from "../DropZone";
   
 
@@ -19,16 +18,6 @@ const Rj:React.FC<props> = (props) => {
    
     const [inputValue, setInputValue] = useState<any>();
     const [Ligne, setLigne] = useState<any>([0])
-    async function fetchData() {
-        try {
-          const response = await axios.get('https://localhost:7002/api/v1/WritingFiles/Rapport');
-          setLigne(response.data)
-          console.log(response.data);
-          
-        } catch (error) {
-          console.error(error);
-        }
-      }
 
     async function fetchAllRaportDates(){
       try{
@@ -52,18 +41,20 @@ const Rj:React.FC<props> = (props) => {
     const firstPostIndex = lastPostIndex - postsPerPage;
     const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
 
-    const [DateFilter,setDateFilter]=useState()
-    const [DateFile,setDateFile]=useState()
+    const [DateFilter,setDateFilter]=useState<any>()
+    const [DateFile,setDateFile]=useState<any>()
     const handleChange = (event:any) => {
           setDateFilter(event.target.value)
          }
     const handleSelectedDate = (event:any) => {
-       setDateFile(event.target.value)
+      const dateString = event.target.value;
+      const date = new Date(dateString);
+      const yearRapport = date.getFullYear();
+      const monthRapport = date.toLocaleString('fr-FR', { month: 'long' });
+      const dayRapport = date.getDate();
+      const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
+       setDateFile(frenchDateString) 
          }     
-         
-
-
-
         const [isUploading, setIsUploading] = useState(false);
         const handleClick = async(DateString: string) => {
           try{   
@@ -77,7 +68,6 @@ const Rj:React.FC<props> = (props) => {
           console.log(response);
           const blob = await response.blob();
           const url = window.URL.createObjectURL(new Blob([blob]));
-
           const link = document.createElement('a');
           link.href = url;
           link.setAttribute('download', 'report.docx');
@@ -116,45 +106,42 @@ const Rj:React.FC<props> = (props) => {
       <div className="flex items-center space-x-4">
       <label htmlFor="date-input" className="font-medium text-gray-700">Date Fichier :</label>
       <input id="date-input" type="date" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
-       focus:bg-white focus:border-blue-500"  min="2022-01-01" max="2022-12-31"
+       focus:bg-white focus:border-blue-500"  
        onChange={(e)=>handleSelectedDate(e)}
        />
     </div>
       </div>
       <div className="grid grid-cols-[repeat(5,16%)] items-center gap-y-8 justify-between mt-5">
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh National" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Qh National" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Adrar" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Qh Adrar" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Alger" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Qh Alger" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAlger" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Oran" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Qh Anaba" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Saud" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Qh Saud" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhSud" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Adrare" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Qh Setif" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Adrare" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Qh Oran" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhOran" />
        </div>
       </div>
    
       <h1 className="text-lg mt-5 font-semibold "> Autre </h1>
       <div className="grid grid-cols-[repeat(5,16%)] items-center gap-y-8 justify-between mt-5">
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh National" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Bilan de Point" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Adrar" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
-       </div>
-       <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Oran" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Bilan de Reserve" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
       </div>
      </div>}
@@ -213,8 +200,6 @@ const Rj:React.FC<props> = (props) => {
       <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>
    
         </div>   
-   
-
         </div>
        
      );
