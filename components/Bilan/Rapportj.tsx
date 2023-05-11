@@ -53,9 +53,17 @@ const Rj:React.FC<props> = (props) => {
     const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
 
     const [DateFilter,setDateFilter]=useState()
+    const [DateFile,setDateFile]=useState()
     const handleChange = (event:any) => {
           setDateFilter(event.target.value)
          }
+    const handleSelectedDate = (event:any) => {
+       setDateFile(event.target.value)
+         }     
+         
+
+
+
         const [isUploading, setIsUploading] = useState(false);
         const handleClick = async(DateString: string) => {
           try{   
@@ -101,15 +109,55 @@ const Rj:React.FC<props> = (props) => {
         <p   className="text-[#8E8F90] mt-2 " > {  (props.userRole=="Admin" || props.userRole=="Operant") ? " Sur cette page, vous pouvez créer un rapport journalier."  : "Sur cette page, vous pouvez consulter les archives du Rapport journalier." } </p>
         </div>   
         </div>   
-     { (props.userRole=="Admin" || props.userRole=="Operant") &&   <div  className="mt-5 flex items-center justify-between  " >
-       <div className="w-[48%] h-[22vh] ">
+     { (props.userRole=="Admin" || props.userRole=="Operant") &&   
+     <div  className="mt-5 bg-white p-5 px-6 " >
+      <div className="flex items-center justify-between ">
+      <h1 className="text-lg  font-semibold "> Qhs </h1>
+      <div className="flex items-center space-x-4">
+      <label htmlFor="date-input" className="font-medium text-gray-700">Date Fichier :</label>
+      <input id="date-input" type="date" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
+       focus:bg-white focus:border-blue-500"  min="2022-01-01" max="2022-12-31"
+       onChange={(e)=>handleSelectedDate(e)}
+       />
+    </div>
+      </div>
+      <div className="grid grid-cols-[repeat(5,16%)] items-center gap-y-8 justify-between mt-5">
+       <div className="h-[13vh] ">
        <DropZone accept="" Name="Qh National" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
        </div>
-       <div className="w-[48%] h-[22vh] ">
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Adrar" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       </div>
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Alger" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       </div>
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Oran" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       </div>
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Saud" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       </div>
+       <div className="h-[13vh] ">
        <DropZone accept="" Name="Qh Adrare" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
-      
-        </div>}
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Adrare" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       </div>
+      </div>
+   
+      <h1 className="text-lg mt-5 font-semibold "> Autre </h1>
+      <div className="grid grid-cols-[repeat(5,16%)] items-center gap-y-8 justify-between mt-5">
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh National" endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       </div>
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Adrar" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       </div>
+       <div className="h-[13vh] ">
+       <DropZone accept="" Name="Qh Oran" endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       </div>
+      </div>
+     </div>}
 
        <div className="mt-5 py-3 bg-white rounded-[10px] border-[1.5px] border-solid border-[#ddd] relative h-[70vh] ">
        <div className="flex items-center justify-between pb-2 border-b-[1.5px] border-b-solid border-b-[#ddd] px-5 ">

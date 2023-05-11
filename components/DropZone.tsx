@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {MdOutlineCloudUpload} from "react-icons/md"
 
 type Props = {
   endpoint: string;
@@ -15,8 +16,14 @@ const DropZone = ({ endpoint, accept,Name }: Props) => {
     setFile(droppedFile);
   };
 
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  useEffect(() => {
+    // Automatically submit the form when a file is selected
+    if (file) {
+      handleFormSubmit();
+    }
+  }, [file]);
+
+  const handleFormSubmit = async () => {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -42,13 +49,14 @@ const DropZone = ({ endpoint, accept,Name }: Props) => {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-full border-2 border-black border-dashed rounded-md"
+      className="flex items-center justify-center w-full h-full border-2 border-[#3A78F1] border-dashed rounded-md"
       onDrop={handleDrop}
       onDragOver={(event) => event.preventDefault()}
     >
-      <form onSubmit={handleFormSubmit}>
+      <form>
         <label htmlFor="file-upload" className="flex flex-col items-center">
           <i className="mb-2 text-gray-400 fas fa-cloud-upload-alt fa-3x"></i>
+          <MdOutlineCloudUpload  className="text-3xl  text-[#3A78F1] mx-auto " ></MdOutlineCloudUpload>
           <span className="text-gray-400 cursor-pointer">
             {file ? file.name : `${Name}`}
           </span>
@@ -61,9 +69,6 @@ const DropZone = ({ endpoint, accept,Name }: Props) => {
           className="hidden "
           onChange={(event) => setFile(event.target.files?.[0] || null)}
         />
-        <button type="submit" className="px-4 py-2 mt-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
-          Upload
-        </button>
       </form>
     </div>
   );
