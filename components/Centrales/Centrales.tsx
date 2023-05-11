@@ -38,7 +38,6 @@ const Ctrl:React.FC<props> = (props) => {
     useEffect(()=>{
       fetchData();
       console.log(props.userRole);
-      
  },[])
   useEffect(() => {
       if(inputValue!=undefined)
@@ -146,7 +145,7 @@ const Ctrl:React.FC<props> = (props) => {
             </div>
             <p className="text-[rgba(191,195,201,1)] " > Affichage de { Ligne ? Ligne.length  : "0" } résultats </p>
         </div>
-   { props.userRole=="Admin" &&  <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
+   {( props.userRole=="Admin"  && Ligne ) &&  <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
 
       onClick={()=>{
         if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
@@ -163,14 +162,14 @@ const Ctrl:React.FC<props> = (props) => {
       <header className="bg-[#F1F4F9] mx-[2px] ">
         <div className={`flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ${ props.userRole=="Admin" && "w-[82%]" }  `} >
           <div className="flex items-center gap-2 ">
-            <input
+      { Ligne &&     <input
             type="checkbox"
             name=""
             id=""
             className="w-[18px] border-[#D9D9D9] h-[18px]"
             checked={isCheckedAll}
             onChange={handleAllCheckboxChange}
-          />
+          />}
             <p>Code</p>
           </div>
           <p  className="translate-x-[-40px] " >Nom</p>
