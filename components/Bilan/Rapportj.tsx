@@ -15,8 +15,6 @@ interface props{
 }
 
 const Rj:React.FC<props> = (props) => {
-   
-    const [inputValue, setInputValue] = useState<any>();
     const [Ligne, setLigne] = useState<any>([0])
 
     async function fetchAllRaportDates(){
@@ -30,10 +28,20 @@ const Rj:React.FC<props> = (props) => {
         console.error("Error");
       }
     }
+    async function fetchRaportDates(){
+      try{
+        const res = await fetch(`https://localhost:7002/api/v1/Rapport/${DateFilter}`);
+        const data = await res.json();
+        console.log(data);
+        setLigne(data)
+        console.log("Ligne:"+ Ligne);
+      }catch(err){
+        console.error("Error");
+      }
+    }
     useEffect(() => {
       fetchAllRaportDates()
   }, [])
-   
   
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage= 4;
@@ -44,8 +52,17 @@ const Rj:React.FC<props> = (props) => {
     const [DateFilter,setDateFilter]=useState<any>()
     const [DateFile,setDateFile]=useState<any>()
     const handleChange = (event:any) => {
-          setDateFilter(event.target.value)
-         }
+      const dateString = event.target.value;
+      const date = new Date(dateString);
+      const yearRapport = date.getFullYear();
+      const monthRapport = date.toLocaleString('fr-FR', { month: 'long' });
+      const dayRapport = date.getDate();
+      const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
+      setDateFilter(frenchDateString)
+    }
+  //   useEffect(() => {
+  //     DateFilter && fetchRaportDates()
+  // }, [DateFilter])
     const handleSelectedDate = (event:any) => {
       const dateString = event.target.value;
       const date = new Date(dateString);
@@ -122,13 +139,13 @@ const Rj:React.FC<props> = (props) => {
        <DropZone accept="" Name="Qh Alger" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAlger" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Anaba" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Qh Anaba" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAnnaba" />
        </div>
        <div className="h-[13vh] ">
        <DropZone accept="" Name="Qh Saud" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhSud" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Qh Setif" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Qh Setif" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhSetif" />
        </div>
        <div className="h-[13vh] ">
        <DropZone accept="" Name="Qh Oran" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhOran" />

@@ -20,6 +20,8 @@ const Ctrlid:React.FC<props> = (props) => {
    
    const router = useRouter();
    const { id } = router.query;
+   console.log(id);
+   
    const [DeleteClick, setDeleteClick] = useState(false)
    const [EditClick, setEditClick] = useState(false)
    const [Type, setType] = useState<any>()
@@ -39,8 +41,8 @@ const Ctrlid:React.FC<props> = (props) => {
       }
     }
     useEffect(()=>{
-      fetchData();  
-    },[])
+     id && fetchData();  
+    },[id])
 
     // useEffect(() => {
     // setLigne(FirstLigne)
