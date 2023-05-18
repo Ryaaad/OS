@@ -15,15 +15,15 @@ interface props{
 }
 
 const Rj:React.FC<props> = (props) => {
-    const [Ligne, setLigne] = useState<any>([0])
+    const [Repoorts, setRepoorts] = useState<any>([0])
 
     async function fetchAllRaportDates(){
       try{
         const res = await fetch('https://localhost:7002/api/v1/Rapport');
         const data = await res.json();
         console.log(data);
-        setLigne(data)
-        console.log("Ligne:"+ Ligne);
+        setRepoorts(data)
+        console.log("Repoorts:"+ Repoorts);
       }catch(err){
         console.error("Error");
       }
@@ -33,8 +33,8 @@ const Rj:React.FC<props> = (props) => {
         const res = await fetch(`https://localhost:7002/api/v1/Rapport/${DateFilter}`);
         const data = await res.json();
         console.log(data);
-        setLigne(data)
-        console.log("Ligne:"+ Ligne);
+        setRepoorts(data)
+        console.log("Repoorts:"+ Repoorts);
       }catch(err){
         console.error("Error");
       }
@@ -47,7 +47,7 @@ const Rj:React.FC<props> = (props) => {
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = Repoorts.slice(firstPostIndex, lastPostIndex);  
 
     const [DateFilter,setDateFilter]=useState<any>()
     const [DateFile,setDateFile]=useState<any>()
@@ -214,7 +214,7 @@ const Rj:React.FC<props> = (props) => {
         })}
       </main>
       
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Repoorts.length} ></Pagination>
    
         </div>   
         </div>

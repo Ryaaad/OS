@@ -29,14 +29,14 @@ const Ctrlid:React.FC<props> = (props) => {
    const [Filter, setFilter] = useState(0)
     // const [inputValue, setInputValue] = useState<any>();
   const [SelectedCode, setCode] = useState<string | undefined>();
-    const [Ligne, setLigne] = useState<any>()
-    const [FirstLigne, setFirstLigne] = useState<any>([0])
+    const [Groupes, setGroupes] = useState<any>()
+    const [centraleData, setcentraleData] = useState<any>([0])
   
     async function fetchData() {
       try {
         const response = await axios.get(`https://localhost:7002/api/v1/Centrale/${id}`);
-        setFirstLigne(response.data)
-        setLigne(response.data.groupes)
+        setcentraleData(response.data)
+        setGroupes(response.data.groupes)
         console.log(response.data.groupes);
       } catch (error) {
         console.error(error);
@@ -46,31 +46,31 @@ const Ctrlid:React.FC<props> = (props) => {
      id && fetchData();  
     },[id])
     // useEffect(() => {
-    // setLigne(FirstLigne)
+    // setGroupes(centraleData)
     // }, [inputValue])
 
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Ligne && Ligne.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = Groupes && Groupes.slice(firstPostIndex, lastPostIndex);  
 
    const [isCheckedAll, setIsCheckedAll] = useState(false);
     const [checkboxes, setCheckboxes] = useState(
-      Ligne &&  Ligne.map((l:any) => ({
+      Groupes &&  Groupes.map((l:any) => ({
           id:l.num,
         isChecked: false
       }))
     );
 
     useEffect(() => {
-    if(Ligne)  {  const newCheckboxes = Ligne.map((lign: any) => ({
+    if(Groupes)  {  const newCheckboxes = Groupes.map((lign: any) => ({
           id:lign.num,
           isChecked: false
         }));
-      console.log(Ligne);
+      console.log(Groupes);
         setCheckboxes(newCheckboxes);}
-      }, [Ligne]);
+      }, [Groupes]);
   
       const handleCheckboxChange = (index:number) => {
         const newCheckboxes = [...checkboxes];
@@ -152,7 +152,7 @@ const Ctrlid:React.FC<props> = (props) => {
           <p>puissance S</p>
         </div>
       </header>
-      {Ligne &&  <main className="text-[#626D7C] mt-5">
+      {Groupes &&  <main className="text-[#626D7C] mt-5">
         {currentPosts.map((data: any,index:number) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between mt-1 "  key={index} >
@@ -180,7 +180,7 @@ const Ctrlid:React.FC<props> = (props) => {
       </main>}
       </div>
        
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={ Ligne && Ligne.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={ Groupes && Groupes.length} ></Pagination>
         </div>
         <AnimatePresence>
         {DeleteClick &&  <motion.div   
@@ -197,7 +197,7 @@ const Ctrlid:React.FC<props> = (props) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, }} 
         transition={{duration:.5, }}>
-         <Edit setClicked={setEditClick} centrale={FirstLigne} ></Edit>
+         <Edit setClicked={setEditClick} centrale={centraleData} ></Edit>
          </motion.div> }
          </AnimatePresence>    
          <AnimatePresence>

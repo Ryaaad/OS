@@ -22,14 +22,14 @@ const Ctrl:React.FC<props> = (props) => {
     const [secondFilter, setsecondFilter] = useState(true)
     const [inputValue, setInputValue] = useState<any>();
    
-    const [Ligne, setLigne] = useState<any>()
-    const [FirstLigne, setFirstLigne] = useState<any>([0])
+    const [FiltedCentrales, setFiltedCentrales] = useState<any>()
+    const [centraleData, setcentraleData] = useState<any>([0])
    
     async function fetchData() {
       try {
         const response = await axios.get('https://localhost:7002/api/v1/Centrale');
-        setFirstLigne(response.data)
-        setLigne(response.data)
+        setcentraleData(response.data)
+        setFiltedCentrales(response.data)
         
       } catch (error) {
         console.error(error);
@@ -42,7 +42,7 @@ const Ctrl:React.FC<props> = (props) => {
   useEffect(() => {
       if(inputValue!=undefined)
  { 
-  const filterCards = FirstLigne.filter((card:any) => {
+  const filterCards = centraleData.filter((card:any) => {
     if (card && card.name) {
       setCurrentPage(1);
       return card.name.toLowerCase().includes(inputValue.toLowerCase());
@@ -51,7 +51,7 @@ const Ctrl:React.FC<props> = (props) => {
     }
   });
   
-  setLigne(filterCards)
+  setFiltedCentrales(filterCards)
     }
     else  fetchData();
   }, [inputValue])
@@ -60,23 +60,23 @@ const Ctrl:React.FC<props> = (props) => {
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Ligne && Ligne.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = FiltedCentrales && FiltedCentrales.slice(firstPostIndex, lastPostIndex);  
 
     const [isCheckedAll, setIsCheckedAll] = useState(false);
     const [checkboxes, setCheckboxes] = useState(
-      Ligne &&  Ligne.map((l:any) => ({
+      FiltedCentrales &&  FiltedCentrales.map((l:any) => ({
           id:l.code,
         isChecked: false
       }))
     );
     useEffect(() => {
-    if(Ligne)  {  const newCheckboxes = Ligne.map((lign: any) => ({
+    if(FiltedCentrales)  {  const newCheckboxes = FiltedCentrales.map((lign: any) => ({
           id:lign.code,
           isChecked: false
         }));
-      console.log(Ligne);
+      console.log(FiltedCentrales);
         setCheckboxes(newCheckboxes);}
-      }, [Ligne]);
+      }, [FiltedCentrales]);
   
     const handleCheckboxChange = (index:number) => {
       const newCheckboxes = [...checkboxes];
@@ -144,9 +144,9 @@ const Ctrl:React.FC<props> = (props) => {
             Filter
             {  secondFilter ? <MdOutlineKeyboardArrowDown></MdOutlineKeyboardArrowDown> : <MdOutlineKeyboardArrowUp></MdOutlineKeyboardArrowUp>  }
             </div>
-            <p className="text-[rgba(191,195,201,1)] " > Affichage de { Ligne ? Ligne.length  : "0" } résultats </p>
+            <p className="text-[rgba(191,195,201,1)] " > Affichage de { FiltedCentrales ? FiltedCentrales.length  : "0" } résultats </p>
         </div>
-   {( props.userRole=="Admin"  && Ligne ) &&  <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
+   {( props.userRole=="Admin"  && FiltedCentrales ) &&  <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-2 text-[#E91010] rounded-[10px] text-sm w-[110px] h-[35px] "   
 
       onClick={()=>{
         if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
@@ -163,7 +163,7 @@ const Ctrl:React.FC<props> = (props) => {
       <header className="bg-[#F1F4F9] mx-[2px] ">
         <div className={`flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ${ props.userRole=="Admin" && "w-[82%]" }  `} >
           <div className="flex items-center gap-2 ">
-      { Ligne &&     <input
+      { FiltedCentrales &&     <input
             type="checkbox"
             name=""
             id=""
@@ -178,7 +178,7 @@ const Ctrl:React.FC<props> = (props) => {
           <p>Wilaya</p>
         </div>
       </header>
-  {Ligne &&  <main className="text-[#626D7C] mt-5">
+  {FiltedCentrales &&  <main className="text-[#626D7C] mt-5">
         {currentPosts.map((data: any,index:number) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between text-start mt-1 "  key={index} >
@@ -208,7 +208,7 @@ const Ctrl:React.FC<props> = (props) => {
       </main>}
       </div>
        
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={ Ligne && Ligne.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={ FiltedCentrales && FiltedCentrales.length} ></Pagination>
         </div>
         <AnimatePresence>
         {DeleteClick &&  <motion.div   

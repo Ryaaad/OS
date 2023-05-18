@@ -12,8 +12,7 @@ interface props{
 }
   const Enrg:React.FC<props> = (props) => {
 
-    const [inputValue, setInputValue] = useState<any>();
-    const FirstLigne=[
+    const Data=[
             {
                 name :'XBX',
                 type:'MicroController',
@@ -178,35 +177,32 @@ interface props{
                             qte:15,
                             },
     ]
-    const [Ligne, setLigne] = useState<any>([0])
+    const [Bilans, setBilans] = useState<any>([0])
    
     useEffect(() => {
-        if(inputValue!=undefined)
-   {  let filterCards=  FirstLigne.filter((card)=> card.name.includes(inputValue))
-    setLigne(filterCards)}
-      else setLigne(FirstLigne)
-      console.log(Ligne);  
-    }, [inputValue])
+      setBilans(Data)
+      console.log(Bilans);  
+    }, [])
    
   
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Ligne.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = Bilans.slice(firstPostIndex, lastPostIndex);  
 
     const [isCheckedAll, setIsCheckedAll] = useState(false);
     const [checkboxes, setCheckboxes] = useState(
-        Ligne.map((l:any) => ({
+        Bilans.map((l:any) => ({
         isChecked: false
       }))
     );
     useEffect(() => {
-        const newCheckboxes = Ligne.map((ligne: any) => ({
+        const newCheckboxes = Bilans.map((Bilans: any) => ({
           isChecked: false
         }));
         setCheckboxes(newCheckboxes);
-      }, [Ligne]);
+      }, [Bilans]);
       
 
       const [DateFilter,setDateFilter]=useState()
@@ -285,7 +281,7 @@ interface props{
         })}
       </main>}
       
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Ligne.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Bilans.length} ></Pagination>
    
         </div>   
    
