@@ -173,7 +173,7 @@ const Ctrl:React.FC<props> = (props) => {
           />}
             <p>Code</p>
           </div>
-          <p  className="translate-x-[-40px] " >Nom</p>
+          <p  className="translate-x-[-40px] " >Designation</p>
           <p   className="translate-x-[15px] " >Nature</p>
           <p>Wilaya</p>
         </div>

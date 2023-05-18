@@ -13,20 +13,19 @@ type Props = {
 
 const DropZone = ({ endpoint, accept,Name,date}: Props) => {
 
- 
   const [file, setFile] = useState<File | null>(null);
   const [Status, setStatus] = useState<any>(null);
   const [Loading, setLoading] = useState(false);
-
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    if(date){
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
-    setFile(droppedFile);
+    setFile(droppedFile);}
   };
 
   useEffect(() => {
     // Automatically submit the form when a file is selected
-    if (file) {
+     if (file) {
       setLoading(true);
       handleFormSubmit();
     }
@@ -64,32 +63,31 @@ const DropZone = ({ endpoint, accept,Name,date}: Props) => {
 
   return (
     <div
-      className={`flex items-center justify-center w-full h-full border-2 border-[#3A78F1] border-dashed rounded-md 
-     
-      `}
+      className={`flex items-center justify-center w-full h-full border-2 border-[#3A78F1] border-dashed rounded-md
+       ${!date ? "border-[#3a77f17e]  opacity-50 " : "border-[#3A78F1]"}  `}
       onDrop={handleDrop}
       onDragOver={(event) => event.preventDefault()}
     >
       <form>
-        <label htmlFor="file-upload" className="flex flex-col items-center">
+        <label htmlFor="file-upload" className={`flex flex-col items-center  ${!date && "cursor-no-drop"} `}>
      {  !Loading ?   <>
-        { Status==undefined &&  <MdOutlineCloudUpload  className="text-3xl  text-[#3A78F1] mx-auto " ></MdOutlineCloudUpload>}
+        { Status==undefined &&  <MdOutlineCloudUpload  className="text-3xl text-[#3A78F1] mx-auto " ></MdOutlineCloudUpload>}
         { Status && <BsPatchCheck  className="text-3xl  text-[#228623] mx-auto " ></BsPatchCheck>}
         { Status==false && <BsPatchExclamation  className="text-3xl  text-[#f13a3a] mx-auto " ></BsPatchExclamation>}
         
-        <span className="text-gray-400 cursor-pointer">
+        <span className={`text-gray-400 test-sm ${!date ? "cursor-no-drop"  : "cursor-pointer" } `}>
             {file ? file.name : `${Name}`}
           </span>
           </>   : <LoadingAnimation></LoadingAnimation> }
         </label>
-        <input
+     { date &&  <input
           id="file-upload"
           name="file-upload"
           type="file"
           accept={accept}
           className="hidden "
           onChange={(event) => setFile(event.target.files?.[0] || null)}
-        />
+        />}
       </form>
     </div>
   );

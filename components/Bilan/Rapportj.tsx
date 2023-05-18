@@ -152,13 +152,13 @@ const Rj:React.FC<props> = (props) => {
        </div>
       </div>
    
-      <h1 className="text-lg mt-5 font-semibold "> Autre </h1>
+      <h1 className="text-lg mt-5 font-semibold "> Bilan de Points </h1>
       <div className="grid grid-cols-[repeat(5,16%)] items-center gap-y-8 justify-between mt-5">
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Bilan de Point" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Bilan de Point Soire" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Bilan de Reserve" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Bilan de Point Matin" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
        </div>
       </div>
      </div>}
