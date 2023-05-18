@@ -224,8 +224,8 @@ interface props{
             </div>
         <div className="flex items-center justify-between mt-10 ">
          <div>
-        <h1 className="text-2xl  font-semibold ">  Bilans énergétique  </h1>
-        <p   className="text-[#8E8F90] mt-2 " > Sur cette page, vous pouvez consulter les archives du Bilan Énergétique.</p>
+        <h1 className="text-2xl  font-semibold ">  Bilans Energétique Mensuel de la Production  </h1>
+        <p   className="text-[#8E8F90] mt-2 " > Sur cette page, vous pouvez consulter les archives du Bilans Energétique Mensuel de la Production.</p>
         </div>   
         </div>   
        <div className="mt-5 py-4 bg-white rounded-[10px] border-[1.5px] border-solid border-[#ddd] relative h-[70vh] ">
