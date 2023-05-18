@@ -1,7 +1,7 @@
 import SideNav from "@/components/SideNav";
 import { useEffect, useState } from "react";
 import jwt from 'jsonwebtoken';
-import Rj from "@/components/Bilan/Rapportj";
+import Csp from "@/components/Bilan/Csp";
 
 const Bilans = () => {
   const date = new Date();
@@ -23,7 +23,7 @@ const Bilans = () => {
     return (
       <div className="flex">
       <SideNav path='Consomations'></SideNav>
-      <Rj  userRole={userRole}  dayName={dayName} monthName={monthName} day={day} ></Rj>
+      <Csp userRole={userRole}  dayName={dayName} monthName={monthName} day={day} ></Csp>
      </div>
       );
 }
