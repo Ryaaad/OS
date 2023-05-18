@@ -7,6 +7,7 @@ import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import Delete from "../Delete";
 import Edit from "./Edit";
+import Editgrp from "../Groupe/EditGrp";
 
 interface props{
     setClicked:(value:boolean) => void,
@@ -25,8 +26,9 @@ const Ctrlid:React.FC<props> = (props) => {
    const [DeleteClick, setDeleteClick] = useState(false)
    const [EditClick, setEditClick] = useState(false)
    const [Type, setType] = useState<any>()
-    const [Filter, setFilter] = useState(0)
-    const [inputValue, setInputValue] = useState<any>();
+   const [Filter, setFilter] = useState(0)
+    // const [inputValue, setInputValue] = useState<any>();
+  const [SelectedCode, setCode] = useState<string | undefined>();
     const [Ligne, setLigne] = useState<any>()
     const [FirstLigne, setFirstLigne] = useState<any>([0])
   
@@ -43,7 +45,6 @@ const Ctrlid:React.FC<props> = (props) => {
     useEffect(()=>{
      id && fetchData();  
     },[id])
-
     // useEffect(() => {
     // setLigne(FirstLigne)
     // }, [inputValue])
@@ -144,9 +145,8 @@ const Ctrlid:React.FC<props> = (props) => {
             checked={isCheckedAll}
             onChange={handleAllCheckboxChange}
           />}
-            <p>Code</p>
+            <p>Num</p>
           </div>
-          <p>Nom</p>
           <p>Type</p>
           <p>puissance TH</p>
           <p>puissance S</p>
@@ -163,14 +163,13 @@ const Ctrlid:React.FC<props> = (props) => {
                   checked={checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />}
-                <p className="  " > {data.num} </p>
+                <p className="  " > {data.name} </p>
               </div> 
-              <p className=""  >  {data.name} </p>
               <p className="" >{ data.type}</p>
               <p className=""  >{data.puissanceTH}</p>
               <p className=" " >{data.puissanceS}</p>
               <div className="flex gap-4 items-center text-[#33333]">
-              {  (props.userRole=="Admin" || props.userRole=="Manager") &&    <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />}
+              {  (props.userRole=="Admin" || props.userRole=="Manager") &&    <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setCode(data.num)} />}
              { props.userRole=="Admin" &&    <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 
                  onClick={()=>{handleDelete(data.num)}}
                 />}
@@ -201,7 +200,16 @@ const Ctrlid:React.FC<props> = (props) => {
          <Edit setClicked={setEditClick} centrale={FirstLigne} ></Edit>
          </motion.div> }
          </AnimatePresence>    
-        
+         <AnimatePresence>
+        {SelectedCode &&  <motion.div   
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, }} 
+        transition={{duration:.5, }}>
+         <Editgrp setClicked={setCode} grpId={SelectedCode} ></Editgrp>
+         </motion.div> }
+         </AnimatePresence>
+         
         </div>
      );
 }
