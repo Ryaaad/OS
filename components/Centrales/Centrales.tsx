@@ -44,6 +44,7 @@ const Ctrl:React.FC<props> = (props) => {
  { 
   const filterCards = FirstLigne.filter((card:any) => {
     if (card && card.name) {
+      setCurrentPage(1);
       return card.name.toLowerCase().includes(inputValue.toLowerCase());
     } else {
       return false;
