@@ -26,9 +26,6 @@ const SideNav:React.FC<props> = (props) => {
           setuser(Role) }}
           console.log("Navbar",userRole);
         }, []);
-  
-
-
     const handelLogout=()=>{
         if (typeof sessionStorage !== 'undefined') {
             const token = sessionStorage.getItem('token');
@@ -45,11 +42,6 @@ const SideNav:React.FC<props> = (props) => {
         Os Management
     </div>
       <ul  className=" font-semibold flex flex-col gap-[30px] " >
-        <Link href={'/'} >
-        <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Accueil" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
-        <GoHome className="text-2xl" ></GoHome>   Accueil 
-        </div>
-        </Link>
         <Link href={'/Centrales'} >
         <div className={`flex gap-4 items-center  cursor-pointer ${props.path=="Centrales" ? "text-[rgba(0,66,236,1)]" : "text-[rgba(115,115,115,1)]" } `}>
             <SiHomeassistant className="text-2xl" ></SiHomeassistant>  Centrales

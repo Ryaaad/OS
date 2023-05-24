@@ -1,4 +1,3 @@
-import {MdKeyboardArrowLeft,MdDeleteOutline} from "react-icons/md";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
@@ -177,7 +176,7 @@ interface props{
                             qte:15,
                             },
     ]
-    const [Bilans, setBilans] = useState<any>([0])
+    const [Bilans, setBilans] = useState<any>()
    
     useEffect(() => {
       setBilans(Data)
@@ -189,38 +188,17 @@ interface props{
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Bilans.slice(firstPostIndex, lastPostIndex);  
-
-    const [isCheckedAll, setIsCheckedAll] = useState(false);
-    const [checkboxes, setCheckboxes] = useState(
-        Bilans.map((l:any) => ({
-        isChecked: false
-      }))
-    );
-    useEffect(() => {
-        const newCheckboxes = Bilans.map((Bilans: any) => ({
-          isChecked: false
-        }));
-        setCheckboxes(newCheckboxes);
-      }, [Bilans]);
-      
+    const currentPosts =Bilans && Bilans.slice(firstPostIndex, lastPostIndex);      
 
       const [DateFilter,setDateFilter]=useState()
       const handleChange = (event:any) => {
             setDateFilter(event.target.value)
            }
 
-
     return ( 
         <div  className="w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh]" >
-            <div className="flex items-center justify-between w-full text-[#808080] "> 
-            <Link href={'/'} >
-            <div className="flex items-center gap-2 cursor-pointer ">       
-            <MdKeyboardArrowLeft className="text-lg" ></MdKeyboardArrowLeft>
-            Accueil
-            </div>
-            </Link>
-         {props.dayName} , {props.monthName} {props.day}
+            <div className="flex items-center justify-end w-full text-[#808080] "> 
+           {props.dayName} , {props.monthName} {props.day}
             </div>
         <div className="flex items-center justify-between mt-10 ">
          <div>
@@ -247,11 +225,10 @@ interface props{
           <p>Date Uploaded</p>
           <p>Nbr Groupes</p>
           <p>Code Wilaya</p>
-        <MdDeleteOutline className={`text-[20px] text-red-500 cursor-pointer ${isCheckedAll ? "visible" : "invisible"} `}/>
 
         </div>
       </header>
-  {  checkboxes.length>1 &&  <main className="text-[#626D7C] ">
+  { Bilans &&  <main className="text-[#626D7C] ">
         {currentPosts.map((card: any,index:number) => {
           return (
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >
@@ -281,7 +258,7 @@ interface props{
         })}
       </main>}
       
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Bilans.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Bilans && Bilans.length} ></Pagination>
    
         </div>   
    

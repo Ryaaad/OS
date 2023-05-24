@@ -1,5 +1,3 @@
-import {MdKeyboardArrowLeft} from "react-icons/md";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import {AiFillFileWord} from "react-icons/ai"
@@ -15,7 +13,7 @@ interface props{
 }
 
 const Rj:React.FC<props> = (props) => {
-    const [Repoorts, setRepoorts] = useState<any>([0])
+    const [Repoorts, setRepoorts] = useState<any>()
 
     async function fetchAllRaportDates(){
       try{
@@ -47,7 +45,7 @@ const Rj:React.FC<props> = (props) => {
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = Repoorts.slice(firstPostIndex, lastPostIndex);  
+    const currentPosts = Repoorts && Repoorts.slice(firstPostIndex, lastPostIndex);  
 
     const [DateFilter,setDateFilter]=useState<any>()
     const [DateFile,setDateFile]=useState<any>()
@@ -101,13 +99,7 @@ const Rj:React.FC<props> = (props) => {
         };
     return ( 
         <div  className={`w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] ${ (props.userRole=="Admin" || props.userRole=="Operant") && "overflow-y-scroll" }   `} >
-            <div className="flex items-center justify-between w-full text-[#808080] "> 
-            <Link href={'/'} >
-            <div className="flex items-center gap-2 cursor-pointer ">       
-            <MdKeyboardArrowLeft className="text-lg" ></MdKeyboardArrowLeft>
-            Accueil
-            </div>
-            </Link>
+            <div className="flex items-center justify-end w-full text-[#808080] "> 
          {props.dayName} , {props.monthName} {props.day}
             </div>
         <div className="flex items-center justify-between mt-10 ">
@@ -185,7 +177,7 @@ const Rj:React.FC<props> = (props) => {
           <p>Date Uploaded</p>
         </div>
       </header>
-  <main className="text-[#626D7C] ">
+ {  Repoorts &&  <main className="text-[#626D7C] ">
         {currentPosts.map((card: any,index:number) => {
           const dateString = card;
           const date = new Date(dateString);
@@ -212,9 +204,9 @@ const Rj:React.FC<props> = (props) => {
             </div>
           );
         })}
-      </main>
+  </main>}
       
-      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Repoorts.length} ></Pagination>
+      <Pagination  currentPage={currentPage} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} totalPosts={Repoorts && Repoorts.length} ></Pagination>
    
         </div>   
         </div>
