@@ -103,13 +103,7 @@ const Ctrl:React.FC<props> = (props) => {
  
     return ( 
         <div className=" w-[81vw] p-7 py-4 bg-[#F0F8FF] h-[100vh] ">
-         <div className="flex items-center justify-between w-full text-[#808080] "> 
-         <Link href={'/'} >
-            <div className="flex items-center gap-2 cursor-pointer ">       
-            <MdKeyboardArrowLeft className="text-lg" ></MdKeyboardArrowLeft>
-            Accueil
-            </div>
-        </Link>
+         <div className="flex items-center justify-end w-full text-[#808080] "> 
          {props.dayName} , {props.monthName} {props.day}
             </div>
           <div className="flex items-center justify-between mt-10 ">

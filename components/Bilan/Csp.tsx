@@ -1,5 +1,3 @@
-import {MdKeyboardArrowLeft} from "react-icons/md";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import {AiFillFileWord} from "react-icons/ai"
