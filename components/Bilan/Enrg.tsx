@@ -11,176 +11,21 @@ interface props{
 }
   const Enrg:React.FC<props> = (props) => {
 
-    const Data=[
-            {
-                name :'XBX',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'atmega328',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'arduino nano',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'arduino uno',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-            {
-             name :'Rasberypi',
-                type:'MicroController',
-                img:'',
-                qte:15,
-                },
-                {
-                    name :'arduino',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                     name :'Rasberypi',
-                        type:'MicroController',
-                        img:'',
-                        qte:15,
-                        },
-                        {
-                            name :'arduino',
-                            type:'MicroController',
-                            img:'',
-                            qte:5,
-                            },
-                            {
-                             name :'Rasberypi',
-                                type:'MicroController',
-                                img:'',
-                                qte:15,
-                                },           
-                {
-                    name :'Esp32',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'Pic',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-                        {
-                            name :'UC-06',
-                            type:'MicroController',
-                            img:'',
-                            qte:20,
-                            },
-                            {
-                                name :'UC-05',
-                                type:'beuthuf',
-                                img:'',
-                                qte:15,
-                                },
-        
-        {
-        name :'arduino',
-        type:'MicroController',
-        img:'',
-        qte:5,
-        },
-        {
-            name :'arduino',
-            type:'MicroController',
-            img:'',
-            qte:5,
-            },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'arduino',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-        {
-         name :'Rasberypi',
-            type:'MicroController',
-            img:'',
-            qte:15,
-            },
-            {
-                name :'arduino',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                 name :'Rasberypi',
-                    type:'MicroController',
-                    img:'',
-                    qte:15,
-                    },
-                    {
-                        name :'arduino',
-                        type:'MicroController',
-                        img:'',
-                        qte:5,
-                        },
-                        {
-                         name :'Rasberypi',
-                            type:'MicroController',
-                            img:'',
-                            qte:15,
-                            },           
-            {
-                name :'Esp32',
-                type:'MicroController',
-                img:'',
-                qte:5,
-                },
-                {
-                    name :'Pic',
-                    type:'MicroController',
-                    img:'',
-                    qte:5,
-                    },
-                    {
-                        name :'UC-06',
-                        type:'MicroController',
-                        img:'',
-                        qte:20,
-                        },
-                        {
-                            name :'UC-05',
-                            type:'beuthuf',
-                            img:'',
-                            qte:15,
-                            },
-    ]
+ 
     const [Bilans, setBilans] = useState<any>()
-   
+    async function fetchAllRaportDates(){
+      try{
+        const res = await fetch('https://localhost:7002/api/v1/Production/mars');
+        const data = await res.json();
+        console.log(data);
+        setBilans(data)
+        console.log("bilans:"+ Bilans);
+      }catch(err){
+        console.error("Error");
+      }
+    }
     useEffect(() => {
-      setBilans(Data)
-      console.log(Bilans);  
+      fetchAllRaportDates();  
     }, [])
    
   
@@ -247,8 +92,8 @@ interface props{
              
               <p>200MO</p>
               <p>jan 4,2022</p>
-              <p>Nbr Groupes</p>
-              <p>Code Wilaya</p>
+              {/* <p>Nbr Groupes</p>
+              <p>Code Wilaya</p> */}
              
                 <Link href={`/Centrales/${card.id}`}>
                   <FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" />

@@ -13,12 +13,12 @@ const Add:React.FC<props> = (props) => {
 
    let Type={
       name:"",
-      nature: "",
+      nature: "TG",
       nature_Producteur:"",
       durreVie:0,
       durreFonctionement:0,
       capacite:0,
-      wilayaId:1
+      wilayaId:1,
   }
     const [data, setdata] = useState( Type )
        const handleChange = (event:any,attrb: number) => {
@@ -43,6 +43,9 @@ const Add:React.FC<props> = (props) => {
              case 9:
               data.wilayaId= parseInt(event.target.value,10)
              break;
+            //  case 10:
+            //    data.PuissanceNominale= parseInt(event.target.value,10)
+            //   break;
         }
         console.log(data);
         }
@@ -90,11 +93,20 @@ async function SaveClicked(e:any) {
             <input type="text"  required onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">Nature </h1>
-            <input type="text" required onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <h1 className="mb-2 text-lg "> Type </h1>
+            <select required
+    onChange={(e) => handleChange(e, 3)} 
+    className="block appearance-none text-center bg-white border border-gray-400 hover:border-gray-500  w-[220px] h-[35px] rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+  >
+           <option value="TG">TG</option>
+          <option value="TV">TV</option>
+          <option value="CC">CC</option>
+            <option value="PV">PV</option>
+            <option value="Eolienne">Eolienne</option>
+            </select>
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg "> nature_Producteur * </h1>
+            <h1 className="mb-2 text-lg ">  Producteur </h1>
             <input type="text" required onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
@@ -112,9 +124,9 @@ async function SaveClicked(e:any) {
          <div className="">
             <h1 className="mb-2 text-lg "> Wilaya </h1>
             <div>
-    <select required
+            <select required
     onChange={(e) => handleChange(e, 9)} 
-    className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+    className="block appearance-none  w-[220px] h-[35px] bg-white border border-gray-400 hover:border-gray-500 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline"
   >
    <option value="01">Adrar</option>
   <option value="02">Chlef</option>
@@ -146,11 +158,15 @@ async function SaveClicked(e:any) {
   <option value="28">M'Sila</option>
   <option value="29">Mascara</option>
   <option value="30">	Ouargla</option>
-  </select>
-</div>
+            </select>
+            </div>
 
          </div>
-
+         {/* <div className="">
+            <h1 className="mb-2 text-lg "> Puissance Nominale </h1>
+            <input type="text" required onChange={(e)=>handleChange(e,10)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
+         </div> */}
+         
         </div>
         <div className="flex w-full justify-end px-3 gap-4">
             <button  className="text-black p-2 px-7 rounded-[5px] border border-solid border-[#a6a7a8] hover:bg-[#f7f2f2]

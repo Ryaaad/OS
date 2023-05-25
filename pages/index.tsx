@@ -39,7 +39,7 @@ const Login = () => {
         sessionStorage.setItem("token", token);
         console.log("token: ", token);
         setToken(token); // Store token in state
-        router.push("/Accueil");
+        router.push("/Centrales");
       } else {
         throw new Error("Login failed");
       }
@@ -90,7 +90,7 @@ const Login = () => {
            
             <button type="submit" className="bg-[#1A73E8] items-center text-white mx-auto w-[200px] text-xl py-2 rounded-[10px] block mt-3 "  >  Continue </button>
            
-           <Link href={"/Accueil"}>
+           <Link href={"/Centrales"}>
             <p  className="text-[#808080] text-sm  "  > Visiteur </p>
            </Link>
         </form>

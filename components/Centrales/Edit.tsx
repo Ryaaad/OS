@@ -12,6 +12,7 @@ const Edit:React.FC<props> = (props) => {
    const [Added,setAdded]=useState(false);
 
    let Type={
+      code:props.centrale.code,
       name:props.centrale.name,
       nature: props.centrale.nature,
       nature_Producteur:props.centrale.nature_Producteur,
@@ -53,7 +54,6 @@ const Edit:React.FC<props> = (props) => {
       .then(response => {
         console.log('Value updated successfully:', response.data);
         setAdded(true) 
-        window.location.reload(); // a change 
       })
       .catch(error => {
         console.error('Error updating value:', error);

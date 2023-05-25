@@ -26,7 +26,7 @@ const Rj:React.FC<props> = (props) => {
         console.error("Error");
       }
     }
-    async function fetchRaportDates(){
+    async function fetchRaport(){
       try{
         const res = await fetch(`https://localhost:7002/api/v1/Rapport/${DateFilter}`);
         const data = await res.json();
@@ -37,10 +37,7 @@ const Rj:React.FC<props> = (props) => {
         console.error("Error");
       }
     }
-    useEffect(() => {
-      fetchAllRaportDates()
-  }, [])
-  
+    
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
@@ -58,9 +55,10 @@ const Rj:React.FC<props> = (props) => {
       const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
       setDateFilter(frenchDateString)
     }
-  //   useEffect(() => {
-  //     DateFilter && fetchRaportDates()
-  // }, [DateFilter])
+
+  useEffect(() => {
+    DateFilter ?  fetchRaport() :    fetchAllRaportDates()
+}, [DateFilter])
     const handleSelectedDate = (event:any) => {
       const dateString = event.target.value;
       const date = new Date(dateString);
@@ -164,7 +162,7 @@ const Rj:React.FC<props> = (props) => {
         <div className="flex items-center space-x-4">
       <label htmlFor="date-input" className="font-medium text-gray-700">Choisissez une date :</label>
       <input id="date-input" type="date" className="appearance-none bg-white border border-gray-300 rounded-md px-4 py-2 leading-tight focus:outline-none
-       focus:bg-white focus:border-blue-500"  min="2022-01-01" max="2022-12-31"
+       focus:bg-white focus:border-blue-500" 
        onChange={(e)=>handleChange(e)}
        />
     </div>
