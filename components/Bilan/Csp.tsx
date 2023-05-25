@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import {AiFillFileWord} from "react-icons/ai"
-import Pagination from "../Pagination";
-import DropZone from "../DropZone";
-  
+import Pagination from "../shared/Pagination";
+import DropZone from "../shared/DropZone";
+import ContentHeader from "../shared/ContentHeader";
+
 
 interface props{
   dayName:string,
@@ -103,10 +104,9 @@ const Csp:React.FC<props> = (props) => {
          {props.dayName} , {props.monthName} {props.day}
             </div>
         <div className="flex items-center justify-between mt-10 ">
-        {/*  this should be in componant  */}
         <div>
-        <h1 className="text-2xl  font-semibold "> Consommation Spécifique par Producteur  </h1>
-        <p   className="text-[#8E8F90] mt-2 " > {  (props.userRole=="Admin" || props.userRole=="Operant") ? " Sur cette page, vous pouvez créer un Consommation Spécifique par Producteur."  : "Sur cette page, vous pouvez consulter les archives du Consommation Spécifique par Producteur." } </p>
+     <ContentHeader title="Centrales" 
+     subtitle={ (props.userRole=="Admin" || props.userRole=="Operant") ? "Sur cette page, vous pouvez créer un Consommation Spécifique par Producteur." : "Sur cette page, vous pouvez consulter les archives du Consommation Spécifique par Producteur." }/>
         </div>   
         </div>   
      { (props.userRole=="Admin" || props.userRole=="Operant") &&   

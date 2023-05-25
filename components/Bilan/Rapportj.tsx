@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import {AiFillFileWord} from "react-icons/ai"
-import Pagination from "../Pagination";
-import DropZone from "../DropZone";
-  
+import Pagination from "../shared/Pagination";
+import DropZone from "../shared/DropZone";
+import ContentHeader from "../shared/ContentHeader";
 
 interface props{
   dayName:string,
@@ -102,8 +102,8 @@ const Rj:React.FC<props> = (props) => {
             </div>
         <div className="flex items-center justify-between mt-10 ">
          <div>
-        <h1 className="text-2xl  font-semibold ">  Rapport journalier d’exploitation  </h1>
-        <p   className="text-[#8E8F90] mt-2 " > {  (props.userRole=="Admin" || props.userRole=="Operant") ? " Sur cette page, vous pouvez créer un rapport journalier."  : "Sur cette page, vous pouvez consulter les archives du Rapport journalier." } </p>
+     <ContentHeader title="Rapport journalier d'exploitation" 
+     subtitle={ (props.userRole=="Admin" || props.userRole=="Manager") ? "Sur cette page, vous pouvez créer un rapport journalier." : "Sur cette page, vous pouvez consulter les archives du Rapport journalier." }/>
         </div>   
         </div>   
      { (props.userRole=="Admin" || props.userRole=="Operant") &&   

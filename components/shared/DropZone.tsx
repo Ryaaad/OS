@@ -3,7 +3,6 @@ import {MdOutlineCloudUpload} from "react-icons/md"
 import {BsPatchCheck,BsPatchExclamation} from "react-icons/bs"
 import LoadingAnimation from "./Loading";
 
-
 type Props = {
   endpoint: string;
   accept: string;

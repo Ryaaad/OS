@@ -1,9 +1,8 @@
 import Image from "next/image";
-import logo from "../public/OS_logo.png"
+import logo from "../../public/OS_logo.png"
 import Link from "next/link";
 import {MdEvStation } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
-import { GoHome } from "react-icons/go";
 import { SiHomeassistant } from "react-icons/si";
 import { VscOutput } from "react-icons/vsc";
 import {FiLogOut} from "react-icons/fi"
@@ -11,6 +10,7 @@ import {IoMdLogIn} from "react-icons/io"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwt from 'jsonwebtoken';
+import React from "react";
 
 interface props{
     path:string

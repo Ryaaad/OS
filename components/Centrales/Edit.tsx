@@ -54,6 +54,7 @@ const Edit:React.FC<props> = (props) => {
       .then(response => {
         console.log('Value updated successfully:', response.data);
         setAdded(true) 
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error updating value:', error);

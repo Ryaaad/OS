@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSearch , AiFillEye} from "react-icons/ai";
 import { MdOutlineKeyboardArrowDown,MdOutlineKeyboardArrowUp ,MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd} from "react-icons/md";
+import ContentHeader from "../shared/ContentHeader";
 import Link from "next/link";
-import Pagination from "../Pagination";
+import Pagination from "../shared/Pagination";
 import axios from "axios";
-import Delete from "../Delete";
+import Delete from "../shared/Delete";
 import { AnimatePresence, motion } from "framer-motion";
 interface props{
     setClicked:(value:boolean) => void,
@@ -108,8 +109,7 @@ const Ctrl:React.FC<props> = (props) => {
             </div>
           <div className="flex items-center justify-between mt-10 ">
          <div>
-        <h1 className="text-2xl  font-semibold ">  Centrales </h1>
-     {   (props.userRole=="Admin" || props.userRole=="Manager") &&  <p  className="text-[#8E8F90] mt-2 " >  Sur cette page, vous pouvez ajouter, mettre à jour ou supprimer une Centrale </p>}
+     <ContentHeader title="Centrales" subtitle={ (props.userRole=="Admin" || props.userRole=="Manager") ? "Sur cette page, vous pouvez ajouter, mettre à jour ou supprimer une Centrale" : "" }/>
         </div>   
         { (props.userRole=="Admin" || props.userRole=="Manager") && 
         <button className="bg-[#1A73E8] hover:bg-[#176ad6] duration-700 items-center text-white flex gap-2 p-3 py-2 rounded-[10px]  "  onClick={()=>props.setClicked(true)} >
@@ -157,7 +157,7 @@ const Ctrl:React.FC<props> = (props) => {
       <header className="bg-[#F1F4F9] mx-[2px] ">
         <div className={`flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ${ props.userRole=="Admin" && "w-[82%]" }  `} >
           <div className="flex items-center gap-2 ">
-      { FiltedCentrales &&     <input
+      { (FiltedCentrales && props.userRole=="Admin" ) &&     <input
             type="checkbox"
             name=""
             id=""
@@ -177,7 +177,7 @@ const Ctrl:React.FC<props> = (props) => {
           return (
             <div className="flex p-2 px-[50px] items-center justify-between text-start mt-1 "  key={index} >
               <div className="flex items-center gap-2 ">
-           { checkboxes &&  <input
+           { (checkboxes && props.userRole=="Admin" ) &&  <input
                   type="checkbox"
                   className="w-[18px] h-[18px]"
                   checked={checkboxes && checkboxes[index+4*(currentPage-1)] && checkboxes[index+4*(currentPage-1)].isChecked}
@@ -210,7 +210,7 @@ const Ctrl:React.FC<props> = (props) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, }} 
         transition={{duration:.5, }}>
-         <Delete setClicked={setDeleteClick} checkboxes={checkboxes} Centrale={true} isCheckedAll={isCheckedAll} Type={Type} ></Delete>
+         <Delete setClicked={setDeleteClick} checkboxes={checkboxes} Centrale={true} Type={Type} ></Delete>
          </motion.div> }
          </AnimatePresence>    
         </div>

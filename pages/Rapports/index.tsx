@@ -1,4 +1,4 @@
-import SideNav from "@/components/SideNav";
+import SideNav from "@/components/shared/SideNav";
 import { useEffect, useState } from "react";
 import jwt from 'jsonwebtoken';
 import Rj from "@/components/Bilan/Rapportj";

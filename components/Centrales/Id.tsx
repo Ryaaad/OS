@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import {MdKeyboardArrowLeft,MdDeleteOutline,MdOutlineAdd,MdModeEdit} from "react-icons/md";
 import { useRouter } from 'next/router';
-import Pagination from "../Pagination";
+import Pagination from "../shared/Pagination";
 import Link from "next/link";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import Delete from "../Delete";
+import Delete from "../shared/Delete";
 import Edit from "./Edit";
 import Editgrp from "../Groupe/EditGrp";
 
@@ -188,7 +188,7 @@ const Ctrlid:React.FC<props> = (props) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, }} 
         transition={{duration:.5, }}>
-         <Delete setClicked={setDeleteClick} checkboxes={checkboxes}  isCheckedAll={false} Type={Type} Centrale={false} ></Delete>
+         <Delete setClicked={setDeleteClick} checkboxes={checkboxes} Type={Type} Centrale={false} ></Delete>
          </motion.div> }
          </AnimatePresence>    
          <AnimatePresence>

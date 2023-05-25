@@ -1,4 +1,4 @@
-import SideNav from "@/components/SideNav";
+import SideNav from "@/components/shared/SideNav";
 import Ctrl from "@/components/Centrales/Centrales";
 import Add from "@/components/Centrales/Add";
 import {motion,AnimatePresence } from 'framer-motion'

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {FiDownload} from "react-icons/fi";
 import { SiMicrosoftexcel} from "react-icons/si";
-import Pagination from "../Pagination";
+import Pagination from "../shared/Pagination";
 
 interface props{
   dayName:string,
@@ -15,7 +15,7 @@ interface props{
     const [Bilans, setBilans] = useState<any>()
     async function fetchAllRaportDates(){
       try{
-        const res = await fetch('https://localhost:7002/api/v1/Production/mars');
+        const res = await fetch('https://localhost:7002/api/v1/Production');
         const data = await res.json();
         console.log(data);
         setBilans(data)
@@ -39,6 +39,32 @@ interface props{
       const handleChange = (event:any) => {
             setDateFilter(event.target.value)
            }
+
+
+           const handleClick = async(DateString: string) => {
+            try{   
+            const response = await fetch(`https://localhost:7002/api/v1/Production/${DateString}`, {
+              method: 'GET', 
+              headers: {
+                'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+              }
+            });
+            console.log(response);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'report.docx');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            console.log("Hii")
+            }catch(err){
+              console.error(err);
+            }
+            
+          };
+
 
     return ( 
         <div  className="w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh]" >
@@ -68,13 +94,12 @@ interface props{
             <p>FileName</p>
           <p>FileSize</p>
           <p>Date Uploaded</p>
-          <p>Nbr Groupes</p>
-          <p>Code Wilaya</p>
 
         </div>
       </header>
   { Bilans &&  <main className="text-[#626D7C] ">
         {currentPosts.map((card: any,index:number) => {
+          const frenchDateString='mars'
           return (
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >
               
@@ -91,13 +116,12 @@ interface props{
                 </div>
              
               <p>200MO</p>
-              <p>jan 4,2022</p>
+              <p>{Bilans} / 2023 </p>
               {/* <p>Nbr Groupes</p>
               <p>Code Wilaya</p> */}
              
-                <Link href={`/Centrales/${card.id}`}>
-                  <FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" />
-                </Link>
+             <button onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
+
             </div>
           );
         })}

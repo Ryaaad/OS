@@ -1,5 +1,4 @@
-import SideNav from "@/components/SideNav";
-import { useState } from "react";
+import SideNav from "@/components/shared/SideNav";
 import Enrg from "@/components/Bilan/Enrg";
 const Bilans = () => {
     const date = new Date();

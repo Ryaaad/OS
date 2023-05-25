@@ -5,7 +5,6 @@ import { FiX } from "react-icons/fi";
 import { useState } from 'react';
 interface props{
     setClicked:(value:boolean) => void,
-    isCheckedAll:boolean,
     checkboxes:any,
     Type:any,
     Centrale:boolean
@@ -26,21 +25,10 @@ const Delete:React.FC<props> = (props) => {
       }).catch(err=> console.log(err)  )
     }
 const handledeleteAll=()=>{
-if(props.isCheckedAll)
-{ axios.delete(`${url}`)
-.then(response => {
-console.log('All Centrales deleted successfully');
-window.location.reload();
-})
-.catch(error => {
-console.error('Error deleting all :', error);
-});}
-else {
 props.checkboxes.map((checkbox:any)=>{
  if(checkbox.isChecked)  handleDelete(checkbox.id)
 })
 window.location.reload();
-}
 }
    
 async function SaveClicked() {
