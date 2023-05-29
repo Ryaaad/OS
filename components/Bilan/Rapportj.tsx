@@ -169,10 +169,11 @@ const Rj:React.FC<props> = (props) => {
         </div>  
        
       <header className="bg-[#F1F4F9] text-sm border-b-[1.5px] border-b-solid border-b-[#ddd] ">
-        <div className="flex p-2 px-[65px] items-center justify-between w-[85%] ">
-          <p>FileName</p>
-          <p>FileSize</p>
-          <p>Date Uploaded</p>
+        <div className="flex p-2 px-10 items-center justify-between text-start ">
+          <p  className="w-[45%]" >FileName</p>
+          <p className="w-[25%]">FileSize</p>
+          <p className="w-[25%]">Date Uploaded</p>
+          <button><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]  invisible " /></button>
         </div>
       </header>
  {  Repoorts &&  <main className="text-[#626D7C] ">
@@ -187,7 +188,7 @@ const Rj:React.FC<props> = (props) => {
           return (
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >
               
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-3 items-center w-[45%] ">
                     <div  className=" rounded-full w-[35px] text-[#2162c0] h-[35px] text-xl grid justify-center items-center bg-[#8ec8f1] " >
                     <AiFillFileWord></AiFillFileWord>
                     </div>
@@ -196,8 +197,8 @@ const Rj:React.FC<props> = (props) => {
                 <p  className="text-[#aeacac] text-[13px] "> 200 KB  </p>
                 </div>
               </div> 
-              <p>200MO</p>
-              <p>{monthRapportShort} {dayRapport},{yearRapport}</p>
+              <p className="w-[25%]">200MO</p>
+              <p className="w-[25%]">{monthRapportShort} {dayRapport},{yearRapport}</p>
               <button disabled={isUploading}  onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
             </div>
           );

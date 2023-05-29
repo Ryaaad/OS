@@ -155,9 +155,9 @@ const Ctrl:React.FC<props> = (props) => {
 
       <div className="mt-3">
       <header className="bg-[#F1F4F9] mx-[2px] ">
-        <div className={`flex p-2 px-12 items-center text-[#aeacac]  justify-between w-[85%] ${ props.userRole=="Admin" && "w-[82%]" }  `} >
+        <div className={`flex p-2 px-12 items-center text-[#aeacac]  justify-between text-start `} >
           <div className="flex items-center gap-2 ">
-      { (FiltedCentrales && props.userRole=="Admin" ) &&     <input
+      { (FiltedCentrales && props.userRole=="Admin" ) &&  <input
             type="checkbox"
             name=""
             id=""
@@ -165,11 +165,17 @@ const Ctrl:React.FC<props> = (props) => {
             checked={isCheckedAll}
             onChange={handleAllCheckboxChange}
           />}
-            <p>Code</p>
+            <p className="w-[65px] " >Code</p>
           </div>
-          <p  className="translate-x-[-40px] " >Designation</p>
-          <p   className="translate-x-[15px] " >Nature</p>
-          <p>Wilaya</p>
+          <p  className=" w-[160px] "  >Designation</p>
+          <p   className=" w-[120px]" >Nature</p>
+          <p className=" w-[20px] ">Wilaya</p>
+          <div className="flex gap-4 items-center text-[#33333]  invisible ">
+                <Link href={`/Centrales`}>
+                  <AiFillEye className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />
+                </Link>
+              { props.userRole=="Admin" &&  <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " />}
+              </div>
         </div>
       </header>
   {FiltedCentrales &&  <main className="text-[#626D7C] mt-5">

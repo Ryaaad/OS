@@ -85,11 +85,11 @@ setTimeout(() => {
             <input type="text"  onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[300px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">puissanceTH </h1>
+            <h1 className="mb-2 text-lg ">puissance TH </h1>
             <input type="text" onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[300px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg "> puissanceS </h1>
+            <h1 className="mb-2 text-lg "> puissance Nominale </h1>
             <input type="text" onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[300px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
       

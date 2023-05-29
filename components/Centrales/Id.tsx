@@ -45,10 +45,6 @@ const Ctrlid:React.FC<props> = (props) => {
     useEffect(()=>{
      id && fetchData();  
     },[id])
-    // useEffect(() => {
-    // setGroupes(centraleData)
-    // }, [inputValue])
-
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage= 4;
     const lastPostIndex = currentPage * postsPerPage;
@@ -105,24 +101,48 @@ const Ctrlid:React.FC<props> = (props) => {
             </div>
           <div className="flex items-center justify-between mt-10 ">
         <h1 className="text-2xl  font-semibold ">  {id} </h1>
-    { (props.userRole=="Admin" || props.userRole=="Manager") &&  <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] hover:bg-[#176ad6] duration-700 "  onClick={()=>props.setClicked(true)} >
+    { (props.userRole=="Admin" || props.userRole=="Manager") &&  <button className="bg-[#1A73E8] items-center text-white flex gap-2 p-3 py-2 rounded-[10px] hover:bg-[#176ad6] duration-700 "  
+    onClick={()=>props.setClicked(true)} >
         <MdOutlineAdd  className="text-xl" ></MdOutlineAdd> Groupe
         </button> }
          </div>   
 
-         <div className="mt-5 bg-white w-full h-[35vh] p-5 grid justify-end  ">
+         <div className="mt-5 bg-white w-full h-[35vh] p-5">
+          <div className="flex  w-full justify-end ">
       {  (props.userRole=="Admin" || props.userRole=="Manager") &&   <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setEditClick(true)} />}
+          </div>
+   
+    { centraleData &&  <div  className="mt-1 grid grid-cols-2 gap-5 items-center justify-center w-full " >
+      <div className="flex gap-2 items-center">
+        <h3 className="text-lg font-semibold">  Designation :</h3>
+       <p> {centraleData.name} </p>
+      </div>
+      <div className="flex gap-2 items-center">
+        <h3 className="text-lg font-semibold">  Nature :</h3>
+       <p> {centraleData.nature} </p>
+      </div>
+      <div className="flex gap-2 items-center">
+        <h3 className="text-lg font-semibold">  Wilaya :</h3>
+       <p> Alger </p>
+      </div>
+      <div className="flex gap-2 items-center">
+        <h3 className="text-lg font-semibold">  Durre Vie :</h3>
+       <p> {centraleData.DurreVie} </p>
+      </div>
+      <div className="flex gap-2 items-center">
+        <h3 className="text-lg font-semibold"> Durre Fonctionement :</h3>
+       <p> {centraleData.DurreFonctionement} </p>
+      </div>
+      <div className="flex gap-2 items-center">
+        <h3 className="text-lg font-semibold"> Puissance Nominale :</h3>
+       <p> {centraleData.PuissanceNominale} </p>
+      </div>
+       </div>}
          </div>
           
         <div  className=" bg-white w-full h-[60vh] relative mt-4 " >
         <div className="flex justify-between items-center p-5 py-3 ">
-        <div className="flex gap-3 items-center justify-between border-b border-solid-b p-2 pb-0 border-b-[#D9D9D9] w-[60%] mx-auto text-lg text-[#808080] font-semibold ">
-           <p className={` ${Filter==0 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(0)} >Tout</p>
-           <p className={` ${Filter==1 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(1)} >TG</p>
-           <p className={` ${Filter==2 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(2)} >TVA</p>
-           <p className={` ${Filter==3 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(3)} >TG + TVA</p>
-           <p className={` ${Filter==4 && "text-[#3A78F1] border-b-[2px] border-b-solid border-b-[#3A78F1] "} cursor-pointer `}  onClick={()=>setFilter(4)} >Mobile</p>
-        </div>
+     <h1 className="text-xl  font-semibold ">  {id} Groupes </h1>
      { props.userRole=="Admin" &&   <button className="border border-solid border-[#E91010] font-semibold flex items-center justify-center gap-3 text-[#E91010] rounded-[10px] w-[50px] h-[30px] "
          onClick={()=>{
           if (checkboxes.some((obj:any) => obj.hasOwnProperty('isChecked') && obj.isChecked === true)) {
@@ -135,9 +155,9 @@ const Ctrlid:React.FC<props> = (props) => {
 
        <div className="mt-3">
       <header className="bg-[#F1F4F9] mx-[2px] ">
-        <div className="flex p-2 px-12 items-center text-[#aeacac] justify-between w-[85%] ">
+        <div className="flex p-2 px-12 items-center text-[#aeacac] justify-between text-start ">
           <div className="flex items-center gap-2 ">
-      { props.userRole=="Admin" &&       <input
+      { props.userRole=="Admin" &&  <input
             type="checkbox"
             name=""
             id=""
@@ -145,11 +165,15 @@ const Ctrlid:React.FC<props> = (props) => {
             checked={isCheckedAll}
             onChange={handleAllCheckboxChange}
           />}
-            <p>Num</p>
+            <p  className="w-[65px] " >Num</p>
           </div>
-          <p>Type</p>
-          <p>puissance TH</p>
-          <p>puissance S</p>
+          <p  className=" w-[60px] " >Type</p>
+          <p  className=" w-[120px]" >puissance TH</p>
+          <p  className=" w-[100px] " >puissance S</p>
+          <div className="flex gap-4 items-center text-[#33333]  invisible ">
+              {  (props.userRole=="Admin" || props.userRole=="Manager") &&    <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " />}
+             { props.userRole=="Admin" &&    <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] "  />}
+              </div>
         </div>
       </header>
       {Groupes &&  <main className="text-[#626D7C] mt-5">
@@ -163,11 +187,11 @@ const Ctrlid:React.FC<props> = (props) => {
                   checked={checkboxes[index+4*(currentPage-1)].isChecked}
                   onChange={()=> handleCheckboxChange(index+4*(currentPage-1)) }
                 />}
-                <p className="  " > {data.name} </p>
+                <p className="w-[65px] " > {data.name} </p>
               </div> 
-              <p className="" >{ data.type}</p>
-              <p className=""  >{data.puissanceTH}</p>
-              <p className=" " >{data.puissanceS}</p>
+              <p  className=" w-[60px] " >{ data.type}</p>
+              <p className=" w-[120px]" >{data.puissanceTH}</p>
+              <p  className=" w-[100px] " >{data.puissanceS}</p>
               <div className="flex gap-4 items-center text-[#33333]">
               {  (props.userRole=="Admin" || props.userRole=="Manager") &&    <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setCode(data.num)} />}
              { props.userRole=="Admin" &&    <MdDeleteOutline className="text-[25px] cursor-pointer duration-700  hover:text-[#c33c3c] " 

@@ -90,10 +90,11 @@ interface props{
         </div>  
        
       <header className="bg-[#F1F4F9] text-sm border-b-[1.5px] border-b-solid border-b-[#ddd] ">
-        <div className="flex p-2 px-12 items-center justify-between w-full ">
-            <p>FileName</p>
-          <p>FileSize</p>
-          <p>Date Uploaded</p>
+        <div className="flex p-2 px-10 items-center justify-between w-full  text-start ">
+            <p  className="w-[45%] " >File Name</p>
+          <p className="w-[25%]" >File Size</p>
+          <p className="w-[25%]" >Date Uploaded</p>
+          <button><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]  invisible " /></button>
 
         </div>
       </header>
@@ -104,22 +105,19 @@ interface props{
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >
               
              
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center w-[45%] ">
                     <div  className=" rounded-full w-[35px] text-[green] h-[35px] text-xl grid justify-center items-center bg-[#16a31629] " >
                     <SiMicrosoftexcel></SiMicrosoftexcel>
                     </div>
-                    <div>
-                <p  className="font-semibold text-black text-[16px]  "> Report  </p>
-                <p  className="text-[#aeacac] text-[13px] "> 200 KB  </p>
+                    <div >
+                <p  className="font-semibold text-black text-[16px]  "> EMP202303  </p>
+                <p  className="text-[#aeacac] text-[13px]   "> 200 KB  </p>
 
                     </div>
                 </div>
              
-              <p>200MO</p>
-              <p>{Bilans} / 2023 </p>
-              {/* <p>Nbr Groupes</p>
-              <p>Code Wilaya</p> */}
-             
+              <p className="w-[25%]">200MO</p>
+              <p className="w-[25%]">mars 2023 </p>
              <button onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
 
             </div>
