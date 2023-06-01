@@ -112,32 +112,33 @@ const Ctrlid:React.FC<props> = (props) => {
       {  (props.userRole=="Admin" || props.userRole=="Manager") &&   <MdModeEdit className="text-[25px] cursor-pointer duration-700  hover:text-[#1a73e8] " onClick={()=>setEditClick(true)} />}
           </div>
    
-    { centraleData &&  <div  className="mt-1 grid grid-cols-2 gap-5 items-center justify-center w-full " >
-      <div className="flex gap-2 items-center">
+    { centraleData && 
+     <div  className="mt-1 grid grid-cols-2 gap-5 items-center justify-items-center justify-center w-full" >
+      <div className="flex gap-2 items-center w-full ">
         <h3 className="text-lg font-semibold">  Designation :</h3>
        <p> {centraleData.name} </p>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold">  Nature :</h3>
        <p> {centraleData.nature} </p>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold">  Wilaya :</h3>
        <p> Alger </p>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold">  Durre Vie :</h3>
        <p> {centraleData.DurreVie} </p>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold"> Durre Fonctionement :</h3>
        <p> {centraleData.DurreFonctionement} </p>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold"> Puissance Nominale :</h3>
        <p> {centraleData.PuissanceNominale} </p>
       </div>
-       </div>}
+     </div>}
          </div>
           
         <div  className=" bg-white w-full h-[60vh] relative mt-4 " >

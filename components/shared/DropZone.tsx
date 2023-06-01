@@ -35,6 +35,9 @@ const DropZone = ({ endpoint, accept,Name,date}: Props) => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("date", date);
+      Name=="Bilan de Point Soir" &&   formData.append("point", "Soir");
+      Name=="Bilan de Point Matin" &&   formData.append("point", "Soir");
+    
       console.log(formData.get("file")); // should log the file object
       try {
         const response = await fetch(endpoint, {

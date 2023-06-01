@@ -54,9 +54,13 @@ const Rj:React.FC<props> = (props) => {
       const dayRapport = date.getDate();
       const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
       setDateFilter(frenchDateString)
+      console.log("ff");
+      
     }
 
   useEffect(() => {
+    console.log(DateFilter);
+    
     DateFilter ?  fetchRaport() :    fetchAllRaportDates()
 }, [DateFilter])
     const handleSelectedDate = (event:any) => {
@@ -145,10 +149,10 @@ const Rj:React.FC<props> = (props) => {
       <h1 className="text-lg mt-5 font-semibold "> Bilan de Points </h1>
       <div className="grid grid-cols-[repeat(5,16%)] items-center gap-y-8 justify-between mt-5">
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Bilan de Point Soire" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Bilan de Point Soir" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/BilanPoint" />
        </div>
        <div className="h-[13vh] ">
-       <DropZone accept="" Name="Bilan de Point Matin" date={DateFile} endpoint="https://localhost:7002/api/v1/Qh/QhAdrar" />
+       <DropZone accept="" Name="Bilan de Point Matin" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/BilanPoint" />
        </div>
       </div>
      </div>}

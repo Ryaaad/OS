@@ -14,11 +14,13 @@ const Add:React.FC<props> = (props) => {
    let Type={
       name:"",
       nature: "TG",
-      nature_Producteur:"",
       durreVie:0,
       durreFonctionement:0,
       capacite:0,
+      puissanceNominale:0,
       wilayaId:1,
+      societe_DistrubitionId: "",
+      abrv:""
   }
     const [data, setdata] = useState( Type )
        const handleChange = (event:any,attrb: number) => {
@@ -30,7 +32,7 @@ const Add:React.FC<props> = (props) => {
             data.nature  = event.target.value
             break;
            case 4:
-            data.nature_Producteur= event.target.value
+            data.societe_DistrubitionId= event.target.value
           case 5:
              data.durreVie= parseInt(event.target.value,10)
             break;
@@ -43,9 +45,12 @@ const Add:React.FC<props> = (props) => {
              case 9:
               data.wilayaId= parseInt(event.target.value,10)
              break;
-            //  case 10:
-            //    data.PuissanceNominale= parseInt(event.target.value,10)
-            //   break;
+             case 10:
+               data.puissanceNominale= parseInt(event.target.value,10)
+              break;
+              case 11:
+               data.abrv= event.target.value
+              break;
         }
         console.log(data);
         }
@@ -162,11 +167,14 @@ async function SaveClicked(e:any) {
             </div>
 
          </div>
-         {/* <div className="">
+         <div className="">
             <h1 className="mb-2 text-lg "> Puissance Nominale </h1>
             <input type="text" required onChange={(e)=>handleChange(e,10)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
-         </div> */}
-         
+         </div>
+         <div className="">
+            <h1 className="mb-2 text-lg "> Abreivation </h1>
+            <input type="text" required onChange={(e)=>handleChange(e,11)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
+         </div>
         </div>
         <div className="flex w-full justify-end px-3 gap-4">
             <button  className="text-black p-2 px-7 rounded-[5px] border border-solid border-[#a6a7a8] hover:bg-[#f7f2f2]

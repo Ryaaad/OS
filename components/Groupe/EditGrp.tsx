@@ -45,16 +45,16 @@ async function fetchGroupe() {
         }
     
    const handleSubmit = () => {
-    //   console.log(data);
-    //   axios.put(`https://localhost:7002/api/v1/Centrale/${props.centrale.code}`, data)
-    //   .then(response => {
-    //     console.log('Value updated successfully:', response.data);
-    //     setAdded(true) 
-    //     window.location.reload(); // a change 
-    //   })
-    //   .catch(error => {
-    //     console.error('Error updating value:', error);
-    //   });
+      console.log(data);
+      axios.put(`https://localhost:7002/api/v1/Group/${props.grpId}`, data)
+      .then(response => {
+        console.log('Value updated successfully:', response.data);
+        setAdded(true) 
+        window.location.reload(); // a change 
+      })
+      .catch(error => {
+        console.error('Error updating value:', error);
+      });
       }
    
 async function SaveClicked(e:any) {

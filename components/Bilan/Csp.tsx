@@ -99,17 +99,17 @@ const Csp:React.FC<props> = (props) => {
           
         };
     return ( 
-        <div  className={`w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] ${ (props.userRole=="Admin" || props.userRole=="Operant") && "overflow-y-scroll" }   `} >
+        <div  className={`w-[81vw] p-7 py-4 bg-[#F0F8FF] max-h-[100vh] ${ (props.userRole=="Admin" || props.userRole=="Manager") && "overflow-y-scroll" }   `} >
             <div className="flex items-center justify-end w-full text-[#808080] "> 
          {props.dayName} , {props.monthName} {props.day}
             </div>
         <div className="flex items-center justify-between mt-10 ">
         <div>
      <ContentHeader title="Consommation spécifique par producteur" 
-     subtitle={ (props.userRole=="Admin" || props.userRole=="Operant") ? "Sur cette page, vous pouvez créer ou consulter un bilan de la Consommation Spécifique par Producteur." : "Sur cette page, vous pouvez consulter les archives du Consommation Spécifique par Producteur." }/>
+     subtitle={ (props.userRole=="Admin" || props.userRole=="Manager") ? "Sur cette page, vous pouvez créer ou consulter un bilan de la Consommation Spécifique par Producteur." : "Sur cette page, vous pouvez consulter les archives du Consommation Spécifique par Producteur." }/>
         </div>   
         </div>   
-     { (props.userRole=="Admin" || props.userRole=="Operant") &&   
+     { (props.userRole=="Admin" || props.userRole=="Manager") &&   
      <div  className="mt-5 bg-white p-5 px-6 " >
       <div className="flex items-center justify-between ">
       <h1 className="text-lg  font-semibold "> Qhs </h1>

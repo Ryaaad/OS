@@ -15,15 +15,20 @@ const Edit:React.FC<props> = (props) => {
       code:props.centrale.code,
       name:props.centrale.name,
       nature: props.centrale.nature,
-      nature_Producteur:props.centrale.nature_Producteur,
       durreVie:props.centrale.durreVie,
       durreFonctionement:props.centrale.durreFonctionement,
       capacite:props.centrale.capacite,
-      wilayaId:props.centrale.wilayaId
+      wilayaId:props.centrale.wilayaId,
+      puissanceNominale:props.centrale.puissanceNominale,
+      societe_DistrubitionId: props.centrale.societe_DistrubitionId,
+           abrv:props.centrale.abrv
   }
     const [data, setdata] = useState( Type )
        const handleChange = (event:any,attrb: number) => {
         switch (attrb) {
+         case 1:
+            data.abrv  = event.target.value
+             break;
            case 2:
              data.name  = event.target.value
               break;
@@ -31,7 +36,7 @@ const Edit:React.FC<props> = (props) => {
             data.nature  = event.target.value
             break;
            case 4:
-            data.nature_Producteur= event.target.value
+            data.societe_DistrubitionId= event.target.value
           case 5:
              data.durreVie= parseInt(event.target.value,10)
             break;
@@ -44,6 +49,9 @@ const Edit:React.FC<props> = (props) => {
              case 9:
               data.wilayaId= parseInt(event.target.value,10)
              break;
+             case 10:
+               data.puissanceNominale= parseInt(event.target.value,10)
+              break;
         }
         console.log(data);
         }
@@ -85,6 +93,10 @@ async function SaveClicked(e:any) {
     </div>
     <form onSubmit={(e)=>SaveClicked(e) } >
        <div className=" grid justify-items-center items-center grid-cols-3 w-full my-6 gap-1 gap-y-3 ">
+       <div className="">
+            <h1 className="mb-2 text-lg "> Abrevation </h1>
+            <input type="text"  defaultValue={data.abrv} required onChange={(e)=>handleChange(e,1)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+         </div>
          <div className="">
             <h1 className="mb-2 text-lg "> Nom </h1>
             <input type="text"  defaultValue={data.name} required onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
@@ -95,7 +107,7 @@ async function SaveClicked(e:any) {
          </div>
          <div className="">
             <h1 className="mb-2 text-lg "> nature_Producteur * </h1>
-            <input type="text"  defaultValue={data.nature_Producteur} required onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <input type="text"  defaultValue={data.societe_DistrubitionId} required onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">Durre vie Econnomique</h1>
@@ -179,14 +191,18 @@ async function SaveClicked(e:any) {
 </div>
 
          </div>
-
+         <div className="">
+            <h1 className="mb-2 text-lg ">    puissance Nominale </h1>
+            <input type="text"  defaultValue={data.puissanceNominale} required onChange={(e)=>handleChange(e,10)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] "  />
+         </div>
+      
         </div>
         <div className="flex w-full justify-end px-3 gap-4">
             <button  className="text-black p-2 px-7 rounded-[5px] border border-solid border-[#a6a7a8] hover:bg-[#f7f2f2]
-             hover:border-[#818181] duration-[.5s] " 
+             hover:border-[#818181] duration-[.5s] "   >Annuler </button>
+            <button type='submit' className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] "
               onClick={()=> { setdata(Type);  props.setClicked(false)  }    }
-              >Annuler </button>
-            <button type='submit' className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " > Modifier </button>
+            > Modifier </button>
         </div>
         </form>
         <AnimatePresence>
