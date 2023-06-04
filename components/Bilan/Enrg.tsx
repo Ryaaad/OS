@@ -93,7 +93,6 @@ interface props{
         <div className="flex p-2 px-10 items-center justify-between w-full  text-start ">
             <p  className="w-[45%] " >File Name</p>
           <p className="w-[25%]" >File Size</p>
-          <p className="w-[25%]" >Date Uploaded</p>
           <button><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]  invisible " /></button>
 
         </div>
@@ -117,7 +116,6 @@ interface props{
                 </div>
              
               <p className="w-[25%]">200MO</p>
-              <p className="w-[25%]">mars 2023 </p>
              <button onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
 
             </div>

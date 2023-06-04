@@ -16,7 +16,7 @@ const AddGrp:React.FC<props> = (props) => {
    const [Next,setNext]=useState(0);
    let Type={
           name: "",
-          type: "",
+          type: "TG",
           puissanceTH: 0,
           puissanceS: 0,
           centraleId: id
@@ -81,8 +81,17 @@ setTimeout(() => {
             <input type="text" onChange={(e)=>handleChange(e,1)} className=" pl-[5%] text-black rounded-[5px] w-[300px] h-[35px] border border-solid border-[#a6a7a8] " />
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg "> type * </h1>
-            <input type="text"  onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[300px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <h1 className="mb-2 text-lg "> Type </h1>
+            <select required
+    onChange={(e) => handleChange(e,2)} 
+    className="block appearance-none text-center bg-white border border-gray-400 hover:border-gray-500  w-[300px] h-[35px] rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+  >
+           <option value="TG">TG</option>
+          <option value="TV">TV</option>
+          <option value="CC">CC</option>
+            <option value="PV">PV</option>
+            <option value="Eolienne">Eolienne</option>
+            </select>
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">puissance TH </h1>
@@ -115,7 +124,7 @@ setTimeout(() => {
     <div className="rounded-full bg-[#666cde] text-white h-[20px] w-[20px] grid justify-center items-center  ">
     <AiOutlineCheck></AiOutlineCheck> 
     </div>
-    Centrale  Added
+    Group  Added
   </motion.div>
         }
         </AnimatePresence>

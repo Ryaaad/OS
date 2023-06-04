@@ -23,7 +23,7 @@ const Ctrl:React.FC<props> = (props) => {
   const [secondFilter, setsecondFilter] = useState(true)
   const [inputValue, setInputValue] = useState<any>();
   const [ChosenFiltrage, setChosenFiltrage] = useState<undefined | String>()
-  const [Filtring, setFiltring] = useState<number | String>(0)
+  const [Filtring, setFiltring] = useState<number | String | undefined>(0)
   const [FiltedCentrales, setFiltedCentrales] = useState<any>()
   const [centraleData, setcentraleData] = useState<any>([0])
   const Wilayas=[
@@ -159,9 +159,9 @@ useEffect(() => {
       setFiltring(undefined)
     }
     if (ChosenFiltrage === "Wilaya" && Filtring !== 0) {
-      filterCards = centraleData.filter((card) => Number(card.wilayaId) === Number(Filtring));
+      filterCards = centraleData.filter((card: { wilayaId: any; }) => Number(card.wilayaId) === Number(Filtring));
     } else if (ChosenFiltrage === "Type" && Filtring !== "All") {
-      filterCards = centraleData.filter((card) => card.nature.includes(Filtring));
+      filterCards = centraleData.filter((card: { nature: (number | String | undefined)[]; }) => card.nature.includes(Filtring));
     }
     
     setFiltedCentrales(filterCards);

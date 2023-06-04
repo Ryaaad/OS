@@ -9,7 +9,67 @@ interface props{
 
 const Add:React.FC<props> = (props) => {
    const [Added,setAdded]=useState(false);
-   
+   const Producteur = ["SPE", "SKS", "SKD", "SKB", "KAHRAMA", "SKT", "SPP1", "SKH", "SKTM"];
+   const Wilayas=[
+      {value:1,name:"Adrar"},
+      {value:2,name:"Chlef"},
+      {value:3,name:"Laghouat"},
+      {value:4,name:"Oum El Bouaghi"},
+      {value:5,name:"Batna"},
+      {value:6,name:"Béjaïa"},
+      {value:7,name:"Biskra"},
+      {value:8,name:"Béchar"},
+      {value:9,name:"Blida"},
+      {value:10,name:"Bouira"},
+      {value:11,name:"Tamanrasset"},
+      {value:12,name:"Tébessa"},
+      {value:13,name:"Tlemcen"},
+      {value:14,name:"Tiaret"},
+      {value:15,name:"Tizi Ouzou"},
+      {value:16,name:"Alger"},
+      {value:17,name:"Djelfa"},
+      {value:18,name:"Jijel"},
+      {value:19,name:"Sétif"},
+      {value:20,name:"Saïda"},
+      {value:21,name:"Skikda"},
+      {value:22,name:"Sidi Bel Abbès"},
+      {value:23,name:"Annaba"},
+      {value:24,name:"Guelma"},
+      {value:25,name:"Constantine"},
+      {value:26,name:"Médéa"},
+      {value:27,name:"Mostaganem"},
+      {value:28,name:"M'Sila"},
+      {value:29,name:"Mascara"},
+      {value:30,name:"Ouargla"},
+      {value:31,name:"Oran"},
+      {value:32,name:"El Bayadh"},
+      {value:33,name:"Illizi"},
+      {value:34,name:"Bordj Bou Arréridj"},
+      {value:35,name:"Boumerdès"},
+      {value:36,name:"El Tarf"},
+      {value:37,name:"Tindouf"},
+      {value:38,name:"Tissemsilt"},
+      {value:39,name:"El Oued"},
+      {value:40,name:"Khenchela"},
+      {value:41,name:"Souk Ahras"},
+      {value:42,name:"Tipaza"},
+      {value:43,name:"Mila"},
+      {value:44,name:"Aïn Defla"},
+      {value:45,name:"Naâma"},
+      {value:46,name:"Aïn Témouchent"},
+      {value:47,name:"Ghardaïa"},
+      {value:48,name:"Relizane"},
+      {value:49,name:"El M'ghair"},
+      {value:50,name:"El Menia"},
+      {value:51,name:"Ouled Djellal"},
+      {value:52,name:"Bordj Baji Mokhtar"},
+      {value:53,name:"Béni Abbès"},
+      {value:54,name:"Timimoun"},
+      {value:55,name:"Touggourt"},
+      {value:56,name:"Djanet"},
+      {value:57,name:"In Salah"},
+      {value:58,name:"In Guezzam"}
+  ];
 
    let Type={
       name:"",
@@ -33,7 +93,8 @@ const Add:React.FC<props> = (props) => {
             break;
            case 4:
             data.societe_DistrubitionId= event.target.value
-          case 5:
+            break;
+            case 5:
              data.durreVie= parseInt(event.target.value,10)
             break;
            case 6:
@@ -63,7 +124,7 @@ const Add:React.FC<props> = (props) => {
           console.log('Successful');
           setTimeout(() => {
             props.setClicked(false) 
-            window.location.reload(); // a change 
+            window.location.reload();
            }, 200);
         }).catch(err=> console.log(err)  )
       }
@@ -75,6 +136,14 @@ async function SaveClicked(e:any) {
   targetButton.style.cursor = 'not-allowed';
    e.preventDefault()
       await handleSubmit() 
+ }
+  function Annuler(e:any) {
+   const targetButton = document.getElementById('submitbutton') as HTMLButtonElement;
+   targetButton.style.backgroundColor = '#666cde';
+  targetButton.disabled = false;
+  targetButton.style.cursor = 'pointer';
+  e.preventDefault()
+  props.setClicked(false)     
  }
 
     return ( 
@@ -111,8 +180,17 @@ async function SaveClicked(e:any) {
             </select>
          </div>
          <div className="">
-            <h1 className="mb-2 text-lg ">  Producteur </h1>
-            <input type="text" required onChange={(e)=>handleChange(e,4)}  className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+            <h1 className="mb-2 text-lg "> Producteur </h1>
+            <select required
+    onChange={(e) => handleChange(e, 4)} 
+    className="block appearance-none text-center bg-white border border-gray-400 hover:border-gray-500  w-[220px] h-[35px] rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+  >
+   {Producteur.map((Pr)=>{
+          
+           return  <option key={Pr} value={Pr}>{Pr}</option>
+
+   })}
+            </select>
          </div>
          <div className="">
             <h1 className="mb-2 text-lg ">Durre vie Econnomique</h1>
@@ -133,36 +211,9 @@ async function SaveClicked(e:any) {
     onChange={(e) => handleChange(e, 9)} 
     className="block appearance-none  w-[220px] h-[35px] bg-white border border-gray-400 hover:border-gray-500 text-center rounded shadow leading-tight focus:outline-none focus:shadow-outline"
   >
-   <option value="01">Adrar</option>
-  <option value="02">Chlef</option>
-  <option value="03">Laghouat</option>
-  <option value="04">Oum El Bouaghi</option>
-  <option value="05">Batna</option>
-  <option value="06">Béjaïa</option>
-  <option value="07">Biskra</option>
-  <option value="08">Béchar</option>
-  <option value="09">Blida</option>
-  <option value="10">Bouïra</option>
-  <option value="11">Tamanrasset</option>
-  <option value="12">Tébessa</option>
-  <option value="13">Tlemcen</option>
-  <option value="14">Tiaret</option>
-  <option value="15">Tizi Ouzou</option>
-  <option value="16">Algiers</option>
-  <option value="17">Djelfa</option>
-  <option value="18">Jijel</option>
-  <option value="19">Sétif</option>
-  <option value="20">Saïda</option>
-  <option value="21">Skikda</option>
-  <option value="22">Sidi Bel Abbès</option>
-  <option value="23">Annaba</option>
-  <option value="24">Guelma</option>
-  <option value="25">Constantine</option>
-  <option value="26">Médéa</option>
-  <option value="27">Mostaganem</option>
-  <option value="28">M'Sila</option>
-  <option value="29">Mascara</option>
-  <option value="30">	Ouargla</option>
+  {Wilayas.map(wilaya=>{
+   return <option value={wilaya.value}>{wilaya.name}</option>
+  })}
             </select>
             </div>
 
@@ -179,7 +230,7 @@ async function SaveClicked(e:any) {
         <div className="flex w-full justify-end px-3 gap-4">
             <button  className="text-black p-2 px-7 rounded-[5px] border border-solid border-[#a6a7a8] hover:bg-[#f7f2f2]
              hover:border-[#818181] duration-[.5s] " 
-              onClick={()=>  props.setClicked(false)      }
+              onClick={(e)=>  Annuler(e)      }
               >Annuler </button>
             <button type='submit' id="submitbutton" className="bg-[#666cde] text-white p-2 duration-[.5s] px-7 rounded-[5px] hover:bg-[#6167d3] " >Enregistrer</button>
         </div>

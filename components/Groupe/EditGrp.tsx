@@ -50,7 +50,7 @@ async function fetchGroupe() {
       .then(response => {
         console.log('Value updated successfully:', response.data);
         setAdded(true) 
-        window.location.reload(); // a change 
+        window.location.reload(); 
       })
       .catch(error => {
         console.error('Error updating value:', error);
@@ -81,13 +81,18 @@ async function SaveClicked(e:any) {
     </div>
    {data && <form onSubmit={(e)=>SaveClicked(e) } >
        <div className=" grid justify-items-center items-center grid-cols-3 w-full my-6 gap-1 gap-y-3 ">
-         {/* <div className="">
-            <h1 className="mb-2 text-lg "> Nom </h1>
-            <input type="text"  defaultValue={data.name} required onChange={(e)=>handleChange(e,2)} className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
-         </div> */}
-         <div className="">
-            <h1 className="mb-2 text-lg ">Type *  </h1>
-            <input type="text"  defaultValue={data.type} required onChange={(e)=>handleChange(e,3)}   className=" pl-[5%] text-black rounded-[5px] w-[220px] h-[35px] border border-solid border-[#a6a7a8] " />
+       <div className="">
+            <h1 className="mb-2 text-lg "> Type </h1>
+            <select required
+    onChange={(e) => handleChange(e, 3)} 
+    className="block appearance-none text-center bg-white border border-gray-400 hover:border-gray-500  w-[220px] h-[35px] rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+  >
+           <option value="TG">TG</option>
+          <option value="TV">TV</option>
+          <option value="CC">CC</option>
+            <option value="PV">PV</option>
+            <option value="Eolienne">Eolienne</option>
+            </select>
          </div>
          <div className="">
             <h1 className="mb-2 text-lg "> puissanceTH </h1>
