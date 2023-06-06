@@ -119,37 +119,6 @@ const Ctrl:React.FC<props> = (props) => {
     }
     else  fetchData();
   }, [inputValue])
- 
-//   useEffect(() => {
-//     console.log("filter : ",Filtring)
-//     if(ChosenFiltrage!=undefined && Filtring!=0)
-// { 
-//   if(ChosenFiltrage=="Wilaya"){
-//     const filterCards = centraleData.filter((card:any) => {
-//       if (card && card.wilayaId) {
-//         setCurrentPage(1);
-//         return card.wilayaId ===Filtring
-//       } else {
-//         return false;
-//       }
-    
-//   });  
-// setFiltedCentrales(filterCards)
-//   } }
-//   else if(ChosenFiltrage=="Type"){
-//     const filterCards = centraleData.filter((card:any) => {
-//       if (card && card.nature) {
-//         setCurrentPage(1);
-//         return card.nature.includes(Filtring);
-//       } else {
-//         return false;
-//       }
-    
-//   });  
-// setFiltedCentrales(filterCards)
-//   }
-//   else  fetchData();
-// }, [Filtring,ChosenFiltrage])
 
 useEffect(() => {
   const filterCentrales = () => {

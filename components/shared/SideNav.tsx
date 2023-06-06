@@ -24,7 +24,6 @@ const SideNav:React.FC<props> = (props) => {
          if(token){ const decodedToken = jwt.decode(token as string) as { [key: string]: string };
           const Role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
           setuser(Role) }}
-          console.log("Navbar",userRole);
         }, []);
     const handelLogout=()=>{
         if (typeof sessionStorage !== 'undefined') {

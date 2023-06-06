@@ -79,7 +79,7 @@ const Add:React.FC<props> = (props) => {
       capacite:0,
       puissanceNominale:0,
       wilayaId:1,
-      societe_DistrubitionId: "",
+      societe_DistrubitionId: "SPE",
       abrv:""
   }
     const [data, setdata] = useState( Type )

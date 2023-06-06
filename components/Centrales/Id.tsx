@@ -21,13 +21,70 @@ const Ctrlid:React.FC<props> = (props) => {
    
    const router = useRouter();
    const { id } = router.query;
-   console.log(id);
    
+   const Wilayas=[
+    {value:1,name:"Adrar"},
+    {value:2,name:"Chlef"},
+    {value:3,name:"Laghouat"},
+    {value:4,name:"Oum El Bouaghi"},
+    {value:5,name:"Batna"},
+    {value:6,name:"Béjaïa"},
+    {value:7,name:"Biskra"},
+    {value:8,name:"Béchar"},
+    {value:9,name:"Blida"},
+    {value:10,name:"Bouira"},
+    {value:11,name:"Tamanrasset"},
+    {value:12,name:"Tébessa"},
+    {value:13,name:"Tlemcen"},
+    {value:14,name:"Tiaret"},
+    {value:15,name:"Tizi Ouzou"},
+    {value:16,name:"Alger"},
+    {value:17,name:"Djelfa"},
+    {value:18,name:"Jijel"},
+    {value:19,name:"Sétif"},
+    {value:20,name:"Saïda"},
+    {value:21,name:"Skikda"},
+    {value:22,name:"Sidi Bel Abbès"},
+    {value:23,name:"Annaba"},
+    {value:24,name:"Guelma"},
+    {value:25,name:"Constantine"},
+    {value:26,name:"Médéa"},
+    {value:27,name:"Mostaganem"},
+    {value:28,name:"M'Sila"},
+    {value:29,name:"Mascara"},
+    {value:30,name:"Ouargla"},
+    {value:31,name:"Oran"},
+    {value:32,name:"El Bayadh"},
+    {value:33,name:"Illizi"},
+    {value:34,name:"Bordj Bou Arréridj"},
+    {value:35,name:"Boumerdès"},
+    {value:36,name:"El Tarf"},
+    {value:37,name:"Tindouf"},
+    {value:38,name:"Tissemsilt"},
+    {value:39,name:"El Oued"},
+    {value:40,name:"Khenchela"},
+    {value:41,name:"Souk Ahras"},
+    {value:42,name:"Tipaza"},
+    {value:43,name:"Mila"},
+    {value:44,name:"Aïn Defla"},
+    {value:45,name:"Naâma"},
+    {value:46,name:"Aïn Témouchent"},
+    {value:47,name:"Ghardaïa"},
+    {value:48,name:"Relizane"},
+    {value:49,name:"El M'ghair"},
+    {value:50,name:"El Menia"},
+    {value:51,name:"Ouled Djellal"},
+    {value:52,name:"Bordj Baji Mokhtar"},
+    {value:53,name:"Béni Abbès"},
+    {value:54,name:"Timimoun"},
+    {value:55,name:"Touggourt"},
+    {value:56,name:"Djanet"},
+    {value:57,name:"In Salah"},
+    {value:58,name:"In Guezzam"}
+];
    const [DeleteClick, setDeleteClick] = useState(false)
    const [EditClick, setEditClick] = useState(false)
    const [Type, setType] = useState<any>()
-   const [Filter, setFilter] = useState(0)
-    // const [inputValue, setInputValue] = useState<any>();
   const [SelectedCode, setCode] = useState<string | undefined>();
     const [Groupes, setGroupes] = useState<any>()
     const [centraleData, setcentraleData] = useState<any>([0])
@@ -37,7 +94,7 @@ const Ctrlid:React.FC<props> = (props) => {
         const response = await axios.get(`https://localhost:7002/api/v1/Centrale/${id}`);
         setcentraleData(response.data)
         setGroupes(response.data.groupes)
-        console.log(response.data.groupes);
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -123,20 +180,20 @@ const Ctrlid:React.FC<props> = (props) => {
        <p> {centraleData.nature} </p>
       </div>
       <div className="flex gap-2 items-center w-full">
-        <h3 className="text-lg font-semibold">  Wilaya :</h3>
-       <p> Alger </p>
+        <h3 className="text-lg font-semibold">  abrv :</h3>
+       <p> {centraleData.abrv} </p>
       </div>
       <div className="flex gap-2 items-center w-full">
-        <h3 className="text-lg font-semibold">  Durre Vie :</h3>
-       <p> {centraleData.DurreVie} </p>
+        <h3 className="text-lg font-semibold"> Capacite :</h3>
+       <p> {!centraleData.capacite ? "0" :centraleData.capacite} </p>
       </div>
       <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold"> Durre Fonctionement :</h3>
-       <p> {centraleData.DurreFonctionement} </p>
+       <p> {!centraleData.DurreFonctionement ? "0" : centraleData.DurreFonctionement} </p>
       </div>
       <div className="flex gap-2 items-center w-full">
         <h3 className="text-lg font-semibold"> Puissance Nominale :</h3>
-       <p> {centraleData.PuissanceNominale} </p>
+       <p> {!centraleData.puissanceNominale ? "0" : centraleData.puissanceNominale} </p>
       </div>
      </div>}
          </div>

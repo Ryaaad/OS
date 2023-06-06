@@ -18,7 +18,7 @@ const Csp:React.FC<props> = (props) => {
 
     async function fetchAllRaportDates(){
       try{
-        const res = await fetch('https://localhost:7002/api/v1/Rapport');
+        const res = await fetch('https://localhost:7002/api/v1/Csp');
         const data = await res.json();
         console.log(data);
         setRepoorts(data)
@@ -59,9 +59,7 @@ const Csp:React.FC<props> = (props) => {
       const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
       setDateFilter(frenchDateString)
     }
-  //   useEffect(() => {
-  //     DateFilter && fetchRaportDates()
-  // }, [DateFilter])
+  
     const handleSelectedDate = (event:any) => {
       const dateString = event.target.value;
       const date = new Date(dateString);
@@ -75,10 +73,10 @@ const Csp:React.FC<props> = (props) => {
         const handleClick = async(DateString: string) => {
           try{   
            setIsUploading(true);
-          const response = await fetch(`https://localhost:7002/api/v1/Rapport/${DateString}`, {
+          const response = await fetch(`https://localhost:7002/api/v1/Csp/${DateString}`, {
             method: 'GET',
             headers: {
-              'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+              'Content-Type': 'application/pdf'
             }
           });
           console.log(response);
@@ -86,11 +84,10 @@ const Csp:React.FC<props> = (props) => {
           const url = window.URL.createObjectURL(new Blob([blob]));
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', 'report.docx');
+          link.setAttribute('download', 'Csp.pdf');
           document.body.appendChild(link);
           link.click();
           link.remove();
-          console.log("Hii")
           setIsUploading(false);
           }catch(err){
             console.error(err);
@@ -165,8 +162,8 @@ const Csp:React.FC<props> = (props) => {
        
       <header className="bg-[#F1F4F9] text-sm border-b-[1.5px] border-b-solid border-b-[#ddd] ">
         <div className="flex p-2 px-10 items-center justify-between text-start ">
-          <p  className="w-[45%] ">FileName</p>
-          <p className="w-[25%]">FileSize</p>
+          <p  className="w-[45%] ">File Name</p>
+      
           <p className="w-[25%]">Date Uploaded</p>
           <button><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]  invisible " /></button>
         </div>
@@ -176,8 +173,8 @@ const Csp:React.FC<props> = (props) => {
           const dateString = card;
           const date = new Date(dateString);
           const yearRapport = date.getFullYear();
-          const monthRapport = date.toLocaleString('default', { month: 'long' });
-          const monthRapportShort = date.toLocaleString('default', { month: 'short' });
+          const monthRapport = date.toLocaleString('fr-FR', { month: 'long' });
+          const monthRapportShort = date.toLocaleString('fr-FR', { month: 'short' });
           const dayRapport = date.getDate();
           const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
           return (
@@ -189,10 +186,9 @@ const Csp:React.FC<props> = (props) => {
                     </div>
                     <div>
                 <p  className="font-semibold text-black text-[16px]  "> CSP  </p>
-                <p  className="text-[#aeacac] text-[13px] "> 200 KB  </p>
+                <p  className="text-[#aeacac] text-[13px] "> 3KB  </p>
                 </div>
               </div> 
-              <p className="w-[25%]">200MO</p>
               <p className="w-[25%]">{monthRapportShort} {dayRapport},{yearRapport}</p>
               <button disabled={isUploading}  onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
             </div>

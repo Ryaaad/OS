@@ -14,6 +14,7 @@ interface props{
 
 const Rj:React.FC<props> = (props) => {
     const [Repoorts, setRepoorts] = useState<any>()
+    const [RepoortsFilter, setRepoortsFilter] = useState<any>()
 
     async function fetchAllRaportDates(){
       try{
@@ -21,21 +22,34 @@ const Rj:React.FC<props> = (props) => {
         const data = await res.json();
         console.log(data);
         setRepoorts(data)
-        console.log("Repoorts:"+ Repoorts);
       }catch(err){
         console.error("Error");
       }
     }
+    const [exist, setexist] = useState(false)
     async function fetchRaport(){
-      try{
-        const res = await fetch(`https://localhost:7002/api/v1/Rapport/${DateFilter}`);
-        const data = await res.json();
-        console.log(data);
-        setRepoorts(data)
-        console.log("Repoorts:"+ Repoorts);
-      }catch(err){
-        console.error("Error");
-      }
+      let e=false
+      if(Repoorts)
+     {   
+      if(Array.isArray(Repoorts))
+      { for (const date of Repoorts) {
+          const D=new Date(date)
+          const dateString = D.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+          if (dateString === DateFilter) {
+            setRepoortsFilter([date])
+            e=true
+            break; 
+          }}}
+       else {
+        const D=new Date(Repoorts)
+        const dateString = D.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        if (dateString === DateFilter) {
+          setRepoortsFilter([Repoorts])
+          e=true
+        }
+       }
+         if (!exist) setRepoortsFilter(undefined)}
+         setexist(e)
     }
     
     const [currentPage, setCurrentPage] = useState(1);
@@ -54,13 +68,10 @@ const Rj:React.FC<props> = (props) => {
       const dayRapport = date.getDate();
       const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
       setDateFilter(frenchDateString)
-      console.log("ff");
       
     }
 
   useEffect(() => {
-    console.log(DateFilter);
-    
     DateFilter ?  fetchRaport() :    fetchAllRaportDates()
 }, [DateFilter])
     const handleSelectedDate = (event:any) => {
@@ -91,7 +102,6 @@ const Rj:React.FC<props> = (props) => {
           document.body.appendChild(link);
           link.click();
           link.remove();
-          console.log("Hii")
           setIsUploading(false);
           }catch(err){
             console.error(err);
@@ -174,22 +184,54 @@ const Rj:React.FC<props> = (props) => {
        
       <header className="bg-[#F1F4F9] text-sm border-b-[1.5px] border-b-solid border-b-[#ddd] ">
         <div className="flex p-2 px-10 items-center justify-between text-start ">
-          <p  className="w-[45%]" >FileName</p>
-          <p className="w-[25%]">FileSize</p>
+          <p  className="w-[45%]" >Fichier </p>
           <p className="w-[25%]">Date Uploaded</p>
           <button><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]  invisible " /></button>
         </div>
       </header>
  {  Repoorts &&  <main className="text-[#626D7C] ">
-        {currentPosts.map((card: any,index:number) => {
+        {  currentPosts.map((card: any,index:number) => {
           const dateString = card;
           const date = new Date(dateString);
           const yearRapport = date.getFullYear();
-          const monthRapport = date.toLocaleString('default', { month: 'long' });
-          const monthRapportShort = date.toLocaleString('default', { month: 'short' });
+          const monthRapport = date.toLocaleString('fr-FR', { month: 'long' });
+          const monthRapportShort = date.toLocaleString('fr-FR', { month: 'short' });
           const dayRapport = date.getDate();
           const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
-          return (
+          console.log(frenchDateString);
+          if(RepoortsFilter)
+    {    
+      const dateString = RepoortsFilter;
+      const date = new Date(dateString);
+      const yearRapport = date.getFullYear();
+      const monthRapport = date.toLocaleString('fr-FR', { month: 'long' });
+      const monthRapportShort = date.toLocaleString('fr-FR', { month: 'short' });
+      const dayRapport = date.getDate();
+      const frenchDateString = dayRapport+" "+monthRapport+" "+yearRapport
+      console.log("exist : ",exist);
+      if(exist)
+        return (
+            <div className={`  flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] ${index>0 && "hidden"} `}   key={index} >
+              
+            <div className="flex gap-3 items-center w-[45%] ">
+                    <div  className=" rounded-full w-[35px] text-[#2162c0] h-[35px] text-xl grid justify-center items-center bg-[#8ec8f1] " >
+                    <AiFillFileWord></AiFillFileWord>
+                    </div>
+                    <div>
+                <p  className="font-semibold text-black text-[16px]  "> Report  </p>
+                </div>
+              </div> 
+              <p className="w-[25%]">{monthRapportShort} {dayRapport},{yearRapport}</p>
+              <button disabled={isUploading}  onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
+            </div>
+          );
+     else return (
+      <div className={` w-full p-2 px-5 items-center justify-between text-xl text-center mt-10 ${index>0 && "hidden"} `}   key={index} >
+        None
+      </div>
+    );
+        }
+          else   return (
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >
               
             <div className="flex gap-3 items-center w-[45%] ">
@@ -198,10 +240,8 @@ const Rj:React.FC<props> = (props) => {
                     </div>
                     <div>
                 <p  className="font-semibold text-black text-[16px]  "> Report  </p>
-                <p  className="text-[#aeacac] text-[13px] "> 200 KB  </p>
                 </div>
               </div> 
-              <p className="w-[25%]">200MO</p>
               <p className="w-[25%]">{monthRapportShort} {dayRapport},{yearRapport}</p>
               <button disabled={isUploading}  onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
             </div>

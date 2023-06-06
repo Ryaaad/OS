@@ -41,29 +41,30 @@ interface props{
            }
 
 
-           const handleClick = async(DateString: string) => {
-            try{   
-            const response = await fetch(`https://localhost:7002/api/v1/Production/${DateString}`, {
-              method: 'GET', 
-              headers: {
-                'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-              }
-            });
-            console.log(response);
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'report.docx');
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            console.log("Hii")
-            }catch(err){
+           const handleClick = async (DateString: string) => {
+            console.log(DateString);
+          
+            try {
+              const response = await fetch(`https://localhost:7002/api/v1/Production/${DateString}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/pdf'
+                }
+              });
+              console.log(response);
+              const blob = await response.blob();
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'report.pdf'); // Update the filename to 'report.pdf'
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+            } catch (err) {
               console.error(err);
             }
-            
           };
+          
 
 
     return ( 
@@ -92,14 +93,17 @@ interface props{
       <header className="bg-[#F1F4F9] text-sm border-b-[1.5px] border-b-solid border-b-[#ddd] ">
         <div className="flex p-2 px-10 items-center justify-between w-full  text-start ">
             <p  className="w-[45%] " >File Name</p>
-          <p className="w-[25%]" >File Size</p>
           <button><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]  invisible " /></button>
 
         </div>
       </header>
   { Bilans &&  <main className="text-[#626D7C] ">
         {currentPosts.map((card: any,index:number) => {
-          const frenchDateString='mars'
+          const months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+
+          const frenchDateString=`${months[card.month-1]} ${card.year}`
+          console.log(frenchDateString);
+          
           return (
             <div className="flex p-2 px-5 items-center justify-between border-b-[1.5px] border-b-solid border-b-[#ddd] "  key={index} >
               
@@ -109,13 +113,12 @@ interface props{
                     <SiMicrosoftexcel></SiMicrosoftexcel>
                     </div>
                     <div >
-                <p  className="font-semibold text-black text-[16px]  "> EMP202303  </p>
-                <p  className="text-[#aeacac] text-[13px]   "> 200 KB  </p>
+                <p  className="font-semibold text-black text-[16px]  "> Production  </p>
+                <p  className="text-[#aeacac] text-[13px]   "> 346 KB  </p>
 
                     </div>
                 </div>
              
-              <p className="w-[25%]">200MO</p>
              <button onClick={()=>{handleClick(frenchDateString)}}><FiDownload className="text-[24px] cursor-pointer text-[#333333163] duration-500 hover:text-[#1f1f1f]" /></button>
 
             </div>
