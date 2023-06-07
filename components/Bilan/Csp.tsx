@@ -141,7 +141,7 @@ const Csp:React.FC<props> = (props) => {
    
       <h1 className="text-lg mt-5 font-semibold "> Consommation Gaz </h1>
        <div className="h-[15vh] mt-3 ">
-       <DropZone accept="" Name="Consommation Gaz" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/QhNational" />
+       <DropZone accept="" Name="Consommation Gaz" date={DateFile} endpoint="https://localhost:7002/api/v1/ReadingFiles/ConsomationGaz" />
        </div>
      </div>}
 
